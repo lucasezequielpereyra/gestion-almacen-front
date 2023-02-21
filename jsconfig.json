@@ -5,5 +5,21 @@
       "@containers/*": ["src/common/containers/*"],
       "@views/*": ["src/common/views/*"],
       "@redux/*": ["src/common/redux/*"],
-    }
+    },
+    "compilerOptions": {
+      "target": "es6",
+      "module": "commonjs",
+      "jsx": "react",
+      "allowJs": true,
+      "allowSyntheticDefaultImports": true,
+      "noImplicitAny": false,
+      "moduleResolution": "node",
+      "sourceMap": true,
+      "experimentalDecorators": true,
+      "emitDecoratorMetadata": true,
+      "lib": ["es6", "dom"],
+      "typeRoots": ["node_modules/@types"],
+      "types": ["node"]
+    },
+    "include": ["src"]
 }
