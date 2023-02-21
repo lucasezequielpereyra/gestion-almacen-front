@@ -1,0 +1,9 @@
+{
+  "baseUrl": ".",
+    "paths": {
+      "@components/*": ["src/common/components/*"],
+      "@containers/*": ["src/common/containers/*"],
+      "@views/*": ["src/common/views/*"],
+      "@redux/*": ["src/common/redux/*"],
+    }
+}
