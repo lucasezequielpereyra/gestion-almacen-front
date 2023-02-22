@@ -1,0 +1,15 @@
+// Colors palette
+$color-primary: #db0000;
+$color-primary-light: (
+  lighten($color-primary, 30%)
+);
+$color-secondary: #564d4d;
+$color-secondary-light: (
+  lighten($color-secondary, 30%)
+);
+$color-primary-variant: #831010;
+$color-primary-variant-light: (
+  lighten($color-primary-variant, 30%)
+);
+$color-black: #000000;
+$color-white: #ffffff;
