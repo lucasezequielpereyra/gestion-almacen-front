@@ -17,7 +17,7 @@ const Public = () => {
   // for form
   const userRef = useRef()
   const errRef = useRef()
-  const [userbame, setUser] = useState('')
+  const [username, setUser] = useState('')
   const [err, setErr] = useState('')
   const [passowrd, setPassword] = useState('')
 
@@ -33,32 +33,32 @@ const Public = () => {
 
   useEffect(() => {
     setErr('')
-  }, [userbame, passowrd])
+  }, [username, passowrd])
 
   const handleSubmit = async e => {
     e.preventDefault()
     try {
       const userData = await auth({
-        username: userbame,
+        username: username,
         password: passowrd
       }).unwrap()
       console.log(userData)
 
-      dispatch(login(...userData, userbame))
+      dispatch(login(userData))
       setUser('')
       setPassword('')
       navigate('/dashboard')
     } catch (err) {
-      if (!err.status) {
-        setErr('No Server Response !')
-      } else if (err.status === 400) {
-        setErr('Missing Username or Password !')
-      } else if (err.status === 401) {
-        setErr('Unauthorized !')
+      if (!err.originalStatus) {
+        setErr('Network Error')
+      } else if (err.originalStatus === 400) {
+        setErr('Missing Username or Password')
+      } else if (err.originalStatus === 401) {
+        setErr('Unauthorized')
       } else {
-        setErr('Login Failed !')
+        setErr('Login Failed')
       }
-      userRef.current.focus()
+      errRef.current.focus()
     }
   }
 
@@ -70,7 +70,7 @@ const Public = () => {
       userRef={userRef}
       errRef={errRef}
       errMsg={err}
-      user={userbame}
+      user={username}
       passowrd={passowrd}
       handleSubmit={handleSubmit}
       handleUserInput={handleUserInput}
