@@ -3,7 +3,6 @@ import {
   selectCurrentToken,
   selectCurrentUser
 } from '../../redux/auth/authSlice'
-import { Link } from 'react-router-dom'
 
 const Dashboard = () => {
   return (
