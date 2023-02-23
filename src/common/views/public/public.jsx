@@ -12,7 +12,7 @@ const Public = () => {
 
   // for redux
   const dispatch = useDispatch()
-  const [auth, { isLoading }] = useLoginMutation()
+  const [auth] = useLoginMutation()
 
   // for form
   const userRef = useRef()
