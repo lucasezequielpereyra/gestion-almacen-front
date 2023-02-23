@@ -1,0 +1,50 @@
+@import '../../utils/variables.scss';
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  .spinner {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 2.5px solid $color-secondary-light;
+    border-radius: 50%;
+    animation: spin 1.2s linear infinite;
+    border-top: 2.5px solid $color-primary !important;
+  }
+
+  .sm {
+    width: 1rem;
+    height: 1rem;
+  }
+
+  .md {
+    width: 2rem;
+    height: 2rem;
+  }
+
+  .lg {
+    width: 3rem;
+    height: 3rem;
+  }
+
+  .xl {
+    width: 4rem;
+    height: 4rem;
+  }
+}
+
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
