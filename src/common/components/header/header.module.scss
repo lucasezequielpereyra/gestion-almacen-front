@@ -1,0 +1,100 @@
+@import '../../utils/variables.scss';
+@import '../../utils/mixins.scss';
+
+.container {
+  height: 4rem;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1rem;
+  background: $color-primary;
+  background: linear-gradient(90deg, $color-primary 0%, $color-primary-variant 50%);
+
+  .buttonMobile {
+    display: none;
+    background: none;
+
+    .mobileIcon {
+      display: none;
+    }
+
+  }
+
+  .nav {
+    padding-left: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+
+    .navItem {
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+
+      a {
+        text-decoration: none;
+        color: $color-white;
+        font-size: 1.5rem;
+        max-width: 100%;
+      }
+
+      :hover {
+        color: $color-black;
+        transition: all 0.2s ease-in-out;
+      }
+    }
+  }
+
+  h1 {
+    color: $color-white;
+    user-select: none;
+  }
+}
+
+@include view-xs-sm {
+  .buttonMobile {
+    display: block !important;
+    border: none;
+    outline: none;
+
+    .mobileIcon {
+      display: block !important;
+      color: $color-white;
+      font-size: 2rem;
+    }
+  }
+
+  .nav {
+    visibility: hidden;
+  }
+
+
+  .navMobile {
+    visibility: visible;
+    position: fixed;
+    flex-direction: column;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 15rem;
+    background-color: $color-primary-variant;
+    padding-top: 2rem;
+    -webkit-transition: all .2s;
+    -moz-transition: all .2s;
+    -ms-transition: all .2s;
+    -o-transition: all .2s;
+    transition: all .2s;
+
+    .navItem {
+      padding: 0 0;
+      font-size: 1.5rem;
+      color: $color-white;
+      width: 100%;
+
+      a {
+        color: $color-white;
+      }
+    }
+  }
+}

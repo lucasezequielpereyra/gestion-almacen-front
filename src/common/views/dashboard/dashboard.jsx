@@ -3,14 +3,12 @@ import {
   selectCurrentToken,
   selectCurrentUser
 } from '../../redux/auth/authSlice'
+import Header from '../../components/header/header'
 
 const Dashboard = () => {
   return (
     <div>
-      <h3>
-        User: {useSelector(selectCurrentUser)} <br />
-        Token: {useSelector(selectCurrentToken)}
-      </h3>
+      <Header />
     </div>
   )
 }
