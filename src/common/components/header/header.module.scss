@@ -77,7 +77,7 @@
     top: 0;
     left: 0;
     height: 100%;
-    width: 15rem;
+    width: 12rem;
     background-color: $color-primary-variant;
     padding-top: 2rem;
     -webkit-transition: all .2s;
@@ -90,7 +90,7 @@
       padding: 0 0;
       font-size: 1.5rem;
       color: $color-white;
-      width: 100%;
+      width: 100% !important;
 
       a {
         color: $color-white;
