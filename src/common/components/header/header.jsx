@@ -7,7 +7,7 @@ import { MdOutlineMenu } from 'react-icons/md'
 import classNames from 'class-names'
 import PropTypes from 'prop-types'
 
-const Header = ({ isAdmin }) => {
+const Header = ({ isDueño, isEncargado }) => {
   const [showMenuMobile, setShowMenuMobile] = useState(false)
 
   const handleShowMenuMobile = () => {
@@ -39,9 +39,14 @@ const Header = ({ isAdmin }) => {
         <div className={styles.navItem}>
           <Link to="#">Inicio</Link>
         </div>
-        {isAdmin && (
+        {isEncargado && (
           <div className={styles.navItem}>
             <Link to="#">Administración</Link>
+          </div>
+        )}
+        {isDueño && (
+          <div className={styles.navItem}>
+            <Link to="#">Empleados</Link>
           </div>
         )}
       </div>
@@ -51,11 +56,3 @@ const Header = ({ isAdmin }) => {
 }
 
 export default Header
-
-Header.propTypes = {
-  isAdmin: PropTypes.bool
-}
-
-Header.defaultProps = {
-  isAdmin: false
-}
