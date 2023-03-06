@@ -42,7 +42,6 @@ const Public = () => {
         username: username,
         password: passowrd
       }).unwrap()
-      console.log(userData)
 
       dispatch(login(userData))
       setUser('')
