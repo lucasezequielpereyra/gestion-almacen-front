@@ -37,11 +37,11 @@ const Header = ({ isDueño, isEncargado }) => {
       </button>
       <div className={navClass} ref={navRef}>
         <div className={styles.navItem}>
-          <Link to="#">Inicio</Link>
+          <Link to="/dashboard">Inicio</Link>
         </div>
         {isEncargado && (
           <div className={styles.navItem}>
-            <Link to="#">Administración</Link>
+            <Link to="/admin">Administración</Link>
           </div>
         )}
         {isDueño && (
