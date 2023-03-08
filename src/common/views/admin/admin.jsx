@@ -1,9 +1,13 @@
 import HeaderView from '../header/header'
+import SubLayout from '../../containers/subLayout'
+
 const Admin = () => {
   return (
     <div>
       <HeaderView />
-      admin
+      <SubLayout>
+        <h1>Admin</h1>
+      </SubLayout>
     </div>
   )
 }
