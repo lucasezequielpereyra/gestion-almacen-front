@@ -50,6 +50,15 @@
     color: $color-white;
     user-select: none;
   }
+
+  .button {
+    background-color: transparent;
+    border: none;
+    color: $color-white;
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding-right: 1rem;
+  }
 }
 
 @include view-xs-sm {

@@ -5,9 +5,9 @@ import { usePressEscKey } from '../../hooks/usePressEscKey'
 import { Link } from 'react-router-dom'
 import { MdOutlineMenu } from 'react-icons/md'
 import classNames from 'class-names'
-import PropTypes from 'prop-types'
+import propTypes from 'prop-types'
 
-const Header = ({ isDueño, isEncargado }) => {
+const Header = ({ isDueño, isEncargado, handleLogout }) => {
   const [showMenuMobile, setShowMenuMobile] = useState(false)
 
   const handleShowMenuMobile = () => {
@@ -50,9 +50,17 @@ const Header = ({ isDueño, isEncargado }) => {
           </div>
         )}
       </div>
-      <h1>Sistema Gestión</h1>
+      <button className={styles.button} onClick={handleLogout}>
+        Cerrar Sesión
+      </button>
     </div>
   )
 }
 
 export default Header
+
+Header.propTypes = {
+  isDueño: propTypes.bool.isRequired,
+  isEncargado: propTypes.bool.isRequired,
+  handleLogout: propTypes.func.isRequired
+}

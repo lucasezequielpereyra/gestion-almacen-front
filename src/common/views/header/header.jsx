@@ -1,12 +1,18 @@
 import { useEffect, useState } from 'react'
 import Header from '../../components/header/header'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { selectCurrentRoles } from '../../redux/auth/authSlice'
+import { logout } from '../../redux/auth/authSlice'
 
 const HeaderView = () => {
   const roles = useSelector(selectCurrentRoles)
   const [isDueño, setIsDueño] = useState(false)
   const [isEncargado, setIsEncargado] = useState(false)
+  const dispatch = useDispatch()
+
+  const handleLogout = () => {
+    dispatch(logout())
+  }
 
   useEffect(() => {
     if (roles) {
@@ -19,7 +25,7 @@ const HeaderView = () => {
     }
   }, [roles])
 
-  return <Header isDueño={isDueño} isEncargado={isEncargado} />
+  return <Header isDueño={isDueño} isEncargado={isEncargado} handleLogout={handleLogout} />
 }
 
 export default HeaderView
