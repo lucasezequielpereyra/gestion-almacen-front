@@ -9,9 +9,9 @@ import Unauthorized from './common/views/unauthorized'
 import Admin from './common/views/admin'
 
 const ROLES = {
-  dueño: '63f819a9388888ba95da84e3',
-  encargado: '63f819a9388888ba95da84e2',
-  emplado: '63f819a9388888ba95da84e1'
+  dueño: process.env.REACT_APP_DUENIO,
+  encargado: process.env.REACT_APP_ENCARGADO,
+  emplado: process.env.REACT_APP_EMPLEADO
 }
 
 const App = () => {
