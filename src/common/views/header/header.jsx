@@ -16,10 +16,10 @@ const HeaderView = () => {
 
   useEffect(() => {
     if (roles) {
-      if (roles.includes('63f819a9388888ba95da84e3')) {
+      if (roles.includes(process.env.REACT_APP_DUENIO)) {
         setIsDueño(true)
       }
-      if (roles.includes('63f819a9388888ba95da84e2')) {
+      if (roles.includes(process.env.REACT_APP_ENCARGADO)) {
         setIsEncargado(true)
       }
     }
