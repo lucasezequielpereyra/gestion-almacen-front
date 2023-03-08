@@ -11,7 +11,7 @@ import Admin from './common/views/admin'
 const ROLES = {
   dueño: process.env.REACT_APP_DUENIO,
   encargado: process.env.REACT_APP_ENCARGADO,
-  emplado: process.env.REACT_APP_EMPLEADO
+  empleado: process.env.REACT_APP_EMPLEADO
 }
 
 const App = () => {
@@ -25,7 +25,7 @@ const App = () => {
             <Route path="/unauthorized" element={<Unauthorized />} />
 
             {/* protected routes */}
-            <Route path="/" element={<Protected allowedRoles={[ROLES.encargado, ROLES.dueño]} />}>
+            <Route path="/" element={<Protected allowedRoles={[ROLES.empleado]} />}>
               <Route path="/dashboard" element={<Dashboard />} />
             </Route>
 
