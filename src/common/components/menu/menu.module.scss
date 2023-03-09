@@ -21,10 +21,6 @@
         color: $color-secondary;
       }
 
-      a:hover {
-        color: $color-primary;
-      }
-
       .underline {
         display: inline;
         position: relative;
@@ -38,7 +34,7 @@
         right: 0;
         width: 0;
         bottom: -5px;
-        background: $color-primary;
+        background: $color-secondary;
         height: 2px;
         transition-property: width;
         transition-duration: 0.3s;
