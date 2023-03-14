@@ -3,6 +3,7 @@ import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useGetRefreshTokenQuery } from '../../redux/auth/refreshApiSlice'
 import { login } from '../../redux/auth/authSlice'
+import HeaderView from '../../views/header'
 import Spinner from '../../components/spinner/spinner'
 import styles from './layout.module.scss'
 
@@ -24,7 +25,10 @@ const Layout = () => {
           <Spinner size="lg" />
         </div>
       ) : (
-        <Outlet />
+        <>
+          <HeaderView />
+          <Outlet />
+        </>
       )}
     </>
   )
