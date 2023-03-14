@@ -7,3 +7,5 @@ export const productsApiSlice = apiSlice.injectEndpoints({
     })
   })
 })
+
+export const { useGetProductsQuery } = productsApiSlice
