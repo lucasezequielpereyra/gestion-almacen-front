@@ -11,6 +11,7 @@ import Products from './products'
 const Admin = () => {
   const dispatch = useDispatch()
   const { data: data, isSuccess } = useGetProductsQuery()
+  const location = useLocation()
 
   useEffect(() => {
     if (isSuccess) {
@@ -22,7 +23,7 @@ const Admin = () => {
     <div>
       <Content>
         <Menu items={menuItems} />
-        {useLocation === '/admin/products' && <Products />}
+        {location.pathname === '/admin/productos' && <Products />}
       </Content>
     </div>
   )
