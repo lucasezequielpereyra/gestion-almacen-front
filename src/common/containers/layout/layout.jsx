@@ -3,6 +3,7 @@ import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useGetRefreshTokenQuery } from '../../redux/auth/refreshApiSlice'
 import { login } from '../../redux/auth/authSlice'
+import { selectCurrentToken } from '../../redux/auth/authSlice'
 import HeaderView from '../../views/header'
 import Spinner from '../../components/spinner/spinner'
 import styles from './layout.module.scss'
@@ -10,6 +11,7 @@ import styles from './layout.module.scss'
 const Layout = () => {
   const dispatch = useDispatch()
   const { data: data, isLoading, isSuccess } = useGetRefreshTokenQuery()
+  const token = useSelector(selectCurrentToken)
 
   useEffect(() => {
     if (isSuccess) {
@@ -26,7 +28,7 @@ const Layout = () => {
         </div>
       ) : (
         <>
-          <HeaderView />
+          {token && <HeaderView />}
           <Outlet />
         </>
       )}
