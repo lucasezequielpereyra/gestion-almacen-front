@@ -1,12 +1,5 @@
-import HeaderView from '../header/header'
-
 const Dashboard = () => {
-  return (
-    <div>
-      <HeaderView />
-      dasboard
-    </div>
-  )
+  return <div>dasboard</div>
 }
 
 export default Dashboard
