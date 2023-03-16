@@ -11,10 +11,12 @@
 
   table {
     width: 100%;
+    border-collapse: collapse;
 
     thead {
       width: 100%;
-      background-color: $color-secondary-light;
+      background-color: $color-primary-variant;
+      color: $color-white;
 
       tr {
         th {
