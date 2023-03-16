@@ -24,10 +24,10 @@ const ProductsTable = ({ products }) => {
                   <button className={styles.buttonHover}>editar</button>
                 </td>
                 <td>{product.name}</td>
-                <td>{product.stock ? product.stock : 'none'}</td>
+                <td>{product.stock ? product.stock : 'n/a'}</td>
                 <td>{product.price_cost}</td>
-                <td>{product.price_sale ? product.price_sale : 'none'}</td>
-                <td>{product.EAN}</td>
+                <td>{product.price_sale ? product.price_sale : 'n/a'}</td>
+                <td>{product.EAN ? product.EAN : 'n/a'}</td>
               </tr>
             ))}
           </tbody>
