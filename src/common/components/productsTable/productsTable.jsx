@@ -1,7 +1,20 @@
 import propTypes from 'prop-types'
+import { useState } from 'react'
 import styles from './productsTable.module.scss'
+import ProductModal from '../productModal'
+import { usePressEscKey } from '../../hooks/usePressEscKey'
 
 const ProductsTable = ({ products }) => {
+  const [modal, setModal] = useState(false)
+  const [productModal, setProductModal] = useState({})
+
+  usePressEscKey(setModal)
+
+  const handleModal = product => {
+    setModal(!modal)
+    setProductModal(product)
+  }
+
   return (
     <>
       <div className={styles.table}>
@@ -21,7 +34,9 @@ const ProductsTable = ({ products }) => {
               <tr key={index}>
                 <td className={styles.sku}>
                   {product.sku}
-                  <button className={styles.buttonHover}>editar</button>
+                  <button className={styles.buttonHover} onClick={() => handleModal(product)}>
+                    editar
+                  </button>
                 </td>
                 <td>{product.name}</td>
                 <td>{product.stock ? product.stock : 'n/a'}</td>
@@ -32,6 +47,7 @@ const ProductsTable = ({ products }) => {
             ))}
           </tbody>
         </table>
+        {modal && <ProductModal product={productModal} active={modal} />}
       </div>
     </>
   )
