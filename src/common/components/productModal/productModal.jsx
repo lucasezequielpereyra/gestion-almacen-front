@@ -13,10 +13,6 @@ const ProductModal = ({ product, active, handleModal }) => {
     [styles.active]: modal
   })
 
-  const handleInternalClose = () => {
-    setModal(false)
-  }
-
   return (
     <div className={modalClass}>
       <div className={styles.modal}>
