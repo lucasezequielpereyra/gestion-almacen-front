@@ -5,7 +5,7 @@ import classNames from 'class-names'
 import RenderItems from './renderItems'
 
 const ProductModal = ({ product, active, handleModal }) => {
-  const [modal, setModal] = useState(active)
+  const [modal] = useState(active)
 
   const objectProduct = Object.entries(product)
 
