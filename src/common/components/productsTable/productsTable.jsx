@@ -47,7 +47,7 @@ const ProductsTable = ({ products }) => {
             ))}
           </tbody>
         </table>
-        {modal && <ProductModal product={productModal} active={modal} />}
+        {modal && <ProductModal product={productModal} active={modal} handleModal={handleModal} />}
       </div>
     </>
   )
