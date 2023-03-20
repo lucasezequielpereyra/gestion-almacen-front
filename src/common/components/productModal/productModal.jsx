@@ -7,8 +7,6 @@ import RenderItems from './renderItems'
 const ProductModal = ({ product, active, handleModal }) => {
   const [modal] = useState(active)
 
-  const objectProduct = Object.entries(product)
-
   const modalClass = classNames(styles.container, {
     [styles.active]: modal
   })
@@ -23,7 +21,7 @@ const ProductModal = ({ product, active, handleModal }) => {
           </button>
         </div>
         <div className={styles.modalBody}>
-          <RenderItems product={objectProduct} />
+          <RenderItems product={product} />
         </div>
       </div>
     </div>
