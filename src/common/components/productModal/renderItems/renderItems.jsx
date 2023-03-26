@@ -40,5 +40,5 @@ const RenderItems = ({ product }) => {
 export default RenderItems
 
 RenderItems.propTypes = {
-  product: propTypes.array.isRequired
+  product: propTypes.object.isRequired
 }

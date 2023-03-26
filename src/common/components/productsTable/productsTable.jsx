@@ -1,14 +1,17 @@
 import propTypes from 'prop-types'
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import styles from './productsTable.module.scss'
 import ProductModal from '../productModal'
 import { usePressEscKey } from '../../hooks/usePressEscKey'
+import { useClickOutside } from '../../hooks/useClickOutside'
 
 const ProductsTable = ({ products }) => {
   const [modal, setModal] = useState(false)
   const [productModal, setProductModal] = useState({})
+  const modalRef = useRef(null)
 
   usePressEscKey(setModal)
+  useClickOutside(modalRef, setModal)
 
   const handleModal = product => {
     setModal(!modal)
@@ -47,7 +50,14 @@ const ProductsTable = ({ products }) => {
             ))}
           </tbody>
         </table>
-        {modal && <ProductModal product={productModal} active={modal} handleModal={handleModal} />}
+        {modal && (
+          <ProductModal
+            product={productModal}
+            active={modal}
+            handleModal={handleModal}
+            modalRef={modalRef}
+          />
+        )}
       </div>
     </>
   )

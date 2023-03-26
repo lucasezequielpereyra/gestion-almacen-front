@@ -1,30 +1,17 @@
-import { useState } from 'react'
 import propTypes from 'prop-types'
-import styles from './productModal.module.scss'
-import classNames from 'class-names'
 import RenderItems from './renderItems'
+import Modal from '../modal'
 
-const ProductModal = ({ product, active, handleModal }) => {
-  const [modal] = useState(active)
-
-  const modalClass = classNames(styles.container, {
-    [styles.active]: modal
-  })
-
+const ProductModal = ({ product, active, handleModal, modalRef }) => {
   return (
-    <div className={modalClass}>
-      <div className={styles.modal}>
-        <div className={styles.modalHeader}>
-          <h3 className={styles.modalTitle}>Detalles del Producto</h3>
-          <button className={styles.closeButton} onClick={handleModal}>
-            x
-          </button>
-        </div>
-        <div className={styles.modalBody}>
-          <RenderItems product={product} />
-        </div>
-      </div>
-    </div>
+    <Modal
+      modalTitle="Detalles del Producto"
+      handleModal={handleModal}
+      active={active}
+      modalRef={modalRef}
+    >
+      <RenderItems product={product} />
+    </Modal>
   )
 }
 
@@ -33,5 +20,6 @@ export default ProductModal
 ProductModal.propTypes = {
   product: propTypes.object.isRequired,
   active: propTypes.bool.isRequired,
-  handleModal: propTypes.func.isRequired
+  handleModal: propTypes.func.isRequired,
+  modalRef: propTypes.object
 }
