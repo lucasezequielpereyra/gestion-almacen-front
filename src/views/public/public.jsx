@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState } from 'react'
-import FormLogin from '../../components/formLogin'
-import { selectCurrentToken } from '../../redux/auth/authSlice'
+import FormLogin from '../../common/components/formLogin'
+import { selectCurrentToken } from '../../common/redux/auth/authSlice'
 import { useDispatch, useSelector } from 'react-redux'
-import { login } from '../../redux/auth/authSlice'
-import { useLoginMutation } from '../../redux/auth/authApiSlice'
+import { login } from '../../common/redux/auth/authSlice'
+import { useLoginMutation } from '../../common/redux/auth/authApiSlice'
 import { useNavigate } from 'react-router-dom'
 
 const Public = () => {

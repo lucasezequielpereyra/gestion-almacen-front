@@ -1,8 +1,5 @@
 import { useSelector } from 'react-redux'
-import {
-  selectCurrentRoles,
-  selectCurrentToken
-} from '../../redux/auth/authSlice'
+import { selectCurrentRoles, selectCurrentToken } from '../../common/redux/auth/authSlice'
 import { useLocation, Navigate, Outlet } from 'react-router-dom'
 
 const Protected = ({ allowedRoles }) => {

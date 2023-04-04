@@ -1,11 +1,11 @@
 import { useEffect } from 'react'
-import Content from '../../containers/content'
-import Menu from '../../components/menu'
+import Content from '../../common/containers/content'
+import Menu from '../../common/components/menu'
 import { menuItems } from './menuItems'
 import { useLocation } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
-import { getProducts } from '../../redux/products/productsSlice'
-import { useGetProductsQuery } from '../../redux/products/productsApiSlice'
+import { getProducts } from '../../common/redux/products/productsSlice'
+import { useGetProductsQuery } from '../../common/redux/products/productsApiSlice'
 import Products from './products'
 
 const Admin = () => {

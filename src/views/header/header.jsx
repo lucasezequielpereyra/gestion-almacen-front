@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
-import Header from '../../components/header/header'
+import Header from '../../common/components/header/header'
 import { useSelector, useDispatch } from 'react-redux'
-import { selectCurrentRoles } from '../../redux/auth/authSlice'
-import { logout } from '../../redux/auth/authSlice'
+import { selectCurrentRoles } from '../../common/redux/auth/authSlice'
+import { logout } from '../../common/redux/auth/authSlice'
 
 const HeaderView = () => {
   const roles = useSelector(selectCurrentRoles)

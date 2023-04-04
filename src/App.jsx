@@ -2,11 +2,11 @@ import { store } from './common/redux/store'
 import { Provider } from 'react-redux'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Layout from './common/containers/layout'
-import Public from './common/views/public'
-import Protected from './common/views/protected'
-import Dashboard from './common/views/dashboard'
-import Unauthorized from './common/views/unauthorized'
-import Admin from './common/views/admin'
+import Public from './views/public'
+import Protected from './views/protected'
+import Dashboard from './views/dashboard'
+import Unauthorized from './views/unauthorized'
+import Admin from './views/admin'
 
 const ROLES = {
   dueño: process.env.REACT_APP_DUENIO,
