@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react'
-import styles from './addProductForm.module.scss'
+import styles from './productForm.module.scss'
 import propTypes from 'prop-types'
 import Modal from '../modal'
 import FormItems from './formItems'
@@ -8,7 +8,7 @@ import { useClickOutside } from '../../hooks/useClickOutside'
 import { useNewProductMutation } from '../../redux/products/productsApiSlice'
 import { useGetCategoriesQuery } from '../../redux/products/productsApiSlice'
 
-const AddProductForm = ({ active, handleModal, buttonLabel }) => {
+const ProductForm = ({ active, handleModal, buttonLabel }) => {
   const [formValues, setFormValues] = useState({})
   const [msgError, setMsgError] = useState('')
   const [categories, setCategories] = useState([])
@@ -82,15 +82,15 @@ const AddProductForm = ({ active, handleModal, buttonLabel }) => {
   )
 }
 
-export default AddProductForm
+export default ProductForm
 
-AddProductForm.propTypes = {
+ProductForm.propTypes = {
   active: propTypes.bool.isRequired,
   handleModal: propTypes.func.isRequired,
   buttonLabel: propTypes.string.isRequired
 }
 
-AddProductForm.defaultProps = {
+ProductForm.defaultProps = {
   active: false,
   handleModal: () => {}
 }
