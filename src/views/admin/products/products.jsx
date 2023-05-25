@@ -3,7 +3,7 @@ import styles from './products.module.scss'
 import ProductsTable from '../../../common/components/productsTable'
 import { selectCurrentProducts } from '../../../common/redux/products/productsSlice'
 import { useSelector } from 'react-redux'
-import AddProductForm from '../../../common/components/addProductForm'
+import AddProductForm from '../../../common/components/productForm'
 
 const Products = () => {
   const products = useSelector(selectCurrentProducts)
@@ -23,7 +23,11 @@ const Products = () => {
         <ProductsTable products={products} />
       </div>
       {showNewProduct && (
-        <AddProductForm handleModal={handleShowNewProduct} active={Boolean(showNewProduct)} />
+        <AddProductForm
+          handleModal={handleShowNewProduct}
+          active={Boolean(showNewProduct)}
+          buttonLabel="Agregar"
+        />
       )}
     </div>
   )

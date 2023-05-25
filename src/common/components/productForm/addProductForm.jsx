@@ -8,7 +8,7 @@ import { useClickOutside } from '../../hooks/useClickOutside'
 import { useNewProductMutation } from '../../redux/products/productsApiSlice'
 import { useGetCategoriesQuery } from '../../redux/products/productsApiSlice'
 
-const AddProductForm = ({ active, handleModal }) => {
+const AddProductForm = ({ active, handleModal, buttonLabel }) => {
   const [formValues, setFormValues] = useState({})
   const [msgError, setMsgError] = useState('')
   const [categories, setCategories] = useState([])
@@ -71,7 +71,12 @@ const AddProductForm = ({ active, handleModal }) => {
     >
       <p className={styles.error}>{msgError}</p>
       <form className={styles.container} onSubmit={handleSubmit}>
-        <FormItems formValues={formValues} handleChange={handleChange} categories={categories} />
+        <FormItems
+          formValues={formValues}
+          handleChange={handleChange}
+          categories={categories}
+          buttonLabel={buttonLabel}
+        />
       </form>
     </Modal>
   )
@@ -81,7 +86,8 @@ export default AddProductForm
 
 AddProductForm.propTypes = {
   active: propTypes.bool.isRequired,
-  handleModal: propTypes.func.isRequired
+  handleModal: propTypes.func.isRequired,
+  buttonLabel: propTypes.string.isRequired
 }
 
 AddProductForm.defaultProps = {

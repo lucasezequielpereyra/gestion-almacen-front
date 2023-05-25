@@ -1,7 +1,7 @@
 import styles from './formItems.module.scss'
 import propTypes from 'prop-types'
 
-const FormItems = ({ formValues, handleChange, categories }) => {
+const FormItems = ({ formValues, handleChange, categories, buttonLabel }) => {
   return (
     <>
       <div className={styles.formGroup}>
@@ -87,7 +87,7 @@ const FormItems = ({ formValues, handleChange, categories }) => {
         />
       </div>
       <div className={styles.formGroup}>
-        <input type="submit" value="Agregar" />
+        <input type="submit" value={buttonLabel} />
       </div>
     </>
   )
@@ -98,7 +98,8 @@ export default FormItems
 FormItems.propTypes = {
   formValues: propTypes.object.isRequired,
   handleChange: propTypes.func.isRequired,
-  categories: propTypes.array
+  categories: propTypes.array,
+  buttonLabel: propTypes.string.isRequired
 }
 
 FormItems.defaultProps = {
