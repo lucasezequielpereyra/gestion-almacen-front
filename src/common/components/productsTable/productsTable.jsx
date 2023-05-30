@@ -1,21 +1,77 @@
 import propTypes from 'prop-types'
-import { useState, useRef } from 'react'
+import { useState, useEffect } from 'react'
 import styles from './productsTable.module.scss'
-import ProductModal from '../productModal'
 import { usePressEscKey } from '../../hooks/usePressEscKey'
-import { useClickOutside } from '../../hooks/useClickOutside'
+import { useGetCategoriesQuery } from '../../redux/products/productsApiSlice'
+import { useUpdateProductMutation } from '../../redux/products/productsApiSlice'
+import ProductForm from '../productForm'
 
 const ProductsTable = ({ products }) => {
   const [modal, setModal] = useState(false)
   const [productModal, setProductModal] = useState({})
-  const modalRef = useRef(null)
+  const [formValues, setFormValues] = useState({})
+  const [msgError, setMsgError] = useState('')
+  const [categories, setCategories] = useState([])
 
   usePressEscKey(setModal)
-  useClickOutside(modalRef, setModal)
 
   const handleModal = product => {
+    if (!modal) setProductModal(product)
+    if (modal) {
+      setFormValues({})
+      setMsgError('')
+    }
     setModal(!modal)
-    setProductModal(product)
+  }
+
+  const [updateProduct, { error, status }] = useUpdateProductMutation()
+  const handleSubmit = e => {
+    e.preventDefault()
+    try {
+      updateProduct({
+        sku: formValues.sku,
+        name: formValues.name,
+        category: formValues.category,
+        description: formValues.description,
+        EAN: formValues.EAN,
+        price_cost: formValues.price_cost,
+        price_sale: formValues.price_sale,
+        stock: formValues.stock
+      }).unwrap()
+    } catch (err) {
+      setMsgError(err.message)
+    }
+  }
+
+  useEffect(() => {
+    if (productModal) {
+      setFormValues(productModal)
+    }
+  }, [productModal])
+
+  useEffect(() => {
+    if (status === 'fulfilled') {
+      setFormValues({})
+      handleModal()
+    }
+
+    if (status === 'rejected') {
+      setMsgError(error.data?.error)
+    }
+  }, [status])
+
+  const { data: data, isSuccess } = useGetCategoriesQuery()
+  useEffect(() => {
+    if (isSuccess) {
+      setCategories(data.categories)
+    }
+  }, [data])
+
+  const handleChange = e => {
+    const {
+      target: { name, value }
+    } = e
+    setFormValues({ ...formValues, [name]: value })
   }
 
   return (
@@ -51,11 +107,15 @@ const ProductsTable = ({ products }) => {
           </tbody>
         </table>
         {modal && (
-          <ProductModal
-            product={productModal}
-            active={modal}
+          <ProductForm
             handleModal={handleModal}
-            modalRef={modalRef}
+            active={modal}
+            buttonLabel="Actualizar"
+            formValues={formValues}
+            handleChange={handleChange}
+            handleSubmit={handleSubmit}
+            msgError={msgError}
+            categories={categories}
           />
         )}
       </div>
