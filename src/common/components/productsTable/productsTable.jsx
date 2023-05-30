@@ -20,6 +20,7 @@ const ProductsTable = ({
             <tr>
               <th>#</th>
               <th>nombre</th>
+              <th>categoria</th>
               <th>stock</th>
               <th>Precio Costo</th>
               <th>Precio Venta</th>
@@ -36,6 +37,7 @@ const ProductsTable = ({
                   </button>
                 </td>
                 <td>{product.name}</td>
+                <td>{product.category ? product.category.name : 'n/a'}</td>
                 <td>{product.stock ? product.stock : 'n/a'}</td>
                 <td>{product.price_cost}</td>
                 <td>{product.price_sale ? product.price_sale : 'n/a'}</td>
