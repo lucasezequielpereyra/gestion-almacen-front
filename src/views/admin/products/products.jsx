@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import styles from './products.module.scss'
-import ProductsTable from '../../../common/components/productsTable'
+import ProductsList from './productsList'
 import { selectCurrentProducts } from '../../../common/redux/products/productsSlice'
 import { useSelector } from 'react-redux'
 import ProductForm from '../../../common/components/productForm'
@@ -69,7 +69,7 @@ const Products = () => {
       </button>
       <div className={styles.content}>
         <h1>Lista de Productos</h1>
-        <ProductsTable products={products} />
+        <ProductsList products={products} />
       </div>
       {showNewProduct && (
         <ProductForm
