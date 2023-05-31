@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import styles from './products.module.scss'
 import ProductsList from './productsList'
 import { selectCurrentProducts } from '../../../common/redux/products/productsSlice'
@@ -9,10 +9,28 @@ import { useGetCategoriesQuery } from '../../../common/redux/products/productsAp
 
 const Products = () => {
   const products = useSelector(selectCurrentProducts)
+  const [productsFiltered, setProductsFiltered] = useState(products)
   const [showNewProduct, setShowNewProduct] = useState(false)
   const [formValues, setFormValues] = useState({})
   const [msgError, setMsgError] = useState('')
   const [categories, setCategories] = useState([])
+  const searchRef = useRef()
+
+  useEffect(() => {
+    if (searchRef.value === '') {
+      setProductsFiltered(products)
+    }
+  }, [])
+
+  const handleChangeSearch = e => {
+    const {
+      target: { value }
+    } = e
+    const productsFiltered = products.filter(product => {
+      return product.name.toLowerCase().includes(value.toLowerCase())
+    })
+    setProductsFiltered(productsFiltered)
+  }
 
   const handleShowNewProduct = () => {
     setShowNewProduct(!showNewProduct)
@@ -69,7 +87,15 @@ const Products = () => {
       </button>
       <div className={styles.content}>
         <h1>Lista de Productos</h1>
-        <ProductsList products={products} />
+        <div className={styles.search}>
+          <input
+            type="text"
+            placeholder="Buscar por nombre"
+            onChange={handleChangeSearch}
+            ref={searchRef}
+          />
+        </div>
+        <ProductsList products={productsFiltered} />
       </div>
       {showNewProduct && (
         <ProductForm
