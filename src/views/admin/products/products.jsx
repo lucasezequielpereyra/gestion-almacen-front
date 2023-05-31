@@ -14,13 +14,15 @@ const Products = () => {
   const [formValues, setFormValues] = useState({})
   const [msgError, setMsgError] = useState('')
   const [categories, setCategories] = useState([])
+
   const searchRef = useRef()
+  const categoryRef = useRef()
 
   useEffect(() => {
-    if (searchRef.value === '') {
+    if (searchRef.value === '' && categoryRef.value === 0) {
       setProductsFiltered(products)
     }
-  }, [])
+  }, [searchRef.value, categoryRef.value])
 
   const handleChangeSearch = e => {
     const {
@@ -30,6 +32,18 @@ const Products = () => {
       return product.name.toLowerCase().includes(value.toLowerCase())
     })
     setProductsFiltered(productsFiltered)
+  }
+
+  const handleChangeCategories = e => {
+    const {
+      target: { value }
+    } = e
+    const productsFiltered = products.filter(product => {
+      return product.category._id === value
+    })
+    if (value !== '0') {
+      setProductsFiltered(productsFiltered)
+    }
   }
 
   const handleShowNewProduct = () => {
@@ -87,13 +101,23 @@ const Products = () => {
       </button>
       <div className={styles.content}>
         <h1>Lista de Productos</h1>
-        <div className={styles.search}>
+        <div className={styles.filterContainer}>
           <input
             type="text"
             placeholder="Buscar por nombre"
             onChange={handleChangeSearch}
             ref={searchRef}
           />
+          <div className={styles.filterCategory}>
+            <select onChange={handleChangeCategories} ref={categoryRef}>
+              <option value="0">Todas las categorias</option>
+              {categories.map(category => (
+                <option key={category._id} value={category._id}>
+                  {category.name}
+                </option>
+              ))}
+            </select>
+          </div>
         </div>
         <ProductsList products={productsFiltered} />
       </div>
