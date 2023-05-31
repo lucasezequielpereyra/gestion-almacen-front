@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react'
 import propTypes from 'prop-types'
-import { usePressEscKey } from '../../../../common/hooks/usePressEscKey'
 import { useGetCategoriesQuery } from '../../../../common/redux/products/productsApiSlice'
 import { useUpdateProductMutation } from '../../../../common/redux/products/productsApiSlice'
 import ProductsTable from '../../../../common/components/productsTable/productsTable'
@@ -12,14 +11,8 @@ const ProductsList = ({ products }) => {
   const [msgError, setMsgError] = useState('')
   const [categories, setCategories] = useState([])
 
-  usePressEscKey(setModal)
-
   const handleModal = product => {
-    if (!modal) setProductModal(product)
-    if (modal) {
-      setFormValues({})
-      setMsgError('')
-    }
+    setProductModal(product)
     setModal(!modal)
   }
 
