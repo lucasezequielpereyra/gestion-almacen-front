@@ -8,14 +8,6 @@ const productsApiSlice = apiSlice.injectEndpoints({
   })
 })
 
-const categoriesApiSlice = apiSlice.injectEndpoints({
-  endpoints: builder => ({
-    getCategories: builder.query({
-      query: () => '/api/category'
-    })
-  })
-})
-
 const newProductsApiSlice = apiSlice.injectEndpoints({
   endpoints: builder => ({
     newProduct: builder.mutation({
@@ -41,6 +33,5 @@ const updateProductApiSlice = apiSlice.injectEndpoints({
 })
 
 export const { useGetProductsQuery } = productsApiSlice
-export const { useGetCategoriesQuery } = categoriesApiSlice
 export const { useNewProductMutation } = newProductsApiSlice
 export const { useUpdateProductMutation } = updateProductApiSlice

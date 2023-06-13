@@ -4,13 +4,15 @@ import ProductsList from './productsList'
 import { selectCurrentProducts } from '../../../common/redux/products/productsSlice'
 import { useSelector } from 'react-redux'
 import ProductForm from '../../../common/components/productForm'
+import CategoryForm from '../../../common/components/categoryForm'
 import { useNewProductMutation } from '../../../common/redux/products/productsApiSlice'
-import { useGetCategoriesQuery } from '../../../common/redux/products/productsApiSlice'
+import { useGetCategoriesQuery } from '../../../common/redux/categories/categoriesApiSlice'
 
 const Products = () => {
   const products = useSelector(selectCurrentProducts)
   const [productsFiltered, setProductsFiltered] = useState(products)
   const [showNewProduct, setShowNewProduct] = useState(false)
+  const [showNewCategory, setShowNewCategory] = useState(false)
   const [formValues, setFormValues] = useState({})
   const [msgError, setMsgError] = useState('')
   const [categories, setCategories] = useState([])
@@ -48,6 +50,10 @@ const Products = () => {
 
   const handleShowNewProduct = () => {
     setShowNewProduct(!showNewProduct)
+  }
+
+  const handleShowNewCategory = () => {
+    setShowNewCategory(!showNewCategory)
   }
 
   const [newProduct, { error, status }] = useNewProductMutation()
@@ -96,9 +102,14 @@ const Products = () => {
 
   return (
     <div className={styles.container}>
-      <button className={styles.buttonAdd} onClick={handleShowNewProduct}>
-        Nuevo Producto
-      </button>
+      <div className={styles.menu}>
+        <button className={styles.buttonAdd} onClick={handleShowNewProduct}>
+          Nuevo Producto
+        </button>
+        <button className={styles.buttonAdd} onClick={handleShowNewCategory}>
+          Nueva Categoria
+        </button>
+      </div>
       <div className={styles.content}>
         <h1>Lista de Productos</h1>
         <div className={styles.filterContainer}>
@@ -131,6 +142,14 @@ const Products = () => {
           handleSubmit={handleSubmit}
           msgError={msgError}
           categories={categories}
+        />
+      )}
+      {showNewCategory && (
+        <CategoryForm
+          handleModal={handleShowNewCategory}
+          modalTitle="Agregar Categoria"
+          active={Boolean(showNewCategory)}
+          formValues={formValues}
         />
       )}
     </div>

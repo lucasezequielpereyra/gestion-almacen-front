@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import propTypes from 'prop-types'
-import { useGetCategoriesQuery } from '../../../../common/redux/products/productsApiSlice'
+import { useGetCategoriesQuery } from '../../../../common/redux/categories/categoriesApiSlice'
 import { useUpdateProductMutation } from '../../../../common/redux/products/productsApiSlice'
 import ProductsTable from '../../../../common/components/productsTable/productsTable'
 
