@@ -1,7 +1,7 @@
 import propTypes from 'prop-types'
 import styles from './productsTable.module.scss'
 import Form from '../form/'
-import AddProductItems from '../../../views/admin/products/components/formItems'
+import AddProductItems from '../../../views/admin/products/components/formItems/addProductItems'
 
 const ProductsTable = ({
   products,
@@ -53,6 +53,7 @@ const ProductsTable = ({
             active={modal}
             handleSubmit={handleSubmit}
             msgError={msgError}
+            modalTitle="Editar Producto"
           >
             <AddProductItems
               formValues={formValues}

@@ -5,19 +5,14 @@ import Modal from '../modal'
 import { usePressEscKey } from '../../hooks/usePressEscKey'
 import { useClickOutside } from '../../hooks/useClickOutside'
 
-const Form = ({ active, handleModal, handleSubmit, msgError, children }) => {
+const Form = ({ active, handleModal, handleSubmit, msgError, modalTitle, children }) => {
   const modalRef = useRef(null)
 
   usePressEscKey(handleModal)
   useClickOutside(modalRef, handleModal)
 
   return (
-    <Modal
-      handleModal={handleModal}
-      active={active}
-      modalRef={modalRef}
-      modalTitle="Agregar Producto"
-    >
+    <Modal handleModal={handleModal} active={active} modalRef={modalRef} modalTitle={modalTitle}>
       <p className={styles.error}>{msgError}</p>
       <form className={styles.container} onSubmit={handleSubmit}>
         {children}
@@ -33,6 +28,7 @@ Form.propTypes = {
   handleModal: propTypes.func.isRequired,
   handleSubmit: propTypes.func.isRequired,
   msgError: propTypes.string.isRequired,
+  modalTitle: propTypes.string.isRequired,
   children: propTypes.node.isRequired
 }
 

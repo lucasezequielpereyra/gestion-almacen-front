@@ -1,4 +1,4 @@
-import styles from './addProductItems.module.scss'
+import styles from './formItems.module.scss'
 import propTypes from 'prop-types'
 
 const AddProductItems = ({ formValues, handleChange, categories, buttonLabel }) => {

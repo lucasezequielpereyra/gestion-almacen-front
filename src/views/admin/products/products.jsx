@@ -4,9 +4,11 @@ import ProductsList from './productsList'
 import { selectCurrentProducts } from '../../../common/redux/products/productsSlice'
 import { useSelector } from 'react-redux'
 import Form from '../../../common/components/form/'
-import AddProductItems from './components/formItems/'
+import AddProductItems from './components/formItems/addProductItems'
+import AddCategoryItems from './components/formItems/addCategoryItems'
 import { useNewProductMutation } from '../../../common/redux/products/productsApiSlice'
 import { useGetCategoriesQuery } from '../../../common/redux/categories/categoriesApiSlice'
+import { useNewCategoryMutation } from '../../../common/redux/categories/categoriesApiSlice'
 
 const Products = () => {
   const products = useSelector(selectCurrentProducts)
@@ -62,9 +64,17 @@ const Products = () => {
     setShowNewCategory(!showNewCategory)
   }
 
+  // get categories
+  const { data: data, isSuccess } = useGetCategoriesQuery()
+  useEffect(() => {
+    if (isSuccess) {
+      setCategories(data.categories)
+    }
+  }, [data])
+
   // handle submit new product
-  const [newProduct, { error, status }] = useNewProductMutation()
-  const handleSubmit = e => {
+  const [newProduct, { error: productError, status: productStatus }] = useNewProductMutation()
+  const handleProductSubmit = e => {
     e.preventDefault()
     try {
       newProduct({
@@ -83,22 +93,41 @@ const Products = () => {
   }
 
   useEffect(() => {
-    if (status === 'fulfilled') {
+    if (productStatus === 'fulfilled') {
       setFormValues({})
       handleShowNewProduct()
     }
 
-    if (status === 'rejected') {
-      setMsgError(error.data?.error)
+    if (productStatus === 'rejected') {
+      setMsgError(productError.data?.error)
     }
-  }, [status])
+  }, [productStatus])
 
-  const { data: data, isSuccess } = useGetCategoriesQuery()
-  useEffect(() => {
-    if (isSuccess) {
-      setCategories(data.categories)
+  // handle submit new category
+  const [newCategory, { error: categoryError, status: categoryStatus }] = useNewCategoryMutation()
+
+  const handleCategorySubmit = e => {
+    e.preventDefault()
+    try {
+      newCategory({
+        name: formValues.name,
+        description: formValues.description
+      }).unwrap()
+    } catch (err) {
+      setMsgCategoryError(err.message)
     }
-  }, [data])
+  }
+
+  useEffect(() => {
+    if (categoryStatus === 'fulfilled') {
+      setFormValues({})
+      handleShowNewCategory()
+    }
+
+    if (categoryStatus === 'rejected') {
+      setMsgCategoryError(categoryError.data?.error)
+    }
+  }, [categoryStatus])
 
   const handleChange = e => {
     const {
@@ -143,8 +172,9 @@ const Products = () => {
         <Form
           handleModal={handleShowNewProduct}
           active={Boolean(showNewProduct)}
-          handleSubmit={handleSubmit}
+          handleSubmit={handleProductSubmit}
           msgError={msgError}
+          modalTitle="Agregar Producto"
         >
           <AddProductItems
             formValues={formValues}
@@ -160,9 +190,13 @@ const Products = () => {
           modalTitle="Agregar Categoria"
           active={Boolean(showNewCategory)}
           msgError={msgCategoryError}
-          handleSubmit={handleSubmit}
+          handleSubmit={handleCategorySubmit}
         >
-          asd
+          <AddCategoryItems
+            formValues={formValues}
+            handleChange={handleChange}
+            buttonLabel="Agregar"
+          />
         </Form>
       )}
     </div>
