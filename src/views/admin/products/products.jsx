@@ -57,10 +57,18 @@ const Products = () => {
 
   // handle modals
   const handleShowNewProduct = () => {
+    if (showNewProduct) {
+      setMsgError('')
+      setFormValues({})
+    }
     setShowNewProduct(!showNewProduct)
   }
 
   const handleShowNewCategory = () => {
+    if (showNewCategory) {
+      setMsgCategoryError('')
+      setFormValues({})
+    }
     setShowNewCategory(!showNewCategory)
   }
 
