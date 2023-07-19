@@ -1,6 +1,7 @@
 import propTypes from 'prop-types'
 import styles from './productsTable.module.scss'
-import ProductForm from '../productForm'
+import Form from '../form/'
+import AddProductItems from '../../../views/admin/products/components/formItems'
 
 const ProductsTable = ({
   products,
@@ -47,16 +48,19 @@ const ProductsTable = ({
           </tbody>
         </table>
         {modal && (
-          <ProductForm
+          <Form
             handleModal={handleModal}
             active={modal}
-            buttonLabel="Actualizar"
-            formValues={formValues}
-            handleChange={handleChange}
             handleSubmit={handleSubmit}
             msgError={msgError}
-            categories={categories}
-          />
+          >
+            <AddProductItems
+              formValues={formValues}
+              handleChange={handleChange}
+              categories={categories}
+              buttonLabel="Actualizar"
+            />
+          </Form>
         )}
       </div>
     </>

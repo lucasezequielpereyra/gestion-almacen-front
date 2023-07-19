@@ -1,7 +1,7 @@
-import styles from './formItems.module.scss'
+import styles from './addProductItems.module.scss'
 import propTypes from 'prop-types'
 
-const FormItems = ({ formValues, handleChange, categories, buttonLabel }) => {
+const AddProductItems = ({ formValues, handleChange, categories, buttonLabel }) => {
   return (
     <>
       <div className={styles.formGroup}>
@@ -93,15 +93,15 @@ const FormItems = ({ formValues, handleChange, categories, buttonLabel }) => {
   )
 }
 
-export default FormItems
+export default AddProductItems
 
-FormItems.propTypes = {
+AddProductItems.propTypes = {
   formValues: propTypes.object.isRequired,
   handleChange: propTypes.func.isRequired,
   categories: propTypes.array,
   buttonLabel: propTypes.string.isRequired
 }
 
-FormItems.defaultProps = {
+AddProductItems.defaultProps = {
   categories: []
 }

@@ -1,21 +1,11 @@
 import { useRef } from 'react'
-import styles from './productForm.module.scss'
+import styles from './form.module.scss'
 import propTypes from 'prop-types'
 import Modal from '../modal'
-import FormItems from './formItems'
 import { usePressEscKey } from '../../hooks/usePressEscKey'
 import { useClickOutside } from '../../hooks/useClickOutside'
 
-const ProductForm = ({
-  active,
-  handleModal,
-  buttonLabel,
-  formValues,
-  handleChange,
-  handleSubmit,
-  msgError,
-  categories
-}) => {
+const Form = ({ active, handleModal, handleSubmit, msgError, children }) => {
   const modalRef = useRef(null)
 
   usePressEscKey(handleModal)
@@ -30,31 +20,23 @@ const ProductForm = ({
     >
       <p className={styles.error}>{msgError}</p>
       <form className={styles.container} onSubmit={handleSubmit}>
-        <FormItems
-          formValues={formValues}
-          handleChange={handleChange}
-          categories={categories}
-          buttonLabel={buttonLabel}
-        />
+        {children}
       </form>
     </Modal>
   )
 }
 
-export default ProductForm
+export default Form
 
-ProductForm.propTypes = {
+Form.propTypes = {
   active: propTypes.bool.isRequired,
   handleModal: propTypes.func.isRequired,
-  buttonLabel: propTypes.string.isRequired,
-  handleChange: propTypes.func.isRequired,
   handleSubmit: propTypes.func.isRequired,
   msgError: propTypes.string.isRequired,
-  categories: propTypes.array.isRequired,
-  formValues: propTypes.object.isRequired
+  children: propTypes.node.isRequired
 }
 
-ProductForm.defaultProps = {
+Form.defaultProps = {
   active: false,
   handleModal: () => {}
 }

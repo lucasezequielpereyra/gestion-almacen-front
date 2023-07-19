@@ -3,23 +3,28 @@ import styles from './products.module.scss'
 import ProductsList from './productsList'
 import { selectCurrentProducts } from '../../../common/redux/products/productsSlice'
 import { useSelector } from 'react-redux'
-import ProductForm from '../../../common/components/productForm'
-import CategoryForm from '../../../common/components/categoryForm'
+import Form from '../../../common/components/form/'
+import AddProductItems from './components/formItems/'
 import { useNewProductMutation } from '../../../common/redux/products/productsApiSlice'
 import { useGetCategoriesQuery } from '../../../common/redux/categories/categoriesApiSlice'
 
 const Products = () => {
   const products = useSelector(selectCurrentProducts)
+
+  // states for view
   const [productsFiltered, setProductsFiltered] = useState(products)
   const [showNewProduct, setShowNewProduct] = useState(false)
   const [showNewCategory, setShowNewCategory] = useState(false)
   const [formValues, setFormValues] = useState({})
   const [msgError, setMsgError] = useState('')
+  const [msgCategoryError, setMsgCategoryError] = useState('')
   const [categories, setCategories] = useState([])
 
+  // refs for search and category
   const searchRef = useRef()
   const categoryRef = useRef()
 
+  // Filter products by search and category
   useEffect(() => {
     if (searchRef.value === '' && categoryRef.value === 0) {
       setProductsFiltered(products)
@@ -48,6 +53,7 @@ const Products = () => {
     }
   }
 
+  // handle modals
   const handleShowNewProduct = () => {
     setShowNewProduct(!showNewProduct)
   }
@@ -56,6 +62,7 @@ const Products = () => {
     setShowNewCategory(!showNewCategory)
   }
 
+  // handle submit new product
   const [newProduct, { error, status }] = useNewProductMutation()
   const handleSubmit = e => {
     e.preventDefault()
@@ -133,24 +140,30 @@ const Products = () => {
         <ProductsList products={productsFiltered} />
       </div>
       {showNewProduct && (
-        <ProductForm
+        <Form
           handleModal={handleShowNewProduct}
           active={Boolean(showNewProduct)}
-          buttonLabel="Agregar"
-          formValues={formValues}
-          handleChange={handleChange}
           handleSubmit={handleSubmit}
           msgError={msgError}
-          categories={categories}
-        />
+        >
+          <AddProductItems
+            formValues={formValues}
+            handleChange={handleChange}
+            categories={categories}
+            buttonLabel="Agregar"
+          />
+        </Form>
       )}
       {showNewCategory && (
-        <CategoryForm
+        <Form
           handleModal={handleShowNewCategory}
           modalTitle="Agregar Categoria"
           active={Boolean(showNewCategory)}
-          formValues={formValues}
-        />
+          msgError={msgCategoryError}
+          handleSubmit={handleSubmit}
+        >
+          asd
+        </Form>
       )}
     </div>
   )
