@@ -2,16 +2,17 @@ import { useState, useEffect, useRef } from 'react'
 import styles from './products.module.scss'
 import ProductsList from './productsList'
 import { selectCurrentProducts } from '../../../common/redux/products/productsSlice'
+import { selectCurrentCategories } from '../../../common/redux/categories/categoriesSlice'
 import { useSelector } from 'react-redux'
 import Form from '../../../common/components/form/'
 import AddProductItems from './components/formItems/addProductItems'
 import AddCategoryItems from './components/formItems/addCategoryItems'
 import { useNewProductMutation } from '../../../common/redux/products/productsApiSlice'
-import { useGetCategoriesQuery } from '../../../common/redux/categories/categoriesApiSlice'
 import { useNewCategoryMutation } from '../../../common/redux/categories/categoriesApiSlice'
 
 const Products = () => {
   const products = useSelector(selectCurrentProducts)
+  const categories = useSelector(selectCurrentCategories)
 
   // states for view
   const [productsFiltered, setProductsFiltered] = useState(products)
@@ -20,7 +21,6 @@ const Products = () => {
   const [formValues, setFormValues] = useState({})
   const [msgError, setMsgError] = useState('')
   const [msgCategoryError, setMsgCategoryError] = useState('')
-  const [categories, setCategories] = useState([])
 
   // refs for search and category
   const searchRef = useRef()
@@ -52,6 +52,8 @@ const Products = () => {
     })
     if (value !== '0') {
       setProductsFiltered(productsFiltered)
+    } else {
+      setProductsFiltered(products)
     }
   }
 
@@ -71,14 +73,6 @@ const Products = () => {
     }
     setShowNewCategory(!showNewCategory)
   }
-
-  // get categories
-  const { data: data, isSuccess } = useGetCategoriesQuery()
-  useEffect(() => {
-    if (isSuccess) {
-      setCategories(data.categories)
-    }
-  }, [data])
 
   // handle submit new product
   const [newProduct, { error: productError, status: productStatus }] = useNewProductMutation()
@@ -113,7 +107,6 @@ const Products = () => {
 
   // handle submit new category
   const [newCategory, { error: categoryError, status: categoryStatus }] = useNewCategoryMutation()
-
   const handleCategorySubmit = e => {
     e.preventDefault()
     try {
