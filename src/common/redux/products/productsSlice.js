@@ -10,11 +10,15 @@ const productsSlice = createSlice({
     },
     clearProducts: state => {
       state.products = []
+    },
+    newInternalProduct: (state, action) => {
+      const { savedProduct } = action.payload
+      state.products = [...state.products, savedProduct]
     }
   }
 })
 
-export const { getProducts, clearProducts } = productsSlice.actions
+export const { getProducts, clearProducts, newInternalProduct } = productsSlice.actions
 
 export default productsSlice.reducer
 

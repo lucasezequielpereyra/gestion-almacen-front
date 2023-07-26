@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react'
-import propTypes from 'prop-types'
 import { useGetCategoriesQuery } from '../../../../common/redux/categories/categoriesApiSlice'
 import { useUpdateProductMutation } from '../../../../common/redux/products/productsApiSlice'
 import ProductsTable from '../../../../common/components/productsTable/productsTable'
+import propTypes from 'prop-types'
 
 const ProductsList = ({ products }) => {
   const [modal, setModal] = useState(false)
@@ -84,6 +84,6 @@ const ProductsList = ({ products }) => {
 
 export default ProductsList
 
-ProductsTable.propTypes = {
-  products: propTypes.array.isRequired
+ProductsList.propTypes = {
+  products: propTypes.array
 }

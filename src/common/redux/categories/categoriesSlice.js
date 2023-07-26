@@ -10,6 +10,10 @@ const categoriesSlice = createSlice({
     },
     clearCategories: state => {
       state.categories = []
+    },
+    newInternalCategory: (state, action) => {
+      const { savedCategory } = action.payload
+      state.categories = [...state.categories, savedCategory]
     }
   }
 })

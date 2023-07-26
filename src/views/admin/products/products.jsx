@@ -1,9 +1,12 @@
 import { useState, useEffect, useRef } from 'react'
 import styles from './products.module.scss'
 import ProductsList from './productsList'
-import { selectCurrentProducts } from '../../../common/redux/products/productsSlice'
+import {
+  newInternalProduct,
+  selectCurrentProducts
+} from '../../../common/redux/products/productsSlice'
 import { selectCurrentCategories } from '../../../common/redux/categories/categoriesSlice'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import Form from '../../../common/components/form/'
 import AddProductItems from './components/formItems/addProductItems'
 import AddCategoryItems from './components/formItems/addCategoryItems'
@@ -11,16 +14,27 @@ import { useNewProductMutation } from '../../../common/redux/products/productsAp
 import { useNewCategoryMutation } from '../../../common/redux/categories/categoriesApiSlice'
 
 const Products = () => {
+  const dispatch = useDispatch()
+
   const products = useSelector(selectCurrentProducts)
   const categories = useSelector(selectCurrentCategories)
 
   // states for view
   const [productsFiltered, setProductsFiltered] = useState(products)
+  const [categoriesFiltren, setCategoriesFiltred] = useState(categories)
   const [showNewProduct, setShowNewProduct] = useState(false)
   const [showNewCategory, setShowNewCategory] = useState(false)
   const [formValues, setFormValues] = useState({})
   const [msgError, setMsgError] = useState('')
   const [msgCategoryError, setMsgCategoryError] = useState('')
+
+  useEffect(() => {
+    setProductsFiltered(products)
+  }, [products])
+
+  useEffect(() => {
+    setCategoriesFiltred(categories)
+  }, [categories])
 
   // refs for search and category
   const searchRef = useRef()
@@ -75,7 +89,8 @@ const Products = () => {
   }
 
   // handle submit new product
-  const [newProduct, { error: productError, status: productStatus }] = useNewProductMutation()
+  const [newProduct, { error: productError, status: productStatus, data: dataProduct }] =
+    useNewProductMutation()
   const handleProductSubmit = e => {
     e.preventDefault()
     try {
@@ -96,6 +111,9 @@ const Products = () => {
 
   useEffect(() => {
     if (productStatus === 'fulfilled') {
+      dispatch(newInternalProduct(dataProduct))
+      const newProducts = [...products, dataProduct.savedProduct]
+      setProductsFiltered(newProducts)
       setFormValues({})
       handleShowNewProduct()
     }
@@ -159,7 +177,7 @@ const Products = () => {
           <div className={styles.filterCategory}>
             <select onChange={handleChangeCategories} ref={categoryRef}>
               <option value="0">Todas las categorias</option>
-              {categories.map(category => (
+              {categoriesFiltren.map(category => (
                 <option key={category._id} value={category._id}>
                   {category.name}
                 </option>
@@ -180,7 +198,7 @@ const Products = () => {
           <AddProductItems
             formValues={formValues}
             handleChange={handleChange}
-            categories={categories}
+            categories={categoriesFiltren}
             buttonLabel="Agregar"
           />
         </Form>

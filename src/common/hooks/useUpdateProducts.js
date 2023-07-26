@@ -6,7 +6,6 @@ import { useDispatch } from 'react-redux'
 export const useUpdateProducts = () => {
   const dispatch = useDispatch()
   const { data: data, isSuccess } = useGetProductsQuery()
-
   useEffect(() => {
     if (isSuccess) {
       dispatch(getProducts(data))
