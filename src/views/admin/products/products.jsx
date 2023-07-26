@@ -1,15 +1,18 @@
 import { useState, useEffect, useRef } from 'react'
 import styles from './products.module.scss'
 import ProductsList from './productsList'
-import {
-  newInternalProduct,
-  selectCurrentProducts
-} from '../../../common/redux/products/productsSlice'
-import { selectCurrentCategories } from '../../../common/redux/categories/categoriesSlice'
 import { useDispatch, useSelector } from 'react-redux'
 import Form from '../../../common/components/form/'
 import AddProductItems from './components/formItems/addProductItems'
 import AddCategoryItems from './components/formItems/addCategoryItems'
+import {
+  newInternalProduct,
+  selectCurrentProducts
+} from '../../../common/redux/products/productsSlice'
+import {
+  selectCurrentCategories,
+  newInternalCategory
+} from '../../../common/redux/categories/categoriesSlice'
 import { useNewProductMutation } from '../../../common/redux/products/productsApiSlice'
 import { useNewCategoryMutation } from '../../../common/redux/categories/categoriesApiSlice'
 
@@ -124,7 +127,8 @@ const Products = () => {
   }, [productStatus])
 
   // handle submit new category
-  const [newCategory, { error: categoryError, status: categoryStatus }] = useNewCategoryMutation()
+  const [newCategory, { error: categoryError, status: categoryStatus, data: dataCategory }] =
+    useNewCategoryMutation()
   const handleCategorySubmit = e => {
     e.preventDefault()
     try {
@@ -139,6 +143,9 @@ const Products = () => {
 
   useEffect(() => {
     if (categoryStatus === 'fulfilled') {
+      dispatch(newInternalCategory(dataCategory))
+      const newCategories = [...categories, dataCategory.savedCategory]
+      setCategoriesFiltred(newCategories)
       setFormValues({})
       handleShowNewCategory()
     }

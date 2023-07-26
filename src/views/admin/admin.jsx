@@ -2,15 +2,15 @@ import Content from '../../common/containers/content'
 import Menu from '../../common/components/menu'
 import { menuItems } from './menuItems'
 import { useLocation } from 'react-router-dom'
-import Products from './products'
 import { useUpdateProducts } from '../../common/hooks/useUpdateProducts'
 import { useUpdateCategories } from '../../common/hooks/useUpdateCategories'
+import Products from './products'
 
 const Admin = () => {
-  const location = useLocation()
-
   useUpdateProducts()
   useUpdateCategories()
+  const location = useLocation()
+
   return (
     <div>
       <Content>
