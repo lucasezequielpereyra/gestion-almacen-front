@@ -43,35 +43,49 @@ const Products = () => {
   const searchRef = useRef()
   const categoryRef = useRef()
 
-  // Filter products by search and category
-  useEffect(() => {
-    if (searchRef.value === '' && categoryRef.value === 0) {
-      setProductsFiltered(products)
-    }
-  }, [searchRef.value, categoryRef.value])
-
   const handleChangeSearch = e => {
     const {
       target: { value }
     } = e
-    const productsFiltered = products.filter(product => {
-      return product.name.toLowerCase().includes(value.toLowerCase())
+    const copyProducts = [...products]
+    const search = value.toLowerCase()
+    const categorySearch = categoryRef.current.value
+
+    const productsFiltered = copyProducts.filter(product => {
+      const name = product.name.toLowerCase()
+      return name.includes(search)
     })
     setProductsFiltered(productsFiltered)
+
+    if (categorySearch != '0') {
+      const category = categorySearch
+      const productsFilteredByCategory = productsFiltered.filter(product => {
+        return product.category._id == category
+      })
+      setProductsFiltered(productsFilteredByCategory)
+    }
   }
 
   const handleChangeCategories = e => {
     const {
       target: { value }
     } = e
-    const productsFiltered = products.filter(product => {
-      return product.category._id === value
-    })
-    if (value !== '0') {
-      setProductsFiltered(productsFiltered)
-    } else {
-      setProductsFiltered(products)
+
+    const copyProducts = [...products]
+    const searchRefValue = searchRef.current.value.toLowerCase()
+
+    if (value == '0') {
+      const productsFiltered = copyProducts.filter(product => {
+        const name = product.name.toLowerCase()
+        return name.includes(searchRefValue)
+      })
+      return setProductsFiltered(productsFiltered)
     }
+
+    const productsFiltered = copyProducts.filter(product => {
+      return product.category._id == value
+    })
+    setProductsFiltered(productsFiltered)
   }
 
   // handle modals
