@@ -1,66 +1,111 @@
 @import '../../utils/variables.scss';
 
-.table {
+.container {
   width: 100%;
   height: 100%;
-  margin-top: 1rem;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  overflow: hidden;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 
-  table {
-    width: 100%;
-    border-collapse: collapse;
+  .table {
 
-    thead {
+    margin-top: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    overflow: hidden;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+
+    table {
       width: 100%;
-      background-color: $color-primary-variant;
-      color: $color-white;
+      border-collapse: collapse;
 
-      tr {
-        th {
-          padding: 0.5rem;
-          text-align: left;
-          text-transform: uppercase;
+      thead {
+        width: 100%;
+        background-color: $color-primary-variant;
+        color: $color-white;
+
+        tr {
+          th {
+            padding: 0.5rem;
+            text-align: left;
+            text-transform: uppercase;
+          }
+        }
+      }
+
+      tbody {
+        width: 100%;
+        background-color: $color-white;
+
+        tr {
+          .sku {
+            width: 115px;
+
+            .editBtn,
+            .deleteBtn {
+              visibility: hidden;
+            }
+
+            .editBtn {
+              font-size: 12px;
+              margin: 0 8px;
+              padding: 4.5px;
+              border-radius: 5px;
+              background-color: $color-secondary;
+              border: none;
+              color: $color-white;
+            }
+
+            .deleteBtn {
+              font-size: 12px;
+              padding: 4.5px;
+              border-radius: 5px;
+              background-color: $color-primary;
+              border: none;
+              color: $color-white;
+            }
+          }
+
+          td {
+            padding: 0.5rem;
+            text-align: left;
+          }
+        }
+
+        tr:hover {
+          td {
+            background-color: $color-secondary-light;
+
+            .editBtn,
+            .deleteBtn {
+              visibility: visible;
+            }
+          }
         }
       }
     }
+  }
 
-    tbody {
+  .formDelete {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    button {
+      margin-top: 1rem;
       width: 100%;
-      background-color: $color-white;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      background-color: $color-primary;
+      color: $color-white;
+      font-weight: 500;
+      text-transform: uppercase;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
 
-      tr {
-        .sku {
-          width: 75px;
-
-          .buttonHover {
-            visibility: hidden;
-            font-size: 12px;
-            margin-left: 2px;
-            padding: 2px;
-            border-radius: 5px;
-            background-color: $color-primary;
-            border-color: $color-primary;
-            color: $color-white;
-          }
-        }
-
-        td {
-          padding: 0.5rem;
-          text-align: left;
-        }
-      }
-
-      tr:hover {
-        td {
-          background-color: $color-secondary-light;
-
-          .buttonHover {
-            visibility: visible;
-          }
-        }
+      div {
+        margin-right: 0.5rem;
       }
     }
   }
