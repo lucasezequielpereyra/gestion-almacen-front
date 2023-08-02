@@ -71,8 +71,8 @@ const Products = () => {
   useEffect(() => {
     if (categoryStatus === 'fulfilled') {
       dispatch(newInternalCategory(dataCategory))
-      const newCategories = [...categories, dataCategory.savedCategory]
-      setCategoriesFiltred(newCategories)
+      // const newCategories = [...categories, dataCategory]
+      // setCategoriesFiltred(newCategories)
       setFormValues({})
       handleShow(showNewCategory, setMsgCategoryError, setFormValues, setShowNewCategory)
     }
