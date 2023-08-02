@@ -57,8 +57,6 @@ const Products = () => {
   useEffect(() => {
     if (productStatus === 'fulfilled') {
       dispatch(newInternalProduct(dataProduct))
-      const newProducts = [...products, dataProduct.savedProduct]
-      setProductsFiltered(newProducts)
       setFormValues({})
       handleShow(showNewProduct, setMsgError, setFormValues, setShowNewProduct)
     }
