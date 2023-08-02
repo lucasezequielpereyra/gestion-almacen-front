@@ -32,6 +32,18 @@ const updateProductApiSlice = apiSlice.injectEndpoints({
   })
 })
 
+const deleteProductApiSlice = apiSlice.injectEndpoints({
+  endpoints: builder => ({
+    deleteProduct: builder.mutation({
+      query: id => ({
+        url: `/api/product/${id}`,
+        method: 'DELETE'
+      })
+    })
+  })
+})
+
 export const { useGetProductsQuery } = productsApiSlice
 export const { useNewProductMutation } = newProductsApiSlice
 export const { useUpdateProductMutation } = updateProductApiSlice
+export const { useDeleteProductMutation } = deleteProductApiSlice
