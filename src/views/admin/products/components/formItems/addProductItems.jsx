@@ -30,7 +30,11 @@ const AddProductItems = ({ formValues, handleChange, categories, buttonLabel }) 
           <option hidden>Elige una Opción</option>
 
           {categories.map((category, index) => (
-            <option key={index} value={category.name}>
+            <option
+              key={index}
+              value={category.name}
+              selected={formValues.category?._id === category?._id}
+            >
               {category.name}
             </option>
           ))}
