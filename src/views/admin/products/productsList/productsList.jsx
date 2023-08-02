@@ -76,6 +76,7 @@ const ProductsList = ({ products }) => {
 
   useEffect(() => {
     if (statusDelete === 'fulfilled') {
+      dispatch(deleteInternalProduct({ deletedProduct: productModal }))
       setFormValues({})
       setModalDelete(false)
     }
