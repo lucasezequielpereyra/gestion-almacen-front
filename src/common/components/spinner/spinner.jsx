@@ -13,7 +13,7 @@ export default Spinner
 
 // default props
 Spinner.propTypes = {
-  size: PropTypes.string
+  size: PropTypes.oneOf(['sm', 'md', 'lg', 'xl'])
 }
 
 Spinner.defaultProps = {
