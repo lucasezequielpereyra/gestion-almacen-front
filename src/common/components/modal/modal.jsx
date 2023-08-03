@@ -3,10 +3,10 @@ import propTypes from 'prop-types'
 import classNames from 'class-names'
 import styles from './modal.module.scss'
 
-const Modal = ({ handleModal, children, modalTitle, active, modalRef }) => {
+const Modal = ({ handleModal, children, modalTitle, active, modalRef, className }) => {
   const [modal] = useState(active)
 
-  const modalClass = classNames(styles.container, {
+  const modalClass = classNames(styles.container, className, {
     [styles.active]: modal
   })
 
@@ -33,7 +33,8 @@ Modal.propTypes = {
   children: propTypes.node,
   modalTitle: propTypes.string,
   active: propTypes.bool.isRequired,
-  modalRef: propTypes.object
+  modalRef: propTypes.object,
+  className: propTypes.string
 }
 
 Modal.defaultProps = {
