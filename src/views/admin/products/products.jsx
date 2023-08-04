@@ -2,13 +2,9 @@ import { useState, useEffect, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import {
   newInternalProduct,
-  selectCurrentProducts,
-  selectCurrentInactiveProducts
+  selectCurrentProducts
 } from '../../../common/redux/products/productsSlice'
-import {
-  selectCurrentCategories,
-  newInternalCategory
-} from '../../../common/redux/categories/categoriesSlice'
+import { newInternalCategory } from '../../../common/redux/categories/categoriesSlice'
 import { useNewProductMutation } from '../../../common/redux/products/productsApiSlice'
 import { useNewCategoryMutation } from '../../../common/redux/categories/categoriesApiSlice'
 import * as Helpers from './products.helpers'
@@ -18,11 +14,9 @@ const Products = () => {
   const dispatch = useDispatch()
 
   const products = useSelector(selectCurrentProducts)
-  const categories = useSelector(selectCurrentCategories)
 
   // states for view
   const [productsFiltered, setProductsFiltered] = useState(products)
-  const [categoriesFiltred, setCategoriesFiltred] = useState(categories)
   const [showNewProduct, setShowNewProduct] = useState(false)
   const [showNewCategory, setShowNewCategory] = useState(false)
   const [showInactiveProducts, setShowInactivePRoducts] = useState(false)
@@ -44,10 +38,6 @@ const Products = () => {
   useEffect(() => {
     setProductsFiltered(products)
   }, [products])
-
-  useEffect(() => {
-    setCategoriesFiltred(categories)
-  }, [categories])
 
   useEffect(() => {
     if (productStatus === 'fulfilled') {
@@ -89,7 +79,6 @@ const Products = () => {
       categoryRef={categoryRef}
       setProductsFiltered={setProductsFiltered}
       searchRef={searchRef}
-      categoriesFiltred={categoriesFiltred}
       productdFiltered={productsFiltered}
       newProduct={newProduct}
       newCategory={newCategory}
@@ -101,7 +90,6 @@ const Products = () => {
       msgCategoryError={msgCategoryError}
       productsFiltered={productsFiltered}
       showNewCategory={showNewCategory}
-      categoriesFiltered={categoriesFiltred}
       handleShowInactiveProducts={Helpers.handleShowInactiveProducts}
       showInactiveProducts={showInactiveProducts}
       setShowInactiveProducts={setShowInactivePRoducts}

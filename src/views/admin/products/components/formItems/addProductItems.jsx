@@ -1,7 +1,10 @@
 import styles from './formItems.module.scss'
 import propTypes from 'prop-types'
+import { useSelector } from 'react-redux'
+import { selectCurrentCategories } from '../../../../../common/redux/categories/categoriesSlice'
 
-const AddProductItems = ({ formValues, handleChange, categories, buttonLabel }) => {
+const AddProductItems = ({ formValues, handleChange, buttonLabel }) => {
+  const categories = useSelector(selectCurrentCategories)
   return (
     <>
       <div className={styles.formGroup}>
@@ -102,10 +105,5 @@ export default AddProductItems
 AddProductItems.propTypes = {
   formValues: propTypes.object.isRequired,
   handleChange: propTypes.func.isRequired,
-  categories: propTypes.array,
   buttonLabel: propTypes.string.isRequired
-}
-
-AddProductItems.defaultProps = {
-  categories: []
 }

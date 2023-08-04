@@ -5,6 +5,8 @@ import Form from '../../../../common/components/form/form'
 import AddProductItems from './formItems/addProductItems'
 import AddCategoryItems from './formItems/addCategoryItems'
 import InactiveProducts from '../../../../common/components/inactiveProducts/inactiveProducts'
+import { useSelector } from 'react-redux'
+import { selectCurrentCategories } from '../../../../common/redux/categories/categoriesSlice'
 
 const ProductsComponent = ({
   handleShow,
@@ -21,7 +23,6 @@ const ProductsComponent = ({
   categoryRef,
   setProductsFiltered,
   searchRef,
-  categoriesFiltred,
   productsFiltered,
   newProduct,
   newCategory,
@@ -33,9 +34,9 @@ const ProductsComponent = ({
   handleCategorySubmit,
   handleShowInactiveProducts,
   showInactiveProducts,
-  setShowInactiveProducts,
-  inactiveProducts
+  setShowInactiveProducts
 }) => {
+  const categories = useSelector(selectCurrentCategories)
   return (
     <div className={styles.container}>
       <div className={styles.menu}>
@@ -75,7 +76,7 @@ const ProductsComponent = ({
               ref={categoryRef}
             >
               <option value="0">Todas las categorias</option>
-              {categoriesFiltred.map(category => (
+              {categories.map(category => (
                 <option key={category._id} value={category._id}>
                   {category.name}
                 </option>
@@ -98,7 +99,6 @@ const ProductsComponent = ({
           <AddProductItems
             formValues={formValues}
             handleChange={e => handleChange(e, formValues, setFormValues)}
-            categories={categoriesFiltred}
             buttonLabel="Agregar"
           />
         </Form>
@@ -148,7 +148,6 @@ ProductsComponent.propTypes = {
   categoryRef: propTypes.object.isRequired,
   setProductsFiltered: propTypes.func.isRequired,
   categoryRef: propTypes.object.isRequired,
-  categoriesFiltered: propTypes.array.isRequired,
   productsFiltered: propTypes.array.isRequired,
   newProduct: propTypes.func.isRequired,
   newCategory: propTypes.func.isRequired,
@@ -160,6 +159,5 @@ ProductsComponent.propTypes = {
   handleCategorySubmit: propTypes.func.isRequired,
   handleShowInactiveProducts: propTypes.func.isRequired,
   showInactiveProducts: propTypes.bool.isRequired,
-  setShowInactiveProducts: propTypes.func.isRequired,
-  inactiveProducts: propTypes.array.isRequired
+  setShowInactiveProducts: propTypes.func.isRequired
 }
