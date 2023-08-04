@@ -4,7 +4,7 @@ import { selectCurrentInactiveProducts } from '../../redux/products/productsSlic
 import { useSelector } from 'react-redux'
 import Spinner from '../spinner/spinner'
 
-const InactiveProductsTable = ({ handleActive, loading }) => {
+const InactiveProductsTable = ({ handleActive, loading, msgError }) => {
   const inactiveProducts = useSelector(selectCurrentInactiveProducts)
 
   return (
@@ -15,6 +15,7 @@ const InactiveProductsTable = ({ handleActive, loading }) => {
             <Spinner size="md" /> Activando producto...
           </span>
         )}
+        {msgError && <span className={styles.error}>¡error! {msgError}</span>}
       </div>
       <div className={styles.table}>
         <table className={styles.table}>
@@ -51,5 +52,6 @@ export default InactiveProductsTable
 
 InactiveProductsTable.propTypes = {
   handleActive: propTypes.func.isRequired,
-  loading: propTypes.bool.isRequired
+  loading: propTypes.bool.isRequired,
+  msgError: propTypes.string
 }

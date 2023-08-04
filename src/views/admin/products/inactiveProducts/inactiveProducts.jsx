@@ -44,7 +44,11 @@ const InactiveProducts = ({ handleShow, show, setShow }) => {
       modalRef={modalRef}
       className={styles.container}
     >
-      <InactiveProductsTable handleActive={handleActive} loading={status === 'pending'} />
+      <InactiveProductsTable
+        handleActive={handleActive}
+        loading={status === 'pending'}
+        msgError={msgError}
+      />
     </Modal>
   )
 }
