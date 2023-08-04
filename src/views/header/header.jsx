@@ -3,6 +3,7 @@ import Header from '../../common/components/header/header'
 import { useSelector, useDispatch } from 'react-redux'
 import { selectCurrentRoles } from '../../common/redux/auth/authSlice'
 import { logout } from '../../common/redux/auth/authSlice'
+import { useLogoutSessionMutation } from '../../common/redux/auth/authApiSlice'
 
 const HeaderView = () => {
   const roles = useSelector(selectCurrentRoles)
@@ -10,8 +11,15 @@ const HeaderView = () => {
   const [isEncargado, setIsEncargado] = useState(false)
   const dispatch = useDispatch()
 
+  const [logoutSession] = useLogoutSessionMutation()
+
   const handleLogout = () => {
     dispatch(logout())
+    try {
+      logoutSession()
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   useEffect(() => {
