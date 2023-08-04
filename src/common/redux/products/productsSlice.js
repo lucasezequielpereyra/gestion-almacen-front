@@ -18,12 +18,12 @@ const productsSlice = createSlice({
     clearInactiveProducts: state => {
       state.inactiveProducts = []
     },
-    activeProduct: (state, action) => {
-      const { product } = action.payload
+    activeProducts: (state, action) => {
+      const { activeProduct } = action.payload
       state.inactiveProducts = state.inactiveProducts.filter(
-        product => product._id !== deletedProduct._id
+        product => product._id !== activeProduct._id
       )
-      state.products = [...state.products, product]
+      state.products = [...state.products, activeProduct]
     },
     newInternalProduct: (state, action) => {
       const { savedProduct } = action.payload
@@ -54,7 +54,7 @@ export const {
   updateInternalProduct,
   getInactiveProducts,
   clearInactiveProducts,
-  activeProduct
+  activeProducts
 } = productsSlice.actions
 
 export default productsSlice.reducer

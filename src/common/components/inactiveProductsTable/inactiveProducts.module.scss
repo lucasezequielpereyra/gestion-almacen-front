@@ -1,8 +1,23 @@
-@import '../../../utils/variables.scss';
+@import '../../utils/variables.scss';
 
 .container {
   width: 100%;
   height: 100%;
+
+  .loading {
+    span {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: $color-primary-variant;
+      margin-bottom: .4rem;
+
+      div {
+        margin-bottom: .2rem;
+      }
+    }
+  }
 
   .table {
     overflow: hidden;
@@ -31,28 +46,18 @@
 
         tr {
           .sku {
-            width: 115px;
+            width: 120px;
 
-            .editBtn,
-            .deleteBtn {
+            .actvBtn {
               visibility: hidden;
             }
 
-            .editBtn {
+            .actvBtn {
               font-size: 12px;
               margin: 0 8px;
               padding: 4.5px;
               border-radius: 5px;
               background-color: $color-secondary;
-              border: none;
-              color: $color-white;
-            }
-
-            .deleteBtn {
-              font-size: 12px;
-              padding: 4.5px;
-              border-radius: 5px;
-              background-color: $color-primary;
               border: none;
               color: $color-white;
             }
@@ -68,8 +73,7 @@
           td {
             background-color: $color-secondary-light;
 
-            .editBtn,
-            .deleteBtn {
+            .actvBtn {
               visibility: visible;
             }
           }

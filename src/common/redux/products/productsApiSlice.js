@@ -51,8 +51,20 @@ const deleteProductApiSlice = apiSlice.injectEndpoints({
   })
 })
 
+const activeProductApiSlice = apiSlice.injectEndpoints({
+  endpoints: builder => ({
+    activeProduct: builder.mutation({
+      query: id => ({
+        url: `/api/product/inactive/${id}`,
+        method: 'PUT'
+      })
+    })
+  })
+})
+
 export const { useGetProductsQuery } = productsApiSlice
 export const { useGetInactiveProductsQuery } = inactiveProductsApiSlice
 export const { useNewProductMutation } = newProductsApiSlice
 export const { useUpdateProductMutation } = updateProductApiSlice
 export const { useDeleteProductMutation } = deleteProductApiSlice
+export const { useActiveProductMutation } = activeProductApiSlice

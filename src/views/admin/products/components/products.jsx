@@ -4,7 +4,7 @@ import ProductsList from '../productsList/productsList'
 import Form from '../../../../common/components/form/form'
 import AddProductItems from './formItems/addProductItems'
 import AddCategoryItems from './formItems/addCategoryItems'
-import InactiveProducts from '../../../../common/components/inactiveProducts/inactiveProducts'
+import InactiveProducts from '../inactiveProducts/inactiveProducts'
 import { useSelector } from 'react-redux'
 import { selectCurrentCategories } from '../../../../common/redux/categories/categoriesSlice'
 
