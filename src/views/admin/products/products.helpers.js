@@ -38,7 +38,7 @@ export const handleChangeCategory = (e, products, searchRef, setProductsFiltered
   }
 
   const productsFiltered = copyProducts.filter(product => {
-    return product.category._id == value
+    return product.category._id == value && product.name.toLowerCase().includes(searchRefValue)
   })
   setProductsFiltered(productsFiltered)
 }
