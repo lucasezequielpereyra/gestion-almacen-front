@@ -4,6 +4,7 @@ import ProductsList from '../productsList/productsList'
 import Form from '../../../../common/components/form/form'
 import AddProductItems from './formItems/addProductItems'
 import AddCategoryItems from './formItems/addCategoryItems'
+import InactiveProducts from '../../../../common/components/inactiveProducts/inactiveProducts'
 
 const ProductsComponent = ({
   handleShow,
@@ -29,7 +30,11 @@ const ProductsComponent = ({
   msgCategoryError,
   handleChange,
   handleProductSubmit,
-  handleCategorySubmit
+  handleCategorySubmit,
+  handleShowInactiveProducts,
+  showInactiveProducts,
+  setShowInactiveProducts,
+  inactiveProducts
 }) => {
   return (
     <div className={styles.container}>
@@ -47,6 +52,12 @@ const ProductsComponent = ({
           }
         >
           Nueva Categoria
+        </button>
+        <button
+          className={styles.buttonAdd}
+          onClick={() => handleShowInactiveProducts(showInactiveProducts, setShowInactiveProducts)}
+        >
+          Ver Productos Inactivos
         </button>
       </div>
       <div className={styles.content}>
@@ -109,6 +120,13 @@ const ProductsComponent = ({
           />
         </Form>
       )}
+      {showInactiveProducts && (
+        <InactiveProducts
+          handleShow={handleShowInactiveProducts}
+          show={showInactiveProducts}
+          setShow={setShowInactiveProducts}
+        />
+      )}
     </div>
   )
 }
@@ -139,5 +157,9 @@ ProductsComponent.propTypes = {
   msgCategoryError: propTypes.string.isRequired,
   handleChange: propTypes.func.isRequired,
   handleProductSubmit: propTypes.func.isRequired,
-  handleCategorySubmit: propTypes.func.isRequired
+  handleCategorySubmit: propTypes.func.isRequired,
+  handleShowInactiveProducts: propTypes.func.isRequired,
+  showInactiveProducts: propTypes.bool.isRequired,
+  setShowInactiveProducts: propTypes.func.isRequired,
+  inactiveProducts: propTypes.array.isRequired
 }

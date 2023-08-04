@@ -51,6 +51,10 @@ export const handleShow = (show, setMsgError, setFormValues, setShow) => {
   setShow(!show)
 }
 
+export const handleShowInactiveProducts = (showInactiveProducts, setShowInactiveProducts) => {
+  setShowInactiveProducts(!showInactiveProducts)
+}
+
 export const handleChange = (e, formValues, setFormValues) => {
   const {
     target: { name, value }

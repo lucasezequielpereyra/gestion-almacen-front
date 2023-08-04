@@ -2,7 +2,8 @@ import { useState, useEffect, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import {
   newInternalProduct,
-  selectCurrentProducts
+  selectCurrentProducts,
+  selectCurrentInactiveProducts
 } from '../../../common/redux/products/productsSlice'
 import {
   selectCurrentCategories,
@@ -10,14 +11,7 @@ import {
 } from '../../../common/redux/categories/categoriesSlice'
 import { useNewProductMutation } from '../../../common/redux/products/productsApiSlice'
 import { useNewCategoryMutation } from '../../../common/redux/categories/categoriesApiSlice'
-import {
-  handleChangeSearch,
-  handleChangeCategory,
-  handleShow,
-  handleChange,
-  handleProductSubmit,
-  handleCategorySubmit
-} from './products.helpers'
+import * as Helpers from './products.helpers'
 import ProductsComponent from './components/products'
 
 const Products = () => {
@@ -31,6 +25,7 @@ const Products = () => {
   const [categoriesFiltred, setCategoriesFiltred] = useState(categories)
   const [showNewProduct, setShowNewProduct] = useState(false)
   const [showNewCategory, setShowNewCategory] = useState(false)
+  const [showInactiveProducts, setShowInactivePRoducts] = useState(false)
   const [formValues, setFormValues] = useState({})
   const [msgError, setMsgError] = useState('')
   const [msgCategoryError, setMsgCategoryError] = useState('')
@@ -58,7 +53,7 @@ const Products = () => {
     if (productStatus === 'fulfilled') {
       dispatch(newInternalProduct(dataProduct))
       setFormValues({})
-      handleShow(showNewProduct, setMsgError, setFormValues, setShowNewProduct)
+      Helpers.handleShow(showNewProduct, setMsgError, setFormValues, setShowNewProduct)
     }
 
     if (productStatus === 'rejected') {
@@ -70,7 +65,7 @@ const Products = () => {
     if (categoryStatus === 'fulfilled') {
       dispatch(newInternalCategory(dataCategory))
       setFormValues({})
-      handleShow(showNewCategory, setMsgCategoryError, setFormValues, setShowNewCategory)
+      Helpers.handleShow(showNewCategory, setMsgCategoryError, setFormValues, setShowNewCategory)
     }
 
     if (categoryStatus === 'rejected') {
@@ -80,7 +75,7 @@ const Products = () => {
 
   return (
     <ProductsComponent
-      handleShow={handleShow}
+      handleShow={Helpers.handleShow}
       showNewProduct={showNewProduct}
       setMsgError={setMsgError}
       setFormValues={setFormValues}
@@ -88,8 +83,8 @@ const Products = () => {
       showMewCategory={showNewCategory}
       setMsgCategoryError={setMsgCategoryError}
       setShowNewCategory={setShowNewCategory}
-      handleChangeSearch={handleChangeSearch}
-      handleChangeCategory={handleChangeCategory}
+      handleChangeSearch={Helpers.handleChangeSearch}
+      handleChangeCategory={Helpers.handleChangeCategory}
       products={products}
       categoryRef={categoryRef}
       setProductsFiltered={setProductsFiltered}
@@ -99,14 +94,17 @@ const Products = () => {
       newProduct={newProduct}
       newCategory={newCategory}
       formValues={formValues}
-      handleChange={handleChange}
-      handleProductSubmit={handleProductSubmit}
-      handleCategorySubmit={handleCategorySubmit}
+      handleChange={Helpers.handleChange}
+      handleProductSubmit={Helpers.handleProductSubmit}
+      handleCategorySubmit={Helpers.handleCategorySubmit}
       msgError={msgError}
       msgCategoryError={msgCategoryError}
       productsFiltered={productsFiltered}
       showNewCategory={showNewCategory}
       categoriesFiltered={categoriesFiltred}
+      handleShowInactiveProducts={Helpers.handleShowInactiveProducts}
+      showInactiveProducts={showInactiveProducts}
+      setShowInactiveProducts={setShowInactivePRoducts}
     />
   )
 }
