@@ -1,7 +1,8 @@
 import styles from './formItems.module.scss'
 import propTypes from 'prop-types'
+import Spinner from '../../../../../common/components/spinner/spinner'
 
-const AddCategoryItems = ({ formValues, handleChange, categories, buttonLabel }) => {
+const AddCategoryItems = ({ formValues, handleChange, buttonLabel, loading }) => {
   return (
     <>
       <div className={styles.formGroup}>
@@ -15,7 +16,9 @@ const AddCategoryItems = ({ formValues, handleChange, categories, buttonLabel })
         />
       </div>
       <div className={styles.formGroup}>
-        <input type="submit" value={buttonLabel} />
+        <button type="submit">
+          {loading && <Spinner size="sm" />} {buttonLabel}
+        </button>
       </div>
     </>
   )
@@ -26,10 +29,6 @@ export default AddCategoryItems
 AddCategoryItems.propTypes = {
   formValues: propTypes.object.isRequired,
   handleChange: propTypes.func.isRequired,
-  categories: propTypes.array,
-  buttonLabel: propTypes.string.isRequired
-}
-
-AddCategoryItems.defaultProps = {
-  categories: []
+  buttonLabel: propTypes.string.isRequired,
+  loading: propTypes.bool.isRequired
 }

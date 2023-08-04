@@ -93,6 +93,7 @@ const Products = () => {
       handleShowInactiveProducts={Helpers.handleShowInactiveProducts}
       showInactiveProducts={showInactiveProducts}
       setShowInactiveProducts={setShowInactivePRoducts}
+      loading={productStatus === 'pending' || categoryStatus === 'pending'}
     />
   )
 }

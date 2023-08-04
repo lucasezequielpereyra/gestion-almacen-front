@@ -2,9 +2,11 @@ import styles from './formItems.module.scss'
 import propTypes from 'prop-types'
 import { useSelector } from 'react-redux'
 import { selectCurrentCategories } from '../../../../../common/redux/categories/categoriesSlice'
+import Spinner from '../../../../../common/components/spinner/spinner'
 
-const AddProductItems = ({ formValues, handleChange, buttonLabel }) => {
+const AddProductItems = ({ formValues, handleChange, buttonLabel, loading }) => {
   const categories = useSelector(selectCurrentCategories)
+
   return (
     <>
       <div className={styles.formGroup}>
@@ -94,7 +96,9 @@ const AddProductItems = ({ formValues, handleChange, buttonLabel }) => {
         />
       </div>
       <div className={styles.formGroup}>
-        <input type="submit" value={buttonLabel} />
+        <button type="submit">
+          {loading && <Spinner size="sm" />} {buttonLabel}
+        </button>
       </div>
     </>
   )
@@ -105,5 +109,6 @@ export default AddProductItems
 AddProductItems.propTypes = {
   formValues: propTypes.object.isRequired,
   handleChange: propTypes.func.isRequired,
-  buttonLabel: propTypes.string.isRequired
+  buttonLabel: propTypes.string.isRequired,
+  loading: propTypes.bool.isRequired
 }

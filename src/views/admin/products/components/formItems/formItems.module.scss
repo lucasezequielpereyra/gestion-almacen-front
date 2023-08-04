@@ -21,7 +21,8 @@
     padding: 5px;
   }
 
-  input[type='submit'] {
+  button[type='submit'] {
+    margin-top: 1rem;
     width: 100%;
     padding: 10px;
     border: none;
@@ -31,5 +32,12 @@
     font-weight: 500;
     text-transform: uppercase;
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    div {
+      margin-right: 0.5rem;
+    }
   }
 }

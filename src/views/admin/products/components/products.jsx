@@ -34,7 +34,8 @@ const ProductsComponent = ({
   handleCategorySubmit,
   handleShowInactiveProducts,
   showInactiveProducts,
-  setShowInactiveProducts
+  setShowInactiveProducts,
+  loading
 }) => {
   const categories = useSelector(selectCurrentCategories)
   return (
@@ -100,6 +101,7 @@ const ProductsComponent = ({
             formValues={formValues}
             handleChange={e => handleChange(e, formValues, setFormValues)}
             buttonLabel="Agregar"
+            loading={loading}
           />
         </Form>
       )}
@@ -117,6 +119,7 @@ const ProductsComponent = ({
             formValues={formValues}
             handleChange={e => handleChange(e, formValues, setFormValues)}
             buttonLabel="Agregar"
+            loading={loading}
           />
         </Form>
       )}
@@ -159,5 +162,6 @@ ProductsComponent.propTypes = {
   handleCategorySubmit: propTypes.func.isRequired,
   handleShowInactiveProducts: propTypes.func.isRequired,
   showInactiveProducts: propTypes.bool.isRequired,
-  setShowInactiveProducts: propTypes.func.isRequired
+  setShowInactiveProducts: propTypes.func.isRequired,
+  loading: propTypes.bool.isRequired
 }
