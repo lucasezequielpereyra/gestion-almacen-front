@@ -69,6 +69,7 @@ const ProductsTable = ({
             handleChange={handleChange}
             categories={categories}
             buttonLabel="Actualizar"
+            loading={loading}
           />
         </Form>
       )}

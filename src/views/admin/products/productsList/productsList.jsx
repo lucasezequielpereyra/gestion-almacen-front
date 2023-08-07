@@ -19,6 +19,7 @@ const ProductsList = ({ products }) => {
   const [formValues, setFormValues] = useState({})
   const [msgError, setMsgError] = useState('')
   const [categories, setCategories] = useState([])
+  const [loading, setLoading] = useState(false)
   const dispatch = useDispatch()
 
   const handleModalEdit = product => {
@@ -53,14 +54,20 @@ const ProductsList = ({ products }) => {
   }
 
   useEffect(() => {
+    if (statusUpdate === 'pending') {
+      setLoading(true)
+    }
+
     if (statusUpdate === 'fulfilled') {
       dispatch(updateInternalProduct({ updatedProduct: dataProduct }))
       setFormValues({})
       setModalEdit(false)
+      setLoading(false)
     }
 
     if (statusUpdate === 'rejected') {
       setMsgError(errorUpdate.data?.error)
+      setLoading(false)
     }
   }, [statusUpdate])
 
@@ -75,14 +82,17 @@ const ProductsList = ({ products }) => {
   }
 
   useEffect(() => {
+    if (statusDelete === 'pending') setLoading(true)
     if (statusDelete === 'fulfilled') {
       dispatch(deleteInternalProduct({ deletedProduct: productModal }))
       setFormValues({})
       setModalDelete(false)
+      setLoading(false)
     }
 
     if (statusDelete === 'rejected') {
       setMsgError(errorDelete.data?.error)
+      setLoading(false)
     }
   }, [statusDelete])
 
@@ -120,7 +130,7 @@ const ProductsList = ({ products }) => {
       handleModalDelete={handleModalDelete}
       handleDelete={handleDelete}
       modalDelete={modalDelete}
-      loading={statusUpdate === 'pending' || statusDelete === 'pending'}
+      loading={loading}
     />
   )
 }
