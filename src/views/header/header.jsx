@@ -24,10 +24,11 @@ const HeaderView = () => {
 
   useEffect(() => {
     if (roles) {
-      if (roles.includes(process.env.REACT_APP_DUENIO)) {
+      if (roles.map(role => role._id).includes(process.env.REACT_APP_DUENIO)) {
         setIsDueño(true)
+        setIsEncargado(true)
       }
-      if (roles.includes(process.env.REACT_APP_ENCARGADO)) {
+      if (roles.map(role => role._id).includes(process.env.REACT_APP_ENCARGADO)) {
         setIsEncargado(true)
       }
     }
