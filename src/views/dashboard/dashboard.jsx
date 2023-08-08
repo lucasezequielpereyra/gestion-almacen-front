@@ -1,5 +1,10 @@
+import Header from './components/header'
 const Dashboard = () => {
-  return <div>dasboard</div>
+  return (
+    <div>
+      <Header />
+    </div>
+  )
 }
 
 export default Dashboard
