@@ -9,7 +9,7 @@ import {
   updateInternalProduct
 } from '../../../../common/redux/products/productsSlice'
 import { useDispatch } from 'react-redux'
-import ProductsTable from '../../../../common/components/productsTable/productsTable'
+import ProductsTable from '../components/productsTable'
 import propTypes from 'prop-types'
 
 const ProductsList = ({ products }) => {

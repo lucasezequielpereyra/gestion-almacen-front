@@ -1,8 +1,8 @@
 import styles from './inactiveProducts.module.scss'
 import propTypes from 'prop-types'
-import { selectCurrentInactiveProducts } from '../../redux/products/productsSlice'
+import { selectCurrentInactiveProducts } from '../../../../../common/redux/products/productsSlice'
 import { useSelector } from 'react-redux'
-import Spinner from '../spinner/spinner'
+import Spinner from '../../../../../common/components/spinner/spinner'
 
 const InactiveProductsTable = ({ handleActive, loading, msgError }) => {
   const inactiveProducts = useSelector(selectCurrentInactiveProducts)

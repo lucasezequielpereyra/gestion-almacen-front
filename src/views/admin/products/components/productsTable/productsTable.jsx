@@ -1,8 +1,8 @@
 import propTypes from 'prop-types'
 import styles from './productsTable.module.scss'
-import Form from '../form/'
-import AddProductItems from '../../../views/admin/products/components/formItems/addProductItems'
-import Spinner from '../spinner/spinner'
+import Form from '../../../../../common/components/form/form'
+import AddProductItems from '../formItems/addProductItems'
+import Spinner from '../../../../../common/components/spinner/spinner'
 
 const ProductsTable = ({
   products,
