@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import FormLogin from '../../common/components/formLogin'
+import FormLogin from './components/formLogin'
 import { selectCurrentToken } from '../../common/redux/auth/authSlice'
 import { useDispatch, useSelector } from 'react-redux'
 import { login } from '../../common/redux/auth/authSlice'
