@@ -9,7 +9,7 @@ import Unauthorized from './views/unauthorized'
 import Admin from './views/admin'
 
 const ROLES = {
-  dueño: process.env.REACT_APP_DUENIO,
+  duenio: process.env.REACT_APP_DUENIO,
   encargado: process.env.REACT_APP_ENCARGADO,
   empleado: process.env.REACT_APP_EMPLEADO
 }
@@ -25,12 +25,15 @@ const App = () => {
             <Route path="/unauthorized" element={<Unauthorized />} />
 
             {/* protected routes */}
-            <Route path="/" element={<Protected allowedRoles={[ROLES.empleado]} />}>
+            <Route
+              path="/"
+              element={<Protected allowedRoles={[ROLES.empleado, ROLES.encargado, ROLES.duenio]} />}
+            >
               <Route path="/dashboard" element={<Dashboard />} />
             </Route>
 
             {/* encargado routes */}
-            <Route element={<Protected allowedRoles={[ROLES.encargado, ROLES.dueño]} />}>
+            <Route element={<Protected allowedRoles={[ROLES.encargado, ROLES.duenio]} />}>
               <Route path="/admin" element={<Admin />} />
               <Route path="/admin/productos" element={<Admin />} />
             </Route>

@@ -7,7 +7,7 @@ const Protected = ({ allowedRoles }) => {
   const token = useSelector(selectCurrentToken)
   const location = useLocation()
 
-  return roles?.find(role => allowedRoles?.includes(role)) ? (
+  return roles?.find(role => allowedRoles?.includes(role?._id)) ? (
     <Outlet />
   ) : token ? (
     <Navigate to="/unauthorized" state={{ from: location }} />
