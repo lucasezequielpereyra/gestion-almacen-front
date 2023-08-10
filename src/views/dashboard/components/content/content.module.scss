@@ -1,0 +1,33 @@
+@import '../../../../common/utils/variables.scss';
+
+.container {
+  padding: 0 4rem;
+
+  .searchProduct {
+    display: flex;
+    gap: 1rem;
+
+    input {
+      height: 2rem;
+      width: 20rem;
+      border: 1px solid $color-primary-variant;
+      border-radius: 5px;
+      padding: 0 1rem;
+      margin-bottom: 1rem;
+    }
+
+    button {
+      height: 2rem;
+      width: 5rem;
+      border: none;
+      border-radius: 5px;
+      background-color: $color-primary;
+      color: #fff;
+      cursor: pointer;
+
+      .icon {
+        font-size: 1.3rem;
+      }
+    }
+  }
+}
