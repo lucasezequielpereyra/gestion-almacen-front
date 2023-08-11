@@ -1,8 +1,18 @@
+import { useState, useEffect } from 'react'
+import { useSelector } from 'react-redux'
+import { selectCurrentProducts } from '../../../../common/redux/products/productsSlice'
+import { FaCheck } from 'react-icons/fa6'
 import styles from './content.module.scss'
 import propTypes from 'prop-types'
-import { FaCheck } from 'react-icons/fa6'
 
-const Content = ({ products, inputRef }) => {
+const Content = ({ inputRef }) => {
+  const reduxProds = useSelector(selectCurrentProducts)
+  const [products, setProducts] = useState([])
+
+  useEffect(() => {
+    setProducts(reduxProds)
+  }, [reduxProds])
+
   return (
     <div className={styles.container}>
       <div className={styles.searchProduct}>
@@ -23,6 +33,5 @@ const Content = ({ products, inputRef }) => {
 export default Content
 
 Content.propTypes = {
-  products: propTypes.array.isRequired,
   inputRef: propTypes.object.isRequired
 }
