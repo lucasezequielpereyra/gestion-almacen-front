@@ -1,6 +1,6 @@
 import Header from './components/header'
 import Content from './components/content/'
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import { selectCurrentProducts } from '../../common/redux/products/productsSlice'
 import { useUpdateProducts } from '../../common/hooks/useUpdateProducts'
@@ -11,12 +11,19 @@ const Dashboard = () => {
   useUpdateProducts()
   useUpdateCategories()
 
+  // input search ref
+  const inputSearchRef = useRef(null)
+
   const [products, setProducts] = useState(useSelector(selectCurrentProducts))
+
+  useEffect(() => {
+    inputSearchRef.current.focus()
+  }, [])
 
   return (
     <div>
       <Header />
-      <Content products={products} />
+      <Content products={products} inputRef={inputSearchRef} />
     </div>
   )
 }
