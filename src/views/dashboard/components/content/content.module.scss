@@ -16,6 +16,10 @@
       margin-bottom: 1rem;
     }
 
+    input[type='number'] {
+      width: 4.5rem;
+    }
+
     button {
       height: 2rem;
       width: 5rem;
@@ -27,6 +31,82 @@
 
       .icon {
         font-size: 1.3rem;
+      }
+    }
+  }
+
+  .msgSearch {
+    margin-top: -.5rem;
+
+    p {
+      color: $color-secondary;
+      font-size: 1rem;
+      display: flex;
+      gap: .5rem;
+    }
+  }
+
+  .table {
+    width: 100%;
+    margin-top: 1rem;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    table {
+      width: 75%;
+      border-collapse: collapse;
+
+
+      thead {
+        width: 100%;
+        background-color: $color-primary;
+        color: $color-white;
+
+        tr {
+          th {
+            padding: 0.5rem;
+            text-align: left;
+            text-transform: uppercase;
+          }
+        }
+      }
+
+      tbody {
+        width: 100%;
+        background-color: $color-white;
+
+        tr {
+          td {
+            padding: 0.5rem;
+            text-align: left;
+
+            .deleteProduct {
+              visibility: hidden;
+              background-color: $color-secondary;
+              color: $color-white;
+              padding: 0.3rem;
+              border: none;
+              text-transform: uppercase;
+              border-radius: 5px;
+              font-size: .8rem;
+            }
+
+            &:hover {
+              .deleteProduct {
+                visibility: visible;
+                cursor: pointer;
+              }
+            }
+          }
+        }
+
+        tr:hover {
+          td {
+            background-color: $color-secondary-light;
+          }
+        }
       }
     }
   }
