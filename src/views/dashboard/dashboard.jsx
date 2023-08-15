@@ -38,7 +38,10 @@ const Dashboard = () => {
     const product = reduxProds.find(prod => prod.name === inputSearchRef.current.value)
 
     if (!product) return setMsg('El producto no existe')
-    if (quantityRef.current.value < 1) return setMsg('La cantidad debe ser mayor a 0')
+    if (quantityRef.current.value < 1) {
+      setMsg('La cantidad debe ser mayor a 0')
+      return quantityRef.current.focus()
+    }
 
     if (cartProducts.length === 0) {
       const newProduct = {
