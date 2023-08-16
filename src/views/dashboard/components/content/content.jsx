@@ -32,7 +32,7 @@ const Content = ({
               )}
             </div>
           </div>
-          <input type="number" name="quantity" defaultValue={1} ref={quantityRef} />
+          <input type="number" name="quantity" defaultValue={1} min={1} ref={quantityRef} />
           <datalist id="products">
             {products.map((product, index) => (
               <option key={index} value={product.name} />
