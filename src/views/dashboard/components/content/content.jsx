@@ -9,33 +9,47 @@ const Content = ({
   handleDeleteProduct,
   msg,
   cartProducts,
-  products
+  products,
+  handleReset,
+  handleConfirm
 }) => {
   return (
     <div className={styles.container}>
-      <div className={styles.searchProduct}>
-        <input
-          list="products"
-          name="products"
-          placeholder="Busca un producto..."
-          ref={inputSearchRef}
-        />
-        <input type="number" name="quantity" defaultValue={1} ref={quantityRef} />
-        <datalist id="products">
-          {products.map((product, index) => (
-            <option key={index} value={product.name} />
-          ))}
-        </datalist>
-        <button onClick={handleAddProduct}>
-          <FaCheck className={styles.icon} />
-        </button>
-      </div>
-      <div className={styles.msgSearch}>
-        {msg && (
-          <p>
-            <FaCircleExclamation /> {msg}
-          </p>
-        )}
+      <div className={styles.contentHeader}>
+        <div className={styles.searchProduct}>
+          <div className={styles.inputProduct}>
+            <input
+              list="products"
+              name="products"
+              placeholder="Busca un producto..."
+              ref={inputSearchRef}
+            />
+            <div className={styles.msgSearch}>
+              {msg && (
+                <p>
+                  <FaCircleExclamation /> {msg}
+                </p>
+              )}
+            </div>
+          </div>
+          <input type="number" name="quantity" defaultValue={1} ref={quantityRef} />
+          <datalist id="products">
+            {products.map((product, index) => (
+              <option key={index} value={product.name} />
+            ))}
+          </datalist>
+          <button onClick={handleAddProduct}>
+            <FaCheck className={styles.icon} />
+          </button>
+        </div>
+        <div className={styles.confirmationProducts}>
+          <button className={styles.confirm} onClick={handleConfirm}>
+            Confirmar
+          </button>
+          <button className={styles.cancel} onClick={handleReset}>
+            Restablecer
+          </button>
+        </div>
       </div>
       <div className={styles.table}>
         <table>
@@ -80,5 +94,7 @@ Content.propTypes = {
   handleDeleteProduct: propTypes.func.isRequired,
   msg: propTypes.string.isRequired,
   cartProducts: propTypes.array.isRequired,
-  products: propTypes.array.isRequired
+  products: propTypes.array.isRequired,
+  handleReset: propTypes.func.isRequired,
+  handleConfirm: propTypes.func.isRequired
 }

@@ -5,6 +5,7 @@ import { useUpdateProducts, useUpdateInactiveProducts } from '../../common/hooks
 import { useUpdateCategories } from '../../common/hooks/useUpdateCategories'
 import { useSelector } from 'react-redux'
 import { selectCurrentProducts } from '../../common/redux/products/productsSlice'
+import Modal from '../../common/components/modal'
 
 const Dashboard = () => {
   useUpdateProducts()
@@ -17,10 +18,12 @@ const Dashboard = () => {
   const [products, setProducts] = useState([])
   const [cartProducts, setCartProducts] = useState([])
   const [msg, setMsg] = useState('')
+  const [modalConfirm, setModalConfirm] = useState(false)
 
   // refs hooks
   const inputSearchRef = useRef()
   const quantityRef = useRef()
+  const modalRef = useRef()
 
   // effect hooks
   useEffect(() => {
@@ -84,6 +87,15 @@ const Dashboard = () => {
     }
   }
 
+  const handleReset = () => {
+    setCartProducts([])
+    inputSearchRef.current.focus()
+  }
+
+  const handleConfirm = () => {
+    setModalConfirm(!modalConfirm)
+  }
+
   return (
     <div>
       <Header />
@@ -95,7 +107,19 @@ const Dashboard = () => {
         msg={msg}
         cartProducts={cartProducts}
         products={products}
+        handleReset={handleReset}
+        handleConfirm={handleConfirm}
       />
+      {modalConfirm && (
+        <Modal
+          handleModal={handleConfirm}
+          modalTitle="Confirmar venta"
+          active={modalConfirm}
+          modalRef={modalRef}
+        >
+          asd
+        </Modal>
+      )}
     </div>
   )
 }
