@@ -19,7 +19,18 @@
 
   .modal {
     background-color: $color-background;
-    width: 400px;
+
+    &.sm {
+      width: 400px;
+    }
+
+    &.md {
+      width: 50%;
+    }
+
+    &.lg {
+      width: 75%;
+    }
 
     .modalHeader {
       display: flex;

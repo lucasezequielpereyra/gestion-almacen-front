@@ -3,16 +3,22 @@ import propTypes from 'prop-types'
 import classNames from 'class-names'
 import styles from './modal.module.scss'
 
-const Modal = ({ handleModal, children, modalTitle, active, modalRef, className }) => {
+const Modal = ({ handleModal, children, modalTitle, active, modalRef, className, size }) => {
   const [modal] = useState(active)
 
   const modalClass = classNames(styles.container, className, {
     [styles.active]: modal
   })
 
+  const modalSize = classNames(styles.modal, {
+    [styles.sm]: size === 'sm',
+    [styles.md]: size === 'md',
+    [styles.lg]: size === 'lg'
+  })
+
   return (
     <div className={modalClass}>
-      <div className={styles.modal} ref={modalRef}>
+      <div className={modalSize} ref={modalRef}>
         <div className={styles.modalHeader}>
           <h3 className={styles.modalTitle}>{modalTitle}</h3>
           <button className={styles.closeButton} onClick={handleModal}>
@@ -34,10 +40,12 @@ Modal.propTypes = {
   modalTitle: propTypes.string,
   active: propTypes.bool.isRequired,
   modalRef: propTypes.object,
-  className: propTypes.string
+  className: propTypes.string,
+  size: propTypes.oneOf(['sm', 'md', 'lg'])
 }
 
 Modal.defaultProps = {
   children: null,
-  modalTitle: 'Modal'
+  modalTitle: 'Modal',
+  size: 'sm'
 }
