@@ -6,6 +6,7 @@ import { useUpdateCategories } from '../../common/hooks/useUpdateCategories'
 import { useSelector } from 'react-redux'
 import { selectCurrentProducts } from '../../common/redux/products/productsSlice'
 import Modal from '../../common/components/modal'
+import ConfirmOrder from './components/confirmOrder'
 
 const Dashboard = () => {
   useUpdateProducts()
@@ -48,6 +49,7 @@ const Dashboard = () => {
 
     if (cartProducts.length === 0) {
       const newProduct = {
+        sku: product.sku,
         name: product.name,
         quantity: quantityRef.current.value,
         price: product.price_sale
@@ -57,9 +59,9 @@ const Dashboard = () => {
       return setCartProducts([newProduct])
     }
 
-    if (cartProducts.find(prod => prod.name === product.name)) {
+    if (cartProducts.find(prod => prod.sku === product.sku)) {
       const newCartProducts = cartProducts.map(prod => {
-        if (prod.name === product.name) {
+        if (prod.sku === product.sku) {
           prod.quantity = parseInt(prod.quantity) + parseInt(quantityRef.current.value)
         }
         return prod
@@ -70,6 +72,7 @@ const Dashboard = () => {
     }
 
     const newProduct = {
+      sku: product.sku,
       name: product.name,
       quantity: quantityRef.current.value,
       price: product.price_sale
@@ -89,10 +92,14 @@ const Dashboard = () => {
 
   const handleReset = () => {
     setCartProducts([])
+    setMsg('')
+    inputSearchRef.current.value = ''
+    quantityRef.current.value = 1
     inputSearchRef.current.focus()
   }
 
   const handleConfirm = () => {
+    if (cartProducts.length === 0) return setMsg('No hay productos en el carrito')
     setModalConfirm(!modalConfirm)
   }
 
@@ -116,8 +123,9 @@ const Dashboard = () => {
           modalTitle="Confirmar venta"
           active={modalConfirm}
           modalRef={modalRef}
+          size="lg"
         >
-          asd
+          <ConfirmOrder />
         </Modal>
       )}
     </div>

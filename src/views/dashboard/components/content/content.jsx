@@ -55,6 +55,7 @@ const Content = ({
         <table>
           <thead>
             <tr>
+              <th>sku</th>
               <th>producto</th>
               <th>cantidad</th>
               <th>precio</th>
@@ -65,7 +66,7 @@ const Content = ({
               return (
                 <tr key={index}>
                   <td>
-                    {product.name}{' '}
+                    {product.sku}
                     <button
                       className={styles.deleteProduct}
                       onClick={handleDeleteProduct(product.name)}
@@ -73,6 +74,7 @@ const Content = ({
                       quitar
                     </button>
                   </td>
+                  <td>{product.name}</td>
                   <td>{product.quantity}</td>
                   <td>{product.price}</td>
                 </tr>

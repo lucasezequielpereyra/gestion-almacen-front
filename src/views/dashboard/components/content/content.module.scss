@@ -14,6 +14,7 @@
 
       .inputProduct {
         display: flex;
+        flex-direction: column;
 
         .msgSearch {
           margin-top: -.5rem;
@@ -127,6 +128,7 @@
               text-transform: uppercase;
               border-radius: 5px;
               font-size: .8rem;
+              margin-left: .5rem
             }
 
             &:hover {
