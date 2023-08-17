@@ -3,9 +3,27 @@ import propTypes from 'prop-types'
 import { useSelector } from 'react-redux'
 import { selectCurrentCategories } from '../../../../../common/redux/categories/categoriesSlice'
 import Spinner from '../../../../../common/components/spinner/spinner'
+import { useState, useEffect } from 'react'
 
-const AddProductItems = ({ formValues, handleChange, buttonLabel, loading }) => {
+const AddProductItems = ({ formValues, handleChange, buttonLabel, loading, defaultCategory }) => {
   const categories = useSelector(selectCurrentCategories)
+
+  const [selected, setSelected] = useState()
+
+  useEffect(() => {
+    if (!formValues.category) {
+      return setSelected('default')
+    }
+    if (formValues.category) {
+      return setSelected(formValues.category)
+    }
+  }, [formValues.category])
+
+  useEffect(() => {
+    if (defaultCategory) {
+      setSelected(defaultCategory)
+    }
+  }, [])
 
   return (
     <>
@@ -31,15 +49,12 @@ const AddProductItems = ({ formValues, handleChange, buttonLabel, loading }) => 
       </div>
       <div className={styles.formGroup}>
         <label htmlFor="category">Categoria</label>
-        <select name="category" id="category" onChange={handleChange}>
-          <option hidden>Elige una Opción</option>
-
+        <select name="category" id="category" onChange={handleChange} value={selected}>
+          <option value="default" disabled>
+            Seleccionar Categoria
+          </option>
           {categories.map((category, index) => (
-            <option
-              key={index}
-              value={category.name}
-              selected={formValues.category?._id === category?._id}
-            >
+            <option key={index} value={category.name}>
               {category.name}
             </option>
           ))}
@@ -110,5 +125,6 @@ AddProductItems.propTypes = {
   formValues: propTypes.object.isRequired,
   handleChange: propTypes.func.isRequired,
   buttonLabel: propTypes.string.isRequired,
-  loading: propTypes.bool.isRequired
+  loading: propTypes.bool.isRequired,
+  defaultCategory: propTypes.string
 }

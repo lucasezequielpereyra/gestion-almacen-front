@@ -70,6 +70,7 @@ const ProductsTable = ({
             categories={categories}
             buttonLabel="Actualizar"
             loading={loading}
+            defaultCategory={formValues.category && formValues.category.name}
           />
         </Form>
       )}
