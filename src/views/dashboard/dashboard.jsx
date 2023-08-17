@@ -47,11 +47,13 @@ const Dashboard = () => {
       return quantityRef.current.focus()
     }
 
+    if (isNaN(quantityRef.current.value)) return setMsg('La cantidad debe ser un número')
+
     if (cartProducts.length === 0) {
       const newProduct = {
         sku: product.sku,
         name: product.name,
-        quantity: quantityRef.current.value,
+        quantity: parseInt(quantityRef.current.value),
         price: product.price_sale
       }
       inputSearchRef.current.value = ''
@@ -74,7 +76,7 @@ const Dashboard = () => {
     const newProduct = {
       sku: product.sku,
       name: product.name,
-      quantity: quantityRef.current.value,
+      quantity: parseInt(quantityRef.current.value),
       price: product.price_sale
     }
     inputSearchRef.current.value = ''
@@ -125,7 +127,7 @@ const Dashboard = () => {
           modalRef={modalRef}
           size="lg"
         >
-          <ConfirmOrder />
+          <ConfirmOrder products={cartProducts} />
         </Modal>
       )}
     </div>
