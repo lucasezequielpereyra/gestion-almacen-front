@@ -11,7 +11,7 @@
   backdrop-filter: blur(5px);
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   z-index: 100;
   box-sizing: border-box;
   margin: 0;
@@ -19,7 +19,7 @@
 
   .modal {
     background-color: $color-background;
-    margin-bottom: 50%;
+    margin-top: 5rem;
 
     &.sm {
       width: 400px;
