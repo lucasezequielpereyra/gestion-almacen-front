@@ -1,7 +1,7 @@
 import styles from './confirmOrder.module.scss'
 import propTypes from 'prop-types'
 
-const ConfirmOrder = ({ products }) => {
+const ConfirmOrder = ({ products, handleCash, handleClose }) => {
   return (
     <div className={styles.container}>
       <h3>Detalle de la venta</h3>
@@ -26,10 +26,14 @@ const ConfirmOrder = ({ products }) => {
       <div className={styles.confirmOrder}>
         <h4>Confirmar Venta</h4>
         <div className={styles.buttons}>
-          <button className={styles.button}>Efectivo</button>
+          <button className={styles.button} onClick={handleCash}>
+            Efectivo
+          </button>
           <button className={styles.button}>Tarjeta</button>
           <button className={styles.button}>Mercado Pago</button>
-          <button className={styles.button}>Cancelar</button>
+          <button className={styles.button} onClick={handleClose}>
+            Cancelar
+          </button>
         </div>
       </div>
     </div>
@@ -46,5 +50,7 @@ ConfirmOrder.propTypes = {
       price: propTypes.number,
       quantity: propTypes.number
     })
-  )
+  ),
+  handleCash: propTypes.func.isRequired,
+  handleClose: propTypes.func.isRequired
 }

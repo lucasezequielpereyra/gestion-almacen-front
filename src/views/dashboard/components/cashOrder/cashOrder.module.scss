@@ -1,0 +1,87 @@
+@import '../../../../common/utils/variables.scss';
+
+.container {
+  margin: 0 1rem;
+  padding-bottom: 1rem;
+
+  .header {
+    button {
+      border: 1px solid $color-primary-variant;
+      border-radius: 10px;
+      background-color: transparent;
+      display: flex;
+      gap: .5rem;
+      font-size: .9rem;
+      cursor: pointer;
+      padding: .3rem .5rem;
+    }
+  }
+
+  .content {
+    margin-top: 2rem;
+
+    .importe {
+      font-size: 1.5rem;
+      font-weight: 800;
+      margin-bottom: 1rem;
+
+    }
+
+    .pagoContainer {
+      display: flex;
+      align-items: center;
+
+      label {
+        font-size: 1.2rem;
+        font-weight: 500;
+        text-transform: uppercase;
+        margin-right: .5rem;
+      }
+
+
+      input {
+        height: 2rem;
+        width: 20rem;
+        border: 1px solid $color-primary-variant;
+        border-radius: 5px;
+        padding: 0 1rem;
+      }
+    }
+
+    .errorMsg {
+      color: $color-primary;
+      font-size: .9rem;
+      margin-top: .5rem;
+
+      span {
+        display: flex;
+        align-items: center;
+        gap: .5rem;
+      }
+    }
+
+    .confirmContainer {
+      margin-top: 2rem;
+      display: flex;
+      flex-direction: column;
+
+      p {
+        font-size: 1.2rem;
+        font-weight: 800;
+        text-transform: uppercase;
+        margin-bottom: .5rem;
+      }
+
+      button {
+        padding: .5rem 1rem;
+        border-radius: 5px;
+        border: none;
+        font-size: 1.2rem;
+        cursor: pointer;
+        transition: all .2s ease-in-out;
+        background-color: $color-secondary;
+        color: $color-white;
+      }
+    }
+  }
+}

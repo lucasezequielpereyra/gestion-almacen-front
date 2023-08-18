@@ -7,6 +7,7 @@ import { useSelector } from 'react-redux'
 import { selectCurrentProducts } from '../../common/redux/products/productsSlice'
 import Modal from '../../common/components/modal'
 import ConfirmOrder from './components/confirmOrder'
+import CashOrder from './components/cashOrder'
 
 const Dashboard = () => {
   useUpdateProducts()
@@ -20,11 +21,13 @@ const Dashboard = () => {
   const [cartProducts, setCartProducts] = useState([])
   const [msg, setMsg] = useState('')
   const [modalConfirm, setModalConfirm] = useState(false)
+  const [modalCash, setModalCash] = useState(false)
 
   // refs hooks
   const inputSearchRef = useRef()
   const quantityRef = useRef()
   const modalRef = useRef()
+  const modalCashRef = useRef()
 
   // effect hooks
   useEffect(() => {
@@ -105,6 +108,16 @@ const Dashboard = () => {
     setModalConfirm(!modalConfirm)
   }
 
+  const handleCash = () => {
+    setModalConfirm(false)
+    setModalCash(!modalCash)
+  }
+
+  const handleBack = setState => {
+    setState(false)
+    setModalConfirm(true)
+  }
+
   return (
     <div>
       <Header />
@@ -127,7 +140,28 @@ const Dashboard = () => {
           modalRef={modalRef}
           size="lg"
         >
-          <ConfirmOrder products={cartProducts} />
+          <ConfirmOrder
+            products={cartProducts}
+            handleCash={handleCash}
+            handleClose={handleConfirm}
+          />
+        </Modal>
+      )}
+      {modalCash && (
+        <Modal
+          handleModal={() => handleBack(setModalCash)}
+          modalTitle="Pago en efectivo"
+          active={modalCash}
+          modalRef={modalCashRef}
+          size="lg"
+        >
+          <CashOrder
+            handleBack={() => handleBack(setModalCash)}
+            totalOrder={cartProducts.reduce(
+              (acc, product) => acc + product.price * product.quantity,
+              0
+            )}
+          />
         </Modal>
       )}
     </div>
