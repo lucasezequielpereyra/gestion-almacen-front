@@ -55,7 +55,7 @@ const CashOrder = ({ handleBack, totalOrder }) => {
           </div>
         )}
         <div className={styles.confirmContainer}>
-          {vuelto > 0 && <p>Vuelto: ${vuelto} </p>}
+          {vuelto > 0 && <p>Vuelto: ${vuelto.toFixed(2)} </p>}
           <button>Confrimar</button>
         </div>
       </div>
