@@ -8,12 +8,12 @@ import { selectCurrentProducts } from '../../common/redux/products/productsSlice
 import Modal from '../../common/components/modal'
 import ConfirmOrder from './components/confirmOrder'
 import CashOrder from './components/cashOrder'
+import { usePressEscKey } from '../../common/hooks/usePressEscKey'
 
 const Dashboard = () => {
   useUpdateProducts()
   useUpdateInactiveProducts()
   useUpdateCategories()
-
   const reduxProds = useSelector(selectCurrentProducts)
 
   // state hooks
@@ -22,6 +22,9 @@ const Dashboard = () => {
   const [msg, setMsg] = useState('')
   const [modalConfirm, setModalConfirm] = useState(false)
   const [modalCash, setModalCash] = useState(false)
+
+  // hook to close modal with esc key
+  usePressEscKey(setModalConfirm)
 
   // refs hooks
   const inputSearchRef = useRef()
