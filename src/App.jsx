@@ -7,6 +7,7 @@ import Protected from './views/protected'
 import Dashboard from './views/dashboard'
 import Unauthorized from './views/unauthorized'
 import Admin from './views/admin'
+import Owner from './views/owner'
 
 const ROLES = {
   duenio: process.env.REACT_APP_DUENIO,
@@ -36,6 +37,11 @@ const App = () => {
             <Route element={<Protected allowedRoles={[ROLES.encargado, ROLES.duenio]} />}>
               <Route path="/admin" element={<Admin />} />
               <Route path="/admin/productos" element={<Admin />} />
+            </Route>
+
+            {/* duenio routes */}
+            <Route element={<Protected allowedRoles={[ROLES.duenio]} />}>
+              <Route path="/owner" element={<Owner />} />
             </Route>
           </Route>
         </Routes>

@@ -46,7 +46,7 @@ const Header = ({ isDueño, isEncargado, handleLogout }) => {
         )}
         {isDueño && (
           <div className={styles.navItem}>
-            <Link to="#">Empleados</Link>
+            <Link to="/owner">Empleados</Link>
           </div>
         )}
       </div>
