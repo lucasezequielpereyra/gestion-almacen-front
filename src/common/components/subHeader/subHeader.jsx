@@ -3,10 +3,11 @@ import {
   selectCurrentUser,
   selectCurrentOrganization,
   selectCurrentRoles
-} from '../../../../common/redux/auth/authSlice'
-import styles from './header.module.scss'
+} from '../../redux/auth/authSlice'
+import styles from './subHeader.module.scss'
+import propTypes from 'prop-types'
 
-const Header = () => {
+const SubHeader = ({ title }) => {
   const userName = useSelector(selectCurrentUser)
   const roles = useSelector(selectCurrentRoles)
   const organization = useSelector(selectCurrentOrganization)
@@ -24,8 +25,15 @@ const Header = () => {
           <span className={styles.strong}>{roles.map(role => role.name).join(' - ')}</span>
         </span>
       </div>
+      <div>
+        <h1>{title}</h1>
+      </div>
     </div>
   )
 }
 
-export default Header
+export default SubHeader
+
+SubHeader.propTypes = {
+  title: propTypes.string
+}

@@ -1,4 +1,4 @@
-import Header from './components/header'
+import SubHeader from '../../common/components/subHeader'
 import Content from './components/content/'
 import { useRef, useEffect, useState } from 'react'
 import { useUpdateProducts, useUpdateInactiveProducts } from '../../common/hooks/useUpdateProducts'
@@ -123,7 +123,7 @@ const Dashboard = () => {
 
   return (
     <div>
-      <Header />
+      <SubHeader title="Punto de venta" />
       <Content
         inputSearchRef={inputSearchRef}
         quantityRef={quantityRef}

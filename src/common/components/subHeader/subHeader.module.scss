@@ -1,9 +1,12 @@
-@import '../../../../common/utils/variables.scss';
+@import '../../utils/variables.scss';
 
 .container {
   display: flex;
   flex-direction: column;
   padding: 2rem;
+  gap: 1rem;
+  user-select: none;
+
 
   .data {
     display: flex;
@@ -13,14 +16,18 @@
     padding: .5rem;
     width: fit-content;
     border-radius: 10px;
-    user-select: none;
 
-    span {
+    margin- span {
       color: $color-secondary;
     }
   }
 
   .strong {
     font-weight: bold;
+  }
+
+  h1 {
+    text-align: center;
+    text-transform: uppercase;
   }
 }
