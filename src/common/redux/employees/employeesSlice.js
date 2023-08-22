@@ -1,49 +1,55 @@
-import { apiSlice } from '../api/apiSlice'
+import { createSlice } from '@reduxjs/toolkit'
 
-const employeesApiSlice = apiSlice.injectEndpoints({
-  endpoints: builder => ({
-    getEmployees: builder.query({
-      query: () => '/api/employee'
-    })
-  })
-})
-
-const newEmployeeApiSlice = apiSlice.injectEndpoints({
-  endpoints: builder => ({
-    newEmployee: builder.mutation({
-      query: employee => ({
-        url: '/api/employee',
-        method: 'POST',
-        body: { ...employee }
+const employeesSlice = createSlice({
+  name: 'employees',
+  initialState: { employees: [], inactiveEmployees: [] },
+  reducers: {
+    getEmployees: (state, action) => {
+      const { foundEmployees } = action.payload
+      state.employees = foundEmployees
+    },
+    getInactiveEmployees: (state, action) => {
+      const { foundEmployees } = action.payload
+      state.inactiveEmployees = foundEmployees
+    },
+    activeEmployees: (state, action) => {
+      const { activeEmployee } = action.payload
+      state.inactiveEmployees = state.inactiveEmployees.filter(
+        employee => employee._id !== activeEmployee._id
+      )
+      state.employees = [...state.employees, activeEmployee]
+    },
+    newInternalEmployee: (state, action) => {
+      const { savedEmployee } = action.payload
+      state.employees = [...state.employees, savedEmployee]
+    },
+    updateInternalEmployee: (state, action) => {
+      const { updatedEmployee } = action.payload
+      state.employees = state.employees.map(employee => {
+        if (employee._id === updatedEmployee._id) {
+          return updatedEmployee
+        }
+        return employee
       })
-    })
-  })
+    },
+    deleteInternalEmployee: (state, action) => {
+      const { deletedEmployee } = action.payload
+      state.employees = state.employees.filter(employee => employee._id !== deletedEmployee._id)
+      state.inactiveEmployees = [...state.inactiveEmployees, deletedEmployee]
+    }
+  }
 })
 
-const updateEmployeeApiSlice = apiSlice.injectEndpoints({
-  endpoints: builder => ({
-    updateEmployee: builder.mutation({
-      query: employee => ({
-        url: `/api/employee/${employee.id}`,
-        method: 'PUT',
-        body: { ...employee }
-      })
-    })
-  })
-})
+export const {
+  getEmployees,
+  getInactiveEmployees,
+  activeEmployees,
+  newInternalEmployee,
+  deleteInternalEmployee,
+  updateInternalEmployee
+} = employeesSlice.actions
 
-const deleteEmployeeApiSlice = apiSlice.injectEndpoints({
-  endpoints: builder => ({
-    deleteEmployee: builder.mutation({
-      query: id => ({
-        url: `/api/employee/${id}`,
-        method: 'DELETE'
-      })
-    })
-  })
-})
+export default employeesSlice.reducer
 
-export const { useGetEmployeesQuery } = employeesApiSlice
-export const { useNewEmployeeMutation } = newEmployeeApiSlice
-export const { useUpdateEmployeeMutation } = updateEmployeeApiSlice
-export const { useDeleteEmployeeMutation } = deleteEmployeeApiSlice
+export const selectCurrentEmployees = state => state.employees.employees
+export const selectInactiveEmployees = state => state.employees.inactiveEmployees
