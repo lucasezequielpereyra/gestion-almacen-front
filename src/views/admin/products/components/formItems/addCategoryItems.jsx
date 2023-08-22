@@ -1,6 +1,7 @@
 import styles from './formItems.module.scss'
 import propTypes from 'prop-types'
 import Spinner from '../../../../../common/components/spinner/spinner'
+import Button from '../../../../../common/components/button'
 
 const AddCategoryItems = ({ formValues, handleChange, buttonLabel, loading }) => {
   return (
@@ -16,9 +17,9 @@ const AddCategoryItems = ({ formValues, handleChange, buttonLabel, loading }) =>
         />
       </div>
       <div className={styles.formGroup}>
-        <button type="submit">
+        <Button type="submit" color="primary" block uppercase>
           {loading && <Spinner size="sm" />} {buttonLabel}
-        </button>
+        </Button>
       </div>
     </>
   )

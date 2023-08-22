@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux'
 import { selectCurrentCategories } from '../../../../../common/redux/categories/categoriesSlice'
 import Spinner from '../../../../../common/components/spinner/spinner'
 import { useState, useEffect } from 'react'
+import Button from '../../../../../common/components/button'
 
 const AddProductItems = ({ formValues, handleChange, buttonLabel, loading, defaultCategory }) => {
   const categories = useSelector(selectCurrentCategories)
@@ -111,9 +112,9 @@ const AddProductItems = ({ formValues, handleChange, buttonLabel, loading, defau
         />
       </div>
       <div className={styles.formGroup}>
-        <button type="submit">
+        <Button type="submit" color="primary" block uppercase>
           {loading && <Spinner size="sm" />} {buttonLabel}
-        </button>
+        </Button>
       </div>
     </>
   )

@@ -1,6 +1,7 @@
 import { FaCheck, FaCircleExclamation } from 'react-icons/fa6'
 import styles from './content.module.scss'
 import propTypes from 'prop-types'
+import Button from '../../../../common/components/button'
 
 const Content = ({
   inputSearchRef,
@@ -38,17 +39,23 @@ const Content = ({
               <option key={index} value={product.name} />
             ))}
           </datalist>
-          <button onClick={handleAddProduct}>
+          <Button className={styles.buttonCheck} onClick={handleAddProduct}>
             <FaCheck className={styles.icon} />
-          </button>
+          </Button>
         </div>
         <div className={styles.confirmationProducts}>
-          <button className={styles.confirm} onClick={handleConfirm}>
+          <Button className={styles.confirm} onClick={handleConfirm} size="lg" uppercase>
             Confirmar
-          </button>
-          <button className={styles.cancel} onClick={handleReset}>
+          </Button>
+          <Button
+            className={styles.cancel}
+            onClick={handleReset}
+            color="secondary"
+            size="lg"
+            uppercase
+          >
             Restablecer
-          </button>
+          </Button>
         </div>
       </div>
       <div className={styles.table}>

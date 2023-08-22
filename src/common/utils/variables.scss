@@ -14,3 +14,16 @@ $color-primary-variant-light: (
 $color-black: #000000;
 $color-white: #ffffff;
 $color-background: #f3f3f3;
+
+// Colors map
+$colors: (
+  primary: $color-primary,
+  primary-light: $color-primary-light,
+  secondary: $color-secondary,
+  secondary-light: $color-secondary-light,
+  primary-variant: $color-primary-variant,
+  primary-variant-light: $color-primary-variant-light,
+  dark: $color-black,
+  white: $color-white,
+  background: $color-background
+);

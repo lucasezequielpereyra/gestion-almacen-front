@@ -6,18 +6,6 @@
   .menu {
     display: flex;
     gap: 1rem;
-
-    .buttonAdd {
-      border: none;
-      cursor: pointer;
-      background-color: $color-secondary;
-      color: $color-white;
-      font-weight: 500;
-      font-size: 14px;
-      padding: .7rem;
-      border-radius: 5px
-    }
-
   }
 
   .content {

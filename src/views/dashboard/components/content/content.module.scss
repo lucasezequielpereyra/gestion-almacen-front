@@ -42,14 +42,10 @@
         width: 4.5rem;
       }
 
-      button {
+      .buttonCheck {
         height: 2rem;
         width: 5rem;
         border: none;
-        border-radius: 5px;
-        background-color: $color-primary;
-        color: #fff;
-        cursor: pointer;
 
         .icon {
           font-size: 1.3rem;
@@ -61,25 +57,25 @@
       display: flex;
       gap: 1rem;
 
-      button {
-        height: 3rem;
-        border: none;
-        border-radius: 5px;
-        background-color: $color-primary;
-        color: #fff;
-        cursor: pointer;
-        font-size: 1rem;
-        text-transform: uppercase;
-        padding: 0 1rem;
+      // button {
+      //   height: 3rem;
+      //   border: none;
+      //   border-radius: 5px;
+      //   background-color: $color-primary;
+      //   color: #fff;
+      //   cursor: pointer;
+      //   font-size: 1rem;
+      //   text-transform: uppercase;
+      //   padding: 0 1rem;
 
-        &.confirm {
-          background-color: $color-primary;
-        }
+      //   &.confirm {
+      //     background-color: $color-primary;
+      //   }
 
-        &.cancel {
-          background-color: $color-secondary;
-        }
-      }
+      //   &.cancel {
+      //     background-color: $color-secondary;
+      //   }
+      // }
     }
   }
 

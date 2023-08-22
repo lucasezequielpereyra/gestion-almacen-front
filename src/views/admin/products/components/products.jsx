@@ -5,6 +5,7 @@ import Form from '../../../../common/components/form/form'
 import AddProductItems from './formItems/addProductItems'
 import AddCategoryItems from './formItems/addCategoryItems'
 import InactiveProducts from '../inactiveProducts/inactiveProducts'
+import Button from '../../../../common/components/button'
 import { useSelector } from 'react-redux'
 import { selectCurrentCategories } from '../../../../common/redux/categories/categoriesSlice'
 
@@ -41,26 +42,29 @@ const ProductsComponent = ({
   return (
     <div className={styles.container}>
       <div className={styles.menu}>
-        <button
+        <Button
           className={styles.buttonAdd}
           onClick={() => handleShow(showNewProduct, setMsgError, setFormValues, setShowNewProduct)}
+          color="secondary"
         >
           Nuevo Producto
-        </button>
-        <button
+        </Button>
+        <Button
           className={styles.buttonAdd}
           onClick={() =>
             handleShow(showNewCategory, setMsgCategoryError, setFormValues, setShowNewCategory)
           }
+          color="secondary"
         >
           Nueva Categoria
-        </button>
-        <button
+        </Button>
+        <Button
           className={styles.buttonAdd}
           onClick={() => handleShowInactiveProducts(showInactiveProducts, setShowInactiveProducts)}
+          color="secondary"
         >
           Ver Productos Inactivos
-        </button>
+        </Button>
       </div>
       <div className={styles.content}>
         <h1>Lista de Productos</h1>
