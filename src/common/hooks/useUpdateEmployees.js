@@ -9,7 +9,7 @@ export const useUpdateEmployees = () => {
   const { data: data, isSuccess } = useGetEmployeesQuery()
 
   useEffect(() => {
-    if (isSuccess && employees.length === 0) {
+    if (isSuccess && employees?.length === 0) {
       dispatch(getEmployees(data))
     }
   }, [data])

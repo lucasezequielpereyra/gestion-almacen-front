@@ -17,7 +17,7 @@ export const useUpdateProducts = () => {
   const { data: data, isSuccess } = useGetProductsQuery()
 
   useEffect(() => {
-    if (isSuccess && products.length === 0) {
+    if (isSuccess && products?.length === 0) {
       dispatch(getProducts(data))
     }
   }, [data])
@@ -29,7 +29,7 @@ export const useUpdateInactiveProducts = () => {
   const { data: data, isSuccess } = useGetInactiveProductsQuery()
 
   useEffect(() => {
-    if (isSuccess && inactiveProducts.length === 0) {
+    if (isSuccess && inactiveProducts?.length === 0) {
       dispatch(getInactiveProducts(data))
     }
   }, [data])

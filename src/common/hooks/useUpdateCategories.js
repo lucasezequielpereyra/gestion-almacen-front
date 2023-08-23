@@ -9,7 +9,7 @@ export const useUpdateCategories = () => {
   const { data: data, isSuccess } = useGetCategoriesQuery()
 
   useEffect(() => {
-    if (isSuccess && categories.length === 0) {
+    if (isSuccess && categories?.length === 0) {
       dispatch(getCategories(data))
     }
   }, [data])
