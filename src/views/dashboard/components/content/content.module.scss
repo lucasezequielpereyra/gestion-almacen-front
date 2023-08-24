@@ -9,7 +9,6 @@
 
     .searchProduct {
       display: flex;
-
       gap: 1rem;
 
       .inputProduct {
@@ -43,6 +42,7 @@
       }
 
       .buttonCheck {
+        margin: 0;
         height: 2rem;
         width: 5rem;
         border: none;
