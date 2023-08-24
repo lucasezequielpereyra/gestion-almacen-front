@@ -2,11 +2,12 @@ import { createSlice } from '@reduxjs/toolkit'
 
 const employeesSlice = createSlice({
   name: 'employees',
-  initialState: { employees: [], inactiveEmployees: [] },
+  initialState: { roles: [], employees: [], inactiveEmployees: [] },
   reducers: {
     getEmployees: (state, action) => {
-      const { foundEmployees } = action.payload
+      const { foundEmployees, foundRoles } = action.payload
       state.employees = foundEmployees
+      state.roles = foundRoles
     },
     getInactiveEmployees: (state, action) => {
       const { foundEmployees } = action.payload
@@ -51,5 +52,6 @@ export const {
 
 export default employeesSlice.reducer
 
+export const selectCurrentRoles = state => state.employees.roles
 export const selectCurrentEmployees = state => state.employees.employees
 export const selectInactiveEmployees = state => state.employees.inactiveEmployees
