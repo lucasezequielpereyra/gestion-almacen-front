@@ -7,7 +7,7 @@ import {
 import { newInternalCategory } from '../../../common/redux/categories/categoriesSlice'
 import { useNewProductMutation } from '../../../common/redux/products/productsApiSlice'
 import { useNewCategoryMutation } from '../../../common/redux/categories/categoriesApiSlice'
-import * as Helpers from './products.helpers'
+import * as Methods from './products.methods'
 import ProductsComponent from './components/products'
 
 const Products = () => {
@@ -43,7 +43,7 @@ const Products = () => {
     if (productStatus === 'fulfilled') {
       dispatch(newInternalProduct(dataProduct))
       setFormValues({})
-      Helpers.handleShow(showNewProduct, setMsgError, setFormValues, setShowNewProduct)
+      Methods.handleShow(showNewProduct, setMsgError, setFormValues, setShowNewProduct)
     }
 
     if (productStatus === 'rejected') {
@@ -55,7 +55,7 @@ const Products = () => {
     if (categoryStatus === 'fulfilled') {
       dispatch(newInternalCategory(dataCategory))
       setFormValues({})
-      Helpers.handleShow(showNewCategory, setMsgCategoryError, setFormValues, setShowNewCategory)
+      Methods.handleShow(showNewCategory, setMsgCategoryError, setFormValues, setShowNewCategory)
     }
 
     if (categoryStatus === 'rejected') {
@@ -65,7 +65,7 @@ const Products = () => {
 
   return (
     <ProductsComponent
-      handleShow={Helpers.handleShow}
+      handleShow={Methods.handleShow}
       showNewProduct={showNewProduct}
       setMsgError={setMsgError}
       setFormValues={setFormValues}
@@ -73,8 +73,8 @@ const Products = () => {
       showMewCategory={showNewCategory}
       setMsgCategoryError={setMsgCategoryError}
       setShowNewCategory={setShowNewCategory}
-      handleChangeSearch={Helpers.handleChangeSearch}
-      handleChangeCategory={Helpers.handleChangeCategory}
+      handleChangeSearch={Methods.handleChangeSearch}
+      handleChangeCategory={Methods.handleChangeCategory}
       products={products}
       categoryRef={categoryRef}
       setProductsFiltered={setProductsFiltered}
@@ -83,14 +83,14 @@ const Products = () => {
       newProduct={newProduct}
       newCategory={newCategory}
       formValues={formValues}
-      handleChange={Helpers.handleChange}
-      handleProductSubmit={Helpers.handleProductSubmit}
-      handleCategorySubmit={Helpers.handleCategorySubmit}
+      handleChange={Methods.handleChange}
+      handleProductSubmit={Methods.handleProductSubmit}
+      handleCategorySubmit={Methods.handleCategorySubmit}
       msgError={msgError}
       msgCategoryError={msgCategoryError}
       productsFiltered={productsFiltered}
       showNewCategory={showNewCategory}
-      handleShowInactiveProducts={Helpers.handleShowInactiveProducts}
+      handleShowInactiveProducts={Methods.handleShowInactiveProducts}
       showInactiveProducts={showInactiveProducts}
       setShowInactiveProducts={setShowInactivePRoducts}
       loading={productStatus === 'pending' || categoryStatus === 'pending'}
