@@ -1,0 +1,31 @@
+@import '../../../../common/utils/variables.scss';
+
+.formGroup {
+  display: flex;
+  gap: .5rem;
+  align-items: center;
+
+  label {
+    font-weight: 500;
+    text-transform: uppercase;
+  }
+
+  input[type="text"],
+  input[type="password"],
+  .select {
+    width: 100%;
+    outline: none;
+    background-color: transparent;
+    border: 1px solid $color-primary-variant;
+    border-radius: 5px;
+    padding: 5px;
+  }
+
+  .select {
+    border: none;
+  }
+}
+
+button {
+  margin-top: 1rem
+}

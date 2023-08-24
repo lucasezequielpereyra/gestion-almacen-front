@@ -8,7 +8,7 @@ const EmployeesTable = ({ employees }) => {
         <table>
           <thead>
             <tr>
-              <th>user</th>
+              <th>usuario</th>
               <th>roles</th>
               <th>email</th>
             </tr>
