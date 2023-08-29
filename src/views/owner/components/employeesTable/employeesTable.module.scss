@@ -36,9 +36,50 @@
         background-color: $color-white;
 
         tr {
+          .username {
+            display: flex;
+            align-items: center;
+
+            .editBtn,
+            .deleteBtn {
+              visibility: hidden;
+            }
+
+            .editBtn {
+              font-size: 12px;
+              margin: 0 8px;
+              padding: 4.5px;
+              border-radius: 5px;
+              background-color: $color-secondary;
+              border: none;
+              color: $color-white;
+            }
+
+            .deleteBtn {
+              font-size: 12px;
+              margin: 0 8px;
+              padding: 4.5px;
+              border-radius: 5px;
+              background-color: $color-primary;
+              border: none;
+              color: $color-white;
+            }
+          }
+
           td {
             padding: 0.5rem;
             text-align: left;
+          }
+        }
+
+        tr:hover {
+          td {
+            background-color: $color-secondary-light;
+
+            .editBtn,
+            .deleteBtn {
+              visibility: visible;
+            }
           }
         }
 

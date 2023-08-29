@@ -3,9 +3,13 @@ import { useSelector, useDispatch } from 'react-redux'
 import {
   selectCurrentEmployees,
   selectCurrentRoles,
-  newInternalEmployee
+  newInternalEmployee,
+  updateInternalEmployee
 } from '../../common/redux/employees/employeesSlice'
-import { useNewEmployeeMutation } from '../../common/redux/employees/employeesApiSlice'
+import {
+  useNewEmployeeMutation,
+  useUpdateEmployeeMutation
+} from '../../common/redux/employees/employeesApiSlice'
 import { useUpdateEmployees } from '../../common/hooks/useUpdateEmployees'
 import Content from './components/content'
 import SubHeader from '../../common/components/subHeader'
@@ -22,11 +26,13 @@ const Owner = () => {
   // states
   const [employees, setEmployees] = useState([])
   const [roles, setRoles] = useState([])
+  const [employeeRoles, setEmployeeRoles] = useState([])
   const [loading, setLoading] = useState(false)
   const [modalNewEmployee, setModalNewEmployee] = useState(false)
   const [msgError, setMsgError] = useState('')
   const [formValues, setFormValues] = useState({})
   const [formRoles, setFormRoles] = useState([])
+  const [modalUpdateEmployee, setModalUpdateEmployee] = useState(false)
 
   useEffect(() => {
     setEmployees(reduxEmployees)
@@ -38,6 +44,11 @@ const Owner = () => {
     newEmployee,
     { error: newEmployeeError, status: newEmployeeStatus, data: newEmployeeData }
   ] = useNewEmployeeMutation()
+
+  const [
+    updateEmployee,
+    { error: updateEmployeeError, status: updateEmployeeStatus, data: updateEmployeeData }
+  ] = useUpdateEmployeeMutation()
 
   useEffect(() => {
     if (newEmployeeStatus === 'pending') {
@@ -53,6 +64,21 @@ const Owner = () => {
       handleShowNewEmployee()
     }
   }, [newEmployeeStatus])
+
+  useEffect(() => {
+    if (updateEmployeeStatus === 'pending') {
+      setLoading(true)
+    }
+    if (updateEmployeeStatus === 'rejected') {
+      setMsgError(updateEmployeeError.data?.error)
+      setLoading(false)
+    }
+    if (updateEmployeeStatus === 'fulfilled') {
+      dispatch(updateInternalEmployee(updateEmployeeData))
+      setLoading(false)
+      handleShowUpdateEmployee()
+    }
+  }, [updateEmployeeStatus])
 
   const handleChange = (e, selected) => {
     if (selected) {
@@ -80,6 +106,24 @@ const Owner = () => {
     setModalNewEmployee(!modalNewEmployee)
   }
 
+  const handleShowUpdateEmployee = employee => {
+    if (modalUpdateEmployee) {
+      setFormValues({})
+      setFormRoles([])
+      setMsgError('')
+    }
+    if (!modalUpdateEmployee) {
+      const { username, email } = employee
+      setFormValues({ username, email, _id: employee._id })
+      setFormRoles(employee.roles.map(role => role.name))
+
+      // recovered roles from employee
+      const parseToSelect = employee.roles.map(role => ({ value: role._id, label: role.name }))
+      setEmployeeRoles(parseToSelect)
+    }
+    setModalUpdateEmployee(!modalUpdateEmployee)
+  }
+
   const handleSubmit = e => {
     e.preventDefault()
     try {
@@ -94,10 +138,29 @@ const Owner = () => {
     }
   }
 
+  const handleSubmitUpdate = e => {
+    e.preventDefault()
+    try {
+      updateEmployee({
+        employeeId: formValues._id,
+        username: formValues.username,
+        email: formValues.email,
+        password: formValues.password,
+        roles: formRoles
+      })
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   return (
     <>
       <SubHeader title="Administración de Empleados" />
-      <Content employees={employees} handleShowNewEmployee={handleShowNewEmployee} />
+      <Content
+        employees={employees}
+        handleShowNewEmployee={handleShowNewEmployee}
+        handleShowUpdateEmployee={handleShowUpdateEmployee}
+      />
       {modalNewEmployee && (
         <Form
           active={modalNewEmployee}
@@ -110,6 +173,24 @@ const Owner = () => {
             formValues={formValues}
             handleChange={handleChange}
             buttonLabel="Agregar Usuario"
+            loading={loading}
+            availableRoles={roles}
+          />
+        </Form>
+      )}
+      {modalUpdateEmployee && (
+        <Form
+          active={modalUpdateEmployee}
+          handleModal={handleShowUpdateEmployee}
+          handleSubmit={handleSubmitUpdate}
+          msgError={msgError}
+          modalTitle="Editar Empleado"
+        >
+          <FormItems
+            formValues={formValues}
+            employeeRoles={employeeRoles}
+            handleChange={handleChange}
+            buttonLabel="Editar Usuario"
             loading={loading}
             availableRoles={roles}
           />

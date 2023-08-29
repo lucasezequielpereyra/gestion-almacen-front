@@ -24,7 +24,7 @@ const updateEmployeeApiSlice = apiSlice.injectEndpoints({
   endpoints: builder => ({
     updateEmployee: builder.mutation({
       query: employee => ({
-        url: `/api/owner/employees/${employee.id}`,
+        url: `/api/owner/employees`,
         method: 'PUT',
         body: { ...employee }
       })

@@ -4,7 +4,14 @@ import Button from '../../../../common/components/button/'
 import Select from 'react-select'
 import Spinner from '../../../../common/components/spinner/'
 
-const FormItems = ({ formValues, handleChange, buttonLabel, loading, availableRoles }) => {
+const FormItems = ({
+  formValues,
+  handleChange,
+  buttonLabel,
+  loading,
+  availableRoles,
+  employeeRoles
+}) => {
   const options = availableRoles.map(role => ({
     value: role._id,
     label: role.name
@@ -59,6 +66,7 @@ const FormItems = ({ formValues, handleChange, buttonLabel, loading, availableRo
           isMulti
           onChange={handleChange}
           isClearable={false}
+          defaultValue={employeeRoles}
         />
       </div>
       <div className={styles.formGroup}>
@@ -97,5 +105,10 @@ FormItems.propTypes = {
   handleChange: propTypes.func.isRequired,
   buttonLabel: propTypes.string.isRequired,
   loading: propTypes.bool.isRequired,
-  availableRoles: propTypes.array.isRequired
+  availableRoles: propTypes.array.isRequired,
+  employeeRoles: propTypes.array
+}
+
+FormItems.defaultProps = {
+  employeeRoles: []
 }
