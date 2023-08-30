@@ -2,8 +2,9 @@ import styles from './inactiveTable.module.scss'
 import propTypes from 'prop-types'
 import Spinner from '../../../../common/components/spinner'
 import { FaCheck } from 'react-icons/fa'
+import { FaCircleExclamation } from 'react-icons/fa6'
 
-const InactiveTable = ({ employees, handleActiveEmployee, loading }) => {
+const InactiveTable = ({ employees, handleActiveEmployee, loading, msgError }) => {
   return (
     <div className={styles.container}>
       <div className={styles.table}>
@@ -39,6 +40,11 @@ const InactiveTable = ({ employees, handleActiveEmployee, loading }) => {
           <Spinner size="sm" /> Activando empleado...
         </div>
       )}
+      {msgError !== '' && (
+        <div className={styles.error}>
+          <FaCircleExclamation /> {msgError}
+        </div>
+      )}
     </div>
   )
 }
@@ -48,10 +54,12 @@ export default InactiveTable
 InactiveTable.propTypes = {
   employees: propTypes.array,
   handleActiveEmployee: propTypes.func.isRequired,
-  loading: propTypes.bool
+  loading: propTypes.bool,
+  msgError: propTypes.string
 }
 
 InactiveTable.defaultProps = {
   employees: [],
-  loading: false
+  loading: false,
+  msgError: ''
 }

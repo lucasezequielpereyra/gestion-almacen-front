@@ -13,6 +13,16 @@
     margin-top: .5rem
   }
 
+  .error {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    gap: .5rem;
+    margin-top: .5rem;
+    color: $color-primary;
+  }
+
   .table {
     border: 1px solid #ccc;
     border-radius: 5px;

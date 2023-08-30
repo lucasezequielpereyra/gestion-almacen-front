@@ -5,15 +5,12 @@ import {
   selectCurrentRoles,
   newInternalEmployee,
   updateInternalEmployee,
-  selectInactiveEmployees,
-  deleteInternalEmployee,
-  activeEmployees
+  deleteInternalEmployee
 } from '../../common/redux/employees/employeesSlice'
 import {
   useNewEmployeeMutation,
   useUpdateEmployeeMutation,
-  useDeleteEmployeeMutation,
-  useActiveEmployeeMutation
+  useDeleteEmployeeMutation
 } from '../../common/redux/employees/employeesApiSlice'
 import {
   useUpdateEmployees,
@@ -31,20 +28,17 @@ const Owner = () => {
 
   const reduxEmployees = useSelector(selectCurrentEmployees)
   const reduxRoles = useSelector(selectCurrentRoles)
-  const reduxInactive = useSelector(selectInactiveEmployees)
 
   const dispatch = useDispatch()
 
   // states
   const [employees, setEmployees] = useState([])
-  const [inactiveEmployees, setInactiveEmployees] = useState([])
   const [roles, setRoles] = useState([])
   const [employeeRoles, setEmployeeRoles] = useState([])
   const [loading, setLoading] = useState({
     newEmployee: false,
     updateEmployee: false,
-    deleteEmployee: false,
-    activeEmployee: false
+    deleteEmployee: false
   })
   const [modalNewEmployee, setModalNewEmployee] = useState(false)
   const [msgError, setMsgError] = useState('')
@@ -56,8 +50,7 @@ const Owner = () => {
   useEffect(() => {
     setEmployees(reduxEmployees)
     setRoles(reduxRoles)
-    setInactiveEmployees(reduxInactive)
-  }, [reduxEmployees, reduxRoles, reduxInactive])
+  }, [reduxEmployees, reduxRoles])
 
   // redux actions
   const [
@@ -74,11 +67,6 @@ const Owner = () => {
     deleteEmployee,
     { error: deleteEmployeeError, status: deleteEmployeeStatus, data: deletedEmployee }
   ] = useDeleteEmployeeMutation()
-
-  const [
-    activeEmployee,
-    { error: activedEmployeeError, status: activedEmployeeStatus, data: activedEmployeeData }
-  ] = useActiveEmployeeMutation()
 
   useEffect(() => {
     if (newEmployeeStatus === 'pending') {
@@ -123,20 +111,6 @@ const Owner = () => {
       setLoading(loading => ({ ...loading, deleteEmployee: false }))
     }
   }, [deleteEmployeeStatus])
-
-  useEffect(() => {
-    if (activedEmployeeStatus === 'pending') {
-      setLoading(loading => ({ ...loading, activeEmployee: true }))
-    }
-    if (activedEmployeeStatus === 'rejected') {
-      setMsgError(activedEmployeeError.data?.error)
-      setLoading(loading => ({ ...loading, activeEmployee: false }))
-    }
-    if (activedEmployeeStatus === 'fulfilled') {
-      dispatch(activeEmployees({ data: activedEmployeeData }))
-      setLoading(loading => ({ ...loading, activeEmployee: false }))
-    }
-  }, [activedEmployeeStatus])
 
   const handleChange = (e, selected) => {
     if (selected) {
@@ -189,14 +163,6 @@ const Owner = () => {
   const handleDeleteEmployee = employee => {
     try {
       deleteEmployee(employee._id)
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
-  const handleActiveEmployee = employee => {
-    try {
-      activeEmployee(employee._id)
     } catch (error) {
       console.log(error)
     }
@@ -279,11 +245,8 @@ const Owner = () => {
       )}
       {modalInactiveEmployees && (
         <InactiveEmployees
-          activeModal={modalInactiveEmployees}
           handleModal={handleModalInactiveEmployees}
-          handleActiveEmployee={handleActiveEmployee}
-          employees={inactiveEmployees}
-          loading={loading.activeEmployee}
+          active={modalInactiveEmployees}
         />
       )}
     </>
