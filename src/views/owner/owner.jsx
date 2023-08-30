@@ -3,12 +3,10 @@ import { useSelector, useDispatch } from 'react-redux'
 import {
   selectCurrentEmployees,
   selectCurrentRoles,
-  newInternalEmployee,
   updateInternalEmployee,
   deleteInternalEmployee
 } from '../../common/redux/employees/employeesSlice'
 import {
-  useNewEmployeeMutation,
   useUpdateEmployeeMutation,
   useDeleteEmployeeMutation
 } from '../../common/redux/employees/employeesApiSlice'
@@ -144,20 +142,6 @@ const Owner = () => {
   const handleDeleteEmployee = employee => {
     try {
       deleteEmployee(employee._id)
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
-  const handleSubmit = e => {
-    e.preventDefault()
-    try {
-      newEmployee({
-        username: formValues.username,
-        email: formValues.email,
-        password: formValues.password,
-        roles: formRoles
-      })
     } catch (error) {
       console.log(error)
     }
