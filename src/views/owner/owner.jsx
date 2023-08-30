@@ -21,6 +21,7 @@ import SubHeader from '../../common/components/subHeader'
 import Form from '../../common/components/form'
 import FormItems from './components/formItems/formItems'
 import InactiveEmployees from './inactiveEmployees'
+import NewEmployee from './newEmployee'
 
 const Owner = () => {
   useUpdateEmployees()
@@ -54,11 +55,6 @@ const Owner = () => {
 
   // redux actions
   const [
-    newEmployee,
-    { error: newEmployeeError, status: newEmployeeStatus, data: newEmployeeData }
-  ] = useNewEmployeeMutation()
-
-  const [
     updateEmployee,
     { error: updateEmployeeError, status: updateEmployeeStatus, data: updateEmployeeData }
   ] = useUpdateEmployeeMutation()
@@ -67,21 +63,6 @@ const Owner = () => {
     deleteEmployee,
     { error: deleteEmployeeError, status: deleteEmployeeStatus, data: deletedEmployee }
   ] = useDeleteEmployeeMutation()
-
-  useEffect(() => {
-    if (newEmployeeStatus === 'pending') {
-      setLoading(loading => ({ ...loading, newEmployee: true }))
-    }
-    if (newEmployeeStatus === 'rejected') {
-      setMsgError(newEmployeeError.data?.error)
-      setLoading(loading => ({ ...loading, newEmployee: false }))
-    }
-    if (newEmployeeStatus === 'fulfilled') {
-      dispatch(newInternalEmployee(newEmployeeData))
-      setLoading(loading => ({ ...loading, newEmployee: false }))
-      handleShowNewEmployee()
-    }
-  }, [newEmployeeStatus])
 
   useEffect(() => {
     if (updateEmployeeStatus === 'pending') {
@@ -129,11 +110,11 @@ const Owner = () => {
     setFormValues({ ...formValues, [name]: value })
   }
 
-  const handleShowNewEmployee = () => {
+  const handleShowNewEmployee = (setValues, setRoles, setError) => {
     if (modalNewEmployee) {
-      setFormValues({})
-      setFormRoles([])
-      setMsgError('')
+      setValues({})
+      setRoles([])
+      setError('')
     }
     setModalNewEmployee(!modalNewEmployee)
   }
@@ -209,21 +190,7 @@ const Owner = () => {
         loading={loading.deleteEmployee}
       />
       {modalNewEmployee && (
-        <Form
-          active={modalNewEmployee}
-          handleModal={handleShowNewEmployee}
-          handleSubmit={handleSubmit}
-          msgError={msgError}
-          modalTitle="Nuevo Empleado"
-        >
-          <FormItems
-            formValues={formValues}
-            handleChange={handleChange}
-            buttonLabel="Agregar Usuario"
-            loading={loading.newEmployee}
-            availableRoles={roles}
-          />
-        </Form>
+        <NewEmployee active={modalNewEmployee} handleModal={handleShowNewEmployee} />
       )}
       {modalUpdateEmployee && (
         <Form
