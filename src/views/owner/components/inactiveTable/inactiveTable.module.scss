@@ -18,7 +18,6 @@
     border-radius: 5px;
     overflow: hidden;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-    width: 80%;
     margin: 2rem auto;
 
 
@@ -49,22 +48,11 @@
             display: flex;
             align-items: center;
 
-            .editBtn,
-            .deleteBtn {
+            .activeBtn {
               visibility: hidden;
             }
 
-            .editBtn {
-              font-size: 12px;
-              margin: 0 8px;
-              padding: 4.5px;
-              border-radius: 5px;
-              background-color: $color-secondary;
-              border: none;
-              color: $color-white;
-            }
-
-            .deleteBtn {
+            .activeBtn {
               font-size: 12px;
               margin: 0 8px;
               padding: 4.5px;
@@ -85,8 +73,7 @@
           td {
             background-color: $color-secondary-light;
 
-            .editBtn,
-            .deleteBtn {
+            .activeBtn {
               visibility: visible;
             }
           }

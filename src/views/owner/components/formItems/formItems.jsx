@@ -90,7 +90,7 @@ const FormItems = ({
         />
       </div>
       <div className={styles.formGroup}>
-        <Button type="submit" color="primary" block uppercase>
+        <Button type="submit" color="primary" block uppercase onClick={() => null}>
           {loading && <Spinner size="sm" />} {buttonLabel}
         </Button>
       </div>

@@ -1,8 +1,9 @@
-import styles from './employeesTable.module.scss'
+import styles from './inactiveTable.module.scss'
 import propTypes from 'prop-types'
 import Spinner from '../../../../common/components/spinner'
+import { FaCheck } from 'react-icons/fa'
 
-const EmployeesTable = ({ employees, handleShowUpdateEmployee, handleDeleteEmployee, loading }) => {
+const InactiveTable = ({ employees, handleActiveEmployee, loading }) => {
   return (
     <div className={styles.container}>
       <div className={styles.table}>
@@ -20,16 +21,10 @@ const EmployeesTable = ({ employees, handleShowUpdateEmployee, handleDeleteEmplo
                 <td className={styles.username}>
                   {employee.username}
                   <button
-                    className={styles.editBtn}
-                    onClick={() => handleShowUpdateEmployee(employee)}
+                    className={styles.activeBtn}
+                    onClick={() => handleActiveEmployee(employee)}
                   >
-                    editar
-                  </button>
-                  <button
-                    className={styles.deleteBtn}
-                    onClick={() => handleDeleteEmployee(employee)}
-                  >
-                    X
+                    <FaCheck />
                   </button>
                 </td>
                 <td>{employee.roles.map(role => role.name).join(' - ')}</td>
@@ -41,23 +36,22 @@ const EmployeesTable = ({ employees, handleShowUpdateEmployee, handleDeleteEmplo
       </div>
       {loading && (
         <div className={styles.loading}>
-          <Spinner size="sm" /> Eliminando empleado...
+          <Spinner size="sm" /> Activando empleado...
         </div>
       )}
     </div>
   )
 }
 
-export default EmployeesTable
+export default InactiveTable
 
-EmployeesTable.propTypes = {
+InactiveTable.propTypes = {
   employees: propTypes.array,
-  handleShowUpdateEmployee: propTypes.func.isRequired,
-  handleDeleteEmployee: propTypes.func.isRequired,
+  handleActiveEmployee: propTypes.func.isRequired,
   loading: propTypes.bool
 }
 
-EmployeesTable.defaultProps = {
+InactiveTable.defaultProps = {
   employees: [],
   loading: false
 }

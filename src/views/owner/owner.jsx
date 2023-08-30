@@ -4,40 +4,60 @@ import {
   selectCurrentEmployees,
   selectCurrentRoles,
   newInternalEmployee,
-  updateInternalEmployee
+  updateInternalEmployee,
+  selectInactiveEmployees,
+  deleteInternalEmployee,
+  activeEmployees
 } from '../../common/redux/employees/employeesSlice'
 import {
   useNewEmployeeMutation,
-  useUpdateEmployeeMutation
+  useUpdateEmployeeMutation,
+  useDeleteEmployeeMutation,
+  useActiveEmployeeMutation
 } from '../../common/redux/employees/employeesApiSlice'
-import { useUpdateEmployees } from '../../common/hooks/useUpdateEmployees'
+import {
+  useUpdateEmployees,
+  useUpdateInactiveEmployees
+} from '../../common/hooks/useUpdateEmployees'
 import Content from './components/content'
 import SubHeader from '../../common/components/subHeader'
 import Form from '../../common/components/form'
 import FormItems from './components/formItems/formItems'
+import InactiveEmployees from './inactiveEmployees'
 
 const Owner = () => {
   useUpdateEmployees()
+  useUpdateInactiveEmployees()
+
   const reduxEmployees = useSelector(selectCurrentEmployees)
   const reduxRoles = useSelector(selectCurrentRoles)
+  const reduxInactive = useSelector(selectInactiveEmployees)
 
   const dispatch = useDispatch()
 
   // states
   const [employees, setEmployees] = useState([])
+  const [inactiveEmployees, setInactiveEmployees] = useState([])
   const [roles, setRoles] = useState([])
   const [employeeRoles, setEmployeeRoles] = useState([])
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState({
+    newEmployee: false,
+    updateEmployee: false,
+    deleteEmployee: false,
+    activeEmployee: false
+  })
   const [modalNewEmployee, setModalNewEmployee] = useState(false)
   const [msgError, setMsgError] = useState('')
   const [formValues, setFormValues] = useState({})
   const [formRoles, setFormRoles] = useState([])
   const [modalUpdateEmployee, setModalUpdateEmployee] = useState(false)
+  const [modalInactiveEmployees, setModalInactiveEmployees] = useState(false)
 
   useEffect(() => {
     setEmployees(reduxEmployees)
     setRoles(reduxRoles)
-  }, [reduxEmployees, reduxRoles])
+    setInactiveEmployees(reduxInactive)
+  }, [reduxEmployees, reduxRoles, reduxInactive])
 
   // redux actions
   const [
@@ -50,35 +70,73 @@ const Owner = () => {
     { error: updateEmployeeError, status: updateEmployeeStatus, data: updateEmployeeData }
   ] = useUpdateEmployeeMutation()
 
+  const [
+    deleteEmployee,
+    { error: deleteEmployeeError, status: deleteEmployeeStatus, data: deletedEmployee }
+  ] = useDeleteEmployeeMutation()
+
+  const [
+    activeEmployee,
+    { error: activedEmployeeError, status: activedEmployeeStatus, data: activedEmployeeData }
+  ] = useActiveEmployeeMutation()
+
   useEffect(() => {
     if (newEmployeeStatus === 'pending') {
-      setLoading(true)
+      setLoading(loading => ({ ...loading, newEmployee: true }))
     }
     if (newEmployeeStatus === 'rejected') {
       setMsgError(newEmployeeError.data?.error)
-      setLoading(false)
+      setLoading(loading => ({ ...loading, newEmployee: false }))
     }
     if (newEmployeeStatus === 'fulfilled') {
       dispatch(newInternalEmployee(newEmployeeData))
-      setLoading(false)
+      setLoading(loading => ({ ...loading, newEmployee: false }))
       handleShowNewEmployee()
     }
   }, [newEmployeeStatus])
 
   useEffect(() => {
     if (updateEmployeeStatus === 'pending') {
-      setLoading(true)
+      setLoading(loading => ({ ...loading, updateEmployee: true }))
     }
     if (updateEmployeeStatus === 'rejected') {
       setMsgError(updateEmployeeError.data?.error)
-      setLoading(false)
+      setLoading(loading => ({ ...loading, updateEmployee: false }))
     }
     if (updateEmployeeStatus === 'fulfilled') {
       dispatch(updateInternalEmployee(updateEmployeeData))
-      setLoading(false)
+      setLoading(loading => ({ ...loading, updateEmployee: false }))
       handleShowUpdateEmployee()
     }
   }, [updateEmployeeStatus])
+
+  useEffect(() => {
+    if (deleteEmployeeStatus === 'pending') {
+      setLoading(loading => ({ ...loading, deleteEmployee: true }))
+    }
+    if (deleteEmployeeStatus === 'rejected') {
+      setMsgError(deleteEmployeeError.data?.error)
+      setLoading(loading => ({ ...loading, deleteEmployee: false }))
+    }
+    if (deleteEmployeeStatus === 'fulfilled') {
+      dispatch(deleteInternalEmployee(deletedEmployee))
+      setLoading(loading => ({ ...loading, deleteEmployee: false }))
+    }
+  }, [deleteEmployeeStatus])
+
+  useEffect(() => {
+    if (activedEmployeeStatus === 'pending') {
+      setLoading(loading => ({ ...loading, activeEmployee: true }))
+    }
+    if (activedEmployeeStatus === 'rejected') {
+      setMsgError(activedEmployeeError.data?.error)
+      setLoading(loading => ({ ...loading, activeEmployee: false }))
+    }
+    if (activedEmployeeStatus === 'fulfilled') {
+      dispatch(activeEmployees({ data: activedEmployeeData }))
+      setLoading(loading => ({ ...loading, activeEmployee: false }))
+    }
+  }, [activedEmployeeStatus])
 
   const handleChange = (e, selected) => {
     if (selected) {
@@ -124,6 +182,26 @@ const Owner = () => {
     setModalUpdateEmployee(!modalUpdateEmployee)
   }
 
+  const handleModalInactiveEmployees = () => {
+    setModalInactiveEmployees(!modalInactiveEmployees)
+  }
+
+  const handleDeleteEmployee = employee => {
+    try {
+      deleteEmployee(employee._id)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const handleActiveEmployee = employee => {
+    try {
+      activeEmployee(employee._id)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   const handleSubmit = e => {
     e.preventDefault()
     try {
@@ -160,6 +238,9 @@ const Owner = () => {
         employees={employees}
         handleShowNewEmployee={handleShowNewEmployee}
         handleShowUpdateEmployee={handleShowUpdateEmployee}
+        handleDeleteEmployee={handleDeleteEmployee}
+        handleModalInactiveEmployees={handleModalInactiveEmployees}
+        loading={loading.deleteEmployee}
       />
       {modalNewEmployee && (
         <Form
@@ -173,7 +254,7 @@ const Owner = () => {
             formValues={formValues}
             handleChange={handleChange}
             buttonLabel="Agregar Usuario"
-            loading={loading}
+            loading={loading.newEmployee}
             availableRoles={roles}
           />
         </Form>
@@ -191,10 +272,19 @@ const Owner = () => {
             employeeRoles={employeeRoles}
             handleChange={handleChange}
             buttonLabel="Editar Usuario"
-            loading={loading}
+            loading={loading.updateEmployee}
             availableRoles={roles}
           />
         </Form>
+      )}
+      {modalInactiveEmployees && (
+        <InactiveEmployees
+          activeModal={modalInactiveEmployees}
+          handleModal={handleModalInactiveEmployees}
+          handleActiveEmployee={handleActiveEmployee}
+          employees={inactiveEmployees}
+          loading={loading.activeEmployee}
+        />
       )}
     </>
   )
