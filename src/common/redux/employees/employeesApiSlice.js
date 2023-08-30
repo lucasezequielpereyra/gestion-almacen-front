@@ -8,6 +8,14 @@ const employeesApiSlice = apiSlice.injectEndpoints({
   })
 })
 
+const inactiveEmployeesApiSlice = apiSlice.injectEndpoints({
+  endpoints: builder => ({
+    getInactiveEmployees: builder.query({
+      query: () => '/api/owner/employees/inactive'
+    })
+  })
+})
+
 const newEmployeeApiSlice = apiSlice.injectEndpoints({
   endpoints: builder => ({
     newEmployee: builder.mutation({
@@ -35,15 +43,30 @@ const updateEmployeeApiSlice = apiSlice.injectEndpoints({
 const deleteEmployeeApiSlice = apiSlice.injectEndpoints({
   endpoints: builder => ({
     deleteEmployee: builder.mutation({
-      query: id => ({
-        url: `/api/owner/employees/${id}`,
-        method: 'DELETE'
+      query: employeeId => ({
+        url: `/api/owner/employees`,
+        method: 'DELETE',
+        body: { employeeId }
+      })
+    })
+  })
+})
+
+const activeEmployeeApiSlice = apiSlice.injectEndpoints({
+  endpoints: builder => ({
+    activeEmployee: builder.mutation({
+      query: employeeId => ({
+        url: `/api/owner/employees/active`,
+        method: 'PUT',
+        body: { employeeId }
       })
     })
   })
 })
 
 export const { useGetEmployeesQuery } = employeesApiSlice
+export const { useGetInactiveEmployeesQuery } = inactiveEmployeesApiSlice
 export const { useNewEmployeeMutation } = newEmployeeApiSlice
 export const { useUpdateEmployeeMutation } = updateEmployeeApiSlice
 export const { useDeleteEmployeeMutation } = deleteEmployeeApiSlice
+export const { useActiveEmployeeMutation } = activeEmployeeApiSlice

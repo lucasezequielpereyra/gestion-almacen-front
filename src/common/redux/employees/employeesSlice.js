@@ -14,11 +14,11 @@ const employeesSlice = createSlice({
       state.inactiveEmployees = foundEmployees
     },
     activeEmployees: (state, action) => {
-      const { activeEmployee } = action.payload
+      const { data } = action.payload
       state.inactiveEmployees = state.inactiveEmployees.filter(
-        employee => employee._id !== activeEmployee._id
+        employee => employee._id !== data.activedEmployee._id
       )
-      state.employees = [...state.employees, activeEmployee]
+      state.employees = [...state.employees, data.activedEmployee]
     },
     newInternalEmployee: (state, action) => {
       const { savedEmployee } = action.payload
