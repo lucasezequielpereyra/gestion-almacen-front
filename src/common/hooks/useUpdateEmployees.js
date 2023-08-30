@@ -1,6 +1,14 @@
 import { useEffect } from 'react'
-import { useGetEmployeesQuery } from '../redux/employees/employeesApiSlice'
-import { getEmployees, selectCurrentEmployees } from '../redux/employees/employeesSlice'
+import {
+  useGetEmployeesQuery,
+  useGetInactiveEmployeesQuery
+} from '../redux/employees/employeesApiSlice'
+import {
+  getEmployees,
+  selectCurrentEmployees,
+  getInactiveEmployees,
+  selectInactiveEmployees
+} from '../redux/employees/employeesSlice'
 import { useDispatch, useSelector } from 'react-redux'
 
 export const useUpdateEmployees = () => {
@@ -11,6 +19,18 @@ export const useUpdateEmployees = () => {
   useEffect(() => {
     if (isSuccess && employees?.length === 0) {
       dispatch(getEmployees(data))
+    }
+  }, [data])
+}
+
+export const useUpdateInactiveEmployees = () => {
+  const inactiveEmployees = useSelector(selectInactiveEmployees)
+  const dispatch = useDispatch()
+  const { data: data, isSuccess } = useGetInactiveEmployeesQuery()
+
+  useEffect(() => {
+    if (isSuccess && inactiveEmployees?.length === 0) {
+      dispatch(getInactiveEmployees(data))
     }
   }, [data])
 }
