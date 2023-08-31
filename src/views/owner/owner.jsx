@@ -30,12 +30,12 @@ const Owner = () => {
     deleteEmployee: false
   })
   const [modalNewEmployee, setModalNewEmployee] = useState(false)
-  const [msgError, setMsgError] = useState('')
   const [formValues, setFormValues] = useState({})
   const [formRoles, setFormRoles] = useState([])
   const [modalUpdateEmployee, setModalUpdateEmployee] = useState(false)
   const [modalInactiveEmployees, setModalInactiveEmployees] = useState(false)
 
+  // save employees in local state
   useEffect(() => {
     setEmployees(reduxEmployees)
   }, [reduxEmployees])
@@ -46,6 +46,7 @@ const Owner = () => {
     { error: deleteEmployeeError, status: deleteEmployeeStatus, data: deletedEmployee }
   ] = useDeleteEmployeeMutation()
 
+  // effect to update local state when redux state changes
   useEffect(() => {
     if (deleteEmployeeStatus === 'pending') {
       setLoading(loading => ({ ...loading, deleteEmployee: true }))
@@ -59,6 +60,7 @@ const Owner = () => {
     }
   }, [deleteEmployeeStatus])
 
+  // method for controlled form in update employee
   const handleChange = (e, selected) => {
     if (selected) {
       const { option, removedValue } = selected
@@ -76,6 +78,7 @@ const Owner = () => {
     setFormValues({ ...formValues, [name]: value })
   }
 
+  // method for show modal new employee
   const handleShowNewEmployee = (setValues, setRoles, setError) => {
     if (modalNewEmployee) {
       setValues({})
@@ -85,6 +88,7 @@ const Owner = () => {
     setModalNewEmployee(!modalNewEmployee)
   }
 
+  // method for show modal update employee
   const handleShowUpdateEmployee = employee => {
     if (modalUpdateEmployee) {
       setFormValues({})
@@ -102,10 +106,12 @@ const Owner = () => {
     setModalUpdateEmployee(!modalUpdateEmployee)
   }
 
+  // method for show modal inactive employees
   const handleModalInactiveEmployees = () => {
     setModalInactiveEmployees(!modalInactiveEmployees)
   }
 
+  // method for delete employee
   const handleDeleteEmployee = employee => {
     try {
       deleteEmployee(employee._id)
