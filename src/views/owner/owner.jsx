@@ -2,41 +2,31 @@ import { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import {
   selectCurrentEmployees,
-  selectCurrentRoles,
-  updateInternalEmployee,
   deleteInternalEmployee
 } from '../../common/redux/employees/employeesSlice'
-import {
-  useUpdateEmployeeMutation,
-  useDeleteEmployeeMutation
-} from '../../common/redux/employees/employeesApiSlice'
+import { useDeleteEmployeeMutation } from '../../common/redux/employees/employeesApiSlice'
 import {
   useUpdateEmployees,
   useUpdateInactiveEmployees
 } from '../../common/hooks/useUpdateEmployees'
 import Content from './components/content'
 import SubHeader from '../../common/components/subHeader'
-import Form from '../../common/components/form'
-import FormItems from './components/formItems/formItems'
 import InactiveEmployees from './inactiveEmployees'
 import NewEmployee from './newEmployee'
+import UpdateEmployee from './updateEmployee/'
 
 const Owner = () => {
   useUpdateEmployees()
   useUpdateInactiveEmployees()
 
   const reduxEmployees = useSelector(selectCurrentEmployees)
-  const reduxRoles = useSelector(selectCurrentRoles)
 
   const dispatch = useDispatch()
 
   // states
   const [employees, setEmployees] = useState([])
-  const [roles, setRoles] = useState([])
   const [employeeRoles, setEmployeeRoles] = useState([])
   const [loading, setLoading] = useState({
-    newEmployee: false,
-    updateEmployee: false,
     deleteEmployee: false
   })
   const [modalNewEmployee, setModalNewEmployee] = useState(false)
@@ -48,41 +38,19 @@ const Owner = () => {
 
   useEffect(() => {
     setEmployees(reduxEmployees)
-    setRoles(reduxRoles)
-  }, [reduxEmployees, reduxRoles])
+  }, [reduxEmployees])
 
   // redux actions
-  const [
-    updateEmployee,
-    { error: updateEmployeeError, status: updateEmployeeStatus, data: updateEmployeeData }
-  ] = useUpdateEmployeeMutation()
-
   const [
     deleteEmployee,
     { error: deleteEmployeeError, status: deleteEmployeeStatus, data: deletedEmployee }
   ] = useDeleteEmployeeMutation()
 
   useEffect(() => {
-    if (updateEmployeeStatus === 'pending') {
-      setLoading(loading => ({ ...loading, updateEmployee: true }))
-    }
-    if (updateEmployeeStatus === 'rejected') {
-      setMsgError(updateEmployeeError.data?.error)
-      setLoading(loading => ({ ...loading, updateEmployee: false }))
-    }
-    if (updateEmployeeStatus === 'fulfilled') {
-      dispatch(updateInternalEmployee(updateEmployeeData))
-      setLoading(loading => ({ ...loading, updateEmployee: false }))
-      handleShowUpdateEmployee()
-    }
-  }, [updateEmployeeStatus])
-
-  useEffect(() => {
     if (deleteEmployeeStatus === 'pending') {
       setLoading(loading => ({ ...loading, deleteEmployee: true }))
     }
     if (deleteEmployeeStatus === 'rejected') {
-      setMsgError(deleteEmployeeError.data?.error)
       setLoading(loading => ({ ...loading, deleteEmployee: false }))
     }
     if (deleteEmployeeStatus === 'fulfilled') {
@@ -121,7 +89,6 @@ const Owner = () => {
     if (modalUpdateEmployee) {
       setFormValues({})
       setFormRoles([])
-      setMsgError('')
     }
     if (!modalUpdateEmployee) {
       const { username, email } = employee
@@ -146,22 +113,6 @@ const Owner = () => {
       console.log(error)
     }
   }
-
-  const handleSubmitUpdate = e => {
-    e.preventDefault()
-    try {
-      updateEmployee({
-        employeeId: formValues._id,
-        username: formValues.username,
-        email: formValues.email,
-        password: formValues.password,
-        roles: formRoles
-      })
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
   return (
     <>
       <SubHeader title="Administración de Empleados" />
@@ -177,22 +128,14 @@ const Owner = () => {
         <NewEmployee active={modalNewEmployee} handleModal={handleShowNewEmployee} />
       )}
       {modalUpdateEmployee && (
-        <Form
+        <UpdateEmployee
           active={modalUpdateEmployee}
           handleModal={handleShowUpdateEmployee}
-          handleSubmit={handleSubmitUpdate}
-          msgError={msgError}
-          modalTitle="Editar Empleado"
-        >
-          <FormItems
-            formValues={formValues}
-            employeeRoles={employeeRoles}
-            handleChange={handleChange}
-            buttonLabel="Editar Usuario"
-            loading={loading.updateEmployee}
-            availableRoles={roles}
-          />
-        </Form>
+          formValues={formValues}
+          formRoles={formRoles}
+          employeeRoles={employeeRoles}
+          handleChange={handleChange}
+        />
       )}
       {modalInactiveEmployees && (
         <InactiveEmployees
