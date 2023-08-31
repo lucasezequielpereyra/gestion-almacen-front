@@ -41,10 +41,8 @@ const Owner = () => {
   }, [reduxEmployees])
 
   // redux actions
-  const [
-    deleteEmployee,
-    { error: deleteEmployeeError, status: deleteEmployeeStatus, data: deletedEmployee }
-  ] = useDeleteEmployeeMutation()
+  const [deleteEmployee, { status: deleteEmployeeStatus, data: deletedEmployee }] =
+    useDeleteEmployeeMutation()
 
   // effect to update local state when redux state changes
   useEffect(() => {
