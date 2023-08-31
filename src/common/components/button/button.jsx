@@ -42,7 +42,7 @@ Button.propTypes = {
     'white'
   ]),
   size: propTypes.oneOf(['md', 'lg']),
-  onClick: propTypes.func.isRequired,
+  onClick: propTypes.func,
   disabled: propTypes.bool,
   type: propTypes.oneOf(['button', 'submit', 'reset']),
   block: propTypes.bool,
@@ -55,5 +55,8 @@ Button.defaultProps = {
   size: 'md',
   type: 'button',
   block: false,
-  uppercase: false
+  uppercase: false,
+  onClick: () => {
+    null
+  }
 }
