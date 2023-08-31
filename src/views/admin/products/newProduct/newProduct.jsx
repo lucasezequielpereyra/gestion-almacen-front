@@ -44,7 +44,7 @@ const NewProduct = ({ handleModal, showNewProduct, setShowNewProduct }) => {
   }
 
   // method for submit
-  const handleSubmit = (e, newProduct, formValues, setMsgError) => {
+  const handleSubmit = e => {
     e.preventDefault()
     try {
       newProduct({
@@ -65,7 +65,7 @@ const NewProduct = ({ handleModal, showNewProduct, setShowNewProduct }) => {
     <Form
       handleModal={() => handleModal(showNewProduct, setMsgError, setFormValues, setShowNewProduct)}
       active={showNewProduct}
-      handleSubmit={e => handleSubmit(e, newProduct, formValues, setMsgError)}
+      handleSubmit={handleSubmit}
       msgError={msgError}
       modalTitle="Agregar Producto"
     >
