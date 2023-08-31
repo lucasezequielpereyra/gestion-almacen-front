@@ -6,11 +6,17 @@ import { useNewProductMutation } from '../../../../common/redux/products/product
 import { useDispatch } from 'react-redux'
 import { newInternalProduct } from '../../../../common/redux/products/productsSlice'
 
-const NewProduct = ({ handleModal, showNewProduct, setShowNewProduct }) => {
+const NewProduct = ({
+  handleModal,
+  showNewProduct,
+  setShowNewProduct,
+  formValues,
+  setFormValues,
+  msgError,
+  setMsgError
+}) => {
   // states
   const [loading, setLoading] = useState(false)
-  const [msgError, setMsgError] = useState('')
-  const [formValues, setFormValues] = useState({})
 
   // redux actions
   const dispatch = useDispatch()
@@ -84,5 +90,9 @@ export default NewProduct
 NewProduct.propTypes = {
   handleModal: propTypes.func.isRequired,
   showNewProduct: propTypes.bool.isRequired,
-  setShowNewProduct: propTypes.func.isRequired
+  setShowNewProduct: propTypes.func.isRequired,
+  formValues: propTypes.object.isRequired,
+  setFormValues: propTypes.func.isRequired,
+  msgError: propTypes.string.isRequired,
+  setMsgError: propTypes.func.isRequired
 }
