@@ -1,19 +1,20 @@
 import { useState, useEffect, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { selectCurrentProducts } from '../../../common/redux/products/productsSlice'
 import {
-  newInternalProduct,
-  selectCurrentProducts
-} from '../../../common/redux/products/productsSlice'
-import { newInternalCategory } from '../../../common/redux/categories/categoriesSlice'
-import { useNewProductMutation } from '../../../common/redux/products/productsApiSlice'
+  newInternalCategory,
+  selectCurrentCategories
+} from '../../../common/redux/categories/categoriesSlice'
 import { useNewCategoryMutation } from '../../../common/redux/categories/categoriesApiSlice'
 import * as Methods from './products.methods'
-import ProductsComponent from './components/products'
+import Content from './components/content'
+import NewProduct from './newProduct'
 
 const Products = () => {
   const dispatch = useDispatch()
 
   const products = useSelector(selectCurrentProducts)
+  const categories = useSelector(selectCurrentCategories)
 
   // states for view
   const [productsFiltered, setProductsFiltered] = useState(products)
@@ -29,27 +30,12 @@ const Products = () => {
   const categoryRef = useRef()
 
   // redux actions
-  const [newProduct, { error: productError, status: productStatus, data: dataProduct }] =
-    useNewProductMutation()
-
   const [newCategory, { error: categoryError, status: categoryStatus, data: dataCategory }] =
     useNewCategoryMutation()
 
   useEffect(() => {
     setProductsFiltered(products)
   }, [products])
-
-  useEffect(() => {
-    if (productStatus === 'fulfilled') {
-      dispatch(newInternalProduct(dataProduct))
-      setFormValues({})
-      Methods.handleShow(showNewProduct, setMsgError, setFormValues, setShowNewProduct)
-    }
-
-    if (productStatus === 'rejected') {
-      setMsgError(productError.data?.error)
-    }
-  }, [productStatus])
 
   useEffect(() => {
     if (categoryStatus === 'fulfilled') {
@@ -64,37 +50,36 @@ const Products = () => {
   }, [categoryStatus])
 
   return (
-    <ProductsComponent
-      handleShow={Methods.handleShow}
-      showNewProduct={showNewProduct}
-      setMsgError={setMsgError}
-      setFormValues={setFormValues}
-      setShowNewProduct={setShowNewProduct}
-      showMewCategory={showNewCategory}
-      setMsgCategoryError={setMsgCategoryError}
-      setShowNewCategory={setShowNewCategory}
-      handleChangeSearch={Methods.handleChangeSearch}
-      handleChangeCategory={Methods.handleChangeCategory}
-      products={products}
-      categoryRef={categoryRef}
-      setProductsFiltered={setProductsFiltered}
-      searchRef={searchRef}
-      productdFiltered={productsFiltered}
-      newProduct={newProduct}
-      newCategory={newCategory}
-      formValues={formValues}
-      handleChange={Methods.handleChange}
-      handleProductSubmit={Methods.handleProductSubmit}
-      handleCategorySubmit={Methods.handleCategorySubmit}
-      msgError={msgError}
-      msgCategoryError={msgCategoryError}
-      productsFiltered={productsFiltered}
-      showNewCategory={showNewCategory}
-      handleShowInactiveProducts={Methods.handleShowInactiveProducts}
-      showInactiveProducts={showInactiveProducts}
-      setShowInactiveProducts={setShowInactivePRoducts}
-      loading={productStatus === 'pending' || categoryStatus === 'pending'}
-    />
+    <>
+      <Content
+        handleShow={Methods.handleShow}
+        handleShowInactiveProducts={Methods.handleShowInactiveProducts}
+        handleChangeSearch={Methods.handleChangeSearch}
+        searchRef={searchRef}
+        handleChangeCategory={Methods.handleChangeCategory}
+        categoryRef={categoryRef}
+        categories={categories}
+        productsFiltered={productsFiltered}
+        products={products}
+        showNewProduct={showNewProduct}
+        setMsgError={setMsgError}
+        setFormValues={setFormValues}
+        setShowNewProduct={setShowNewProduct}
+        showNewCategory={showNewCategory}
+        setMsgCategoryError={setMsgCategoryError}
+        setShowNewCategory={setShowNewCategory}
+        showInactiveProducts={showInactiveProducts}
+        setShowInactiveProducts={setShowInactivePRoducts}
+        setProductsFiltered={setProductsFiltered}
+      />
+      {showNewProduct && (
+        <NewProduct
+          handleModal={Methods.handleShow}
+          showNewProduct={showNewProduct}
+          setShowNewProduct={setShowNewProduct}
+        />
+      )}
+    </>
   )
 }
 
