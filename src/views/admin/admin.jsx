@@ -4,6 +4,7 @@ import { menuItems } from './menuItems'
 import { useLocation } from 'react-router-dom'
 import { useUpdateInactiveProducts } from '../../common/hooks/useUpdateProducts'
 import Products from './products'
+import SubHeader from '../../common/components/subHeader'
 
 const Admin = () => {
   useUpdateInactiveProducts()
@@ -13,6 +14,7 @@ const Admin = () => {
     <div>
       <Content>
         <Menu items={menuItems} />
+        <SubHeader title="Panel de Administracion" />
         {location.pathname === '/admin/productos' && <Products />}
       </Content>
     </div>
