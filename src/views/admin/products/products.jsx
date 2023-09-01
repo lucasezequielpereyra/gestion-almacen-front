@@ -6,6 +6,7 @@ import * as Methods from './products.methods'
 import Content from './components/content'
 import NewProduct from './newProduct'
 import NewCategory from './newCategory'
+import InactiveProducts from './inactiveProducts/'
 
 const Products = () => {
   const products = useSelector(selectCurrentProducts)
@@ -71,6 +72,13 @@ const Products = () => {
           setFormValues={setFormValues}
           msgError={msgError}
           setMsgError={setMsgError}
+        />
+      )}
+      {showInactiveProducts && (
+        <InactiveProducts
+          handleModal={Methods.handleShowInactiveProducts}
+          showInactiveProducts={showInactiveProducts}
+          setShowInactiveProducts={setShowInactivePRoducts}
         />
       )}
     </>
