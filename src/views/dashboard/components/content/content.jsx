@@ -72,7 +72,7 @@ const Content = ({
             {cartProducts.map((product, index) => {
               return (
                 <tr key={index}>
-                  <td>
+                  <td className={styles.sku}>
                     {product.sku}
                     <button
                       className={styles.deleteProduct}
