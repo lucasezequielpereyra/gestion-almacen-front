@@ -4,7 +4,7 @@ import propTypes from 'prop-types'
 import ConfirmOrderComponent from './components/confirmOrder'
 import CashOrder from './components/cashOrder'
 
-const OrderConfirm = ({ cartProducts, modalConfirm, setModalConfirm, ref, handleConfirm }) => {
+const OrderConfirm = ({ cartProducts, modalConfirm, setModalConfirm, modalref, handleConfirm }) => {
   // state hooks
   const [modalCash, setModalCash] = useState(false)
 
@@ -28,7 +28,7 @@ const OrderConfirm = ({ cartProducts, modalConfirm, setModalConfirm, ref, handle
         handleModal={handleConfirm}
         modalTitle="Confirmar venta"
         active={modalConfirm}
-        modalRef={ref}
+        modalRef={modalref}
         size="lg"
       >
         <ConfirmOrderComponent
@@ -64,6 +64,6 @@ OrderConfirm.propTypes = {
   cartProducts: propTypes.array.isRequired,
   modalConfirm: propTypes.bool.isRequired,
   setModalConfirm: propTypes.func.isRequired,
-  ref: propTypes.object,
+  modalref: propTypes.object,
   handleConfirm: propTypes.func.isRequired
 }
