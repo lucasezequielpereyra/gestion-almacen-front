@@ -14,7 +14,7 @@ const CashOrder = ({ handleBack, totalOrder }) => {
   useEffect(() => {
     inputRef.current.focus()
 
-    if (!monto) return setMsg('El monto es requerido')
+    if (!monto) return setMsg('El monto es requerido solo para calcular el vuelto')
     if (monto < 0) return setMsg('El monto debe ser mayor a 0')
     if (isNaN(monto)) return setMsg('El monto debe ser un número')
     if (monto < totalOrder) return setMsg('El monto debe ser mayor al total del pedido')

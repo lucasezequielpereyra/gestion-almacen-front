@@ -5,10 +5,8 @@ import { useUpdateProducts, useUpdateInactiveProducts } from '../../common/hooks
 import { useUpdateCategories } from '../../common/hooks/useUpdateCategories'
 import { useSelector } from 'react-redux'
 import { selectCurrentProducts } from '../../common/redux/products/productsSlice'
-import Modal from '../../common/components/modal'
-import ConfirmOrder from './components/confirmOrder'
-import CashOrder from './components/cashOrder'
 import { usePressEscKey } from '../../common/hooks/usePressEscKey'
+import OrderConfirm from './orderConfirm'
 
 const Dashboard = () => {
   useUpdateProducts()
@@ -21,7 +19,6 @@ const Dashboard = () => {
   const [cartProducts, setCartProducts] = useState([])
   const [msg, setMsg] = useState('')
   const [modalConfirm, setModalConfirm] = useState(false)
-  const [modalCash, setModalCash] = useState(false)
 
   // hook to close modal with esc key
   usePressEscKey(setModalConfirm)
@@ -30,7 +27,6 @@ const Dashboard = () => {
   const inputSearchRef = useRef()
   const quantityRef = useRef()
   const modalRef = useRef()
-  const modalCashRef = useRef()
 
   // effect hooks
   useEffect(() => {
@@ -111,16 +107,6 @@ const Dashboard = () => {
     setModalConfirm(!modalConfirm)
   }
 
-  const handleCash = () => {
-    setModalConfirm(false)
-    setModalCash(!modalCash)
-  }
-
-  const handleBack = setState => {
-    setState(false)
-    setModalConfirm(true)
-  }
-
   return (
     <div>
       <SubHeader title="Punto de venta" />
@@ -136,36 +122,13 @@ const Dashboard = () => {
         handleConfirm={handleConfirm}
       />
       {modalConfirm && (
-        <Modal
-          handleModal={handleConfirm}
-          modalTitle="Confirmar venta"
-          active={modalConfirm}
-          modalRef={modalRef}
-          size="lg"
-        >
-          <ConfirmOrder
-            products={cartProducts}
-            handleCash={handleCash}
-            handleClose={handleConfirm}
-          />
-        </Modal>
-      )}
-      {modalCash && (
-        <Modal
-          handleModal={() => handleBack(setModalCash)}
-          modalTitle="Pago en efectivo"
-          active={modalCash}
-          modalRef={modalCashRef}
-          size="lg"
-        >
-          <CashOrder
-            handleBack={() => handleBack(setModalCash)}
-            totalOrder={cartProducts.reduce(
-              (acc, product) => acc + product.price * product.quantity,
-              0
-            )}
-          />
-        </Modal>
+        <OrderConfirm
+          cartProducts={cartProducts}
+          modalConfirm={modalConfirm}
+          setModalConfirm={setModalConfirm}
+          modalref={modalRef}
+          handleConfirm={handleConfirm}
+        />
       )}
     </div>
   )
