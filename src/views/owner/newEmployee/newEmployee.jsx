@@ -38,7 +38,6 @@ const NewEmployee = ({ active, handleModal }) => {
     }
     if (newEmployeeStatus === 'rejected') {
       setMsgError(newEmployeeError.data?.message)
-      console.log(newEmployeeError)
       setLoading(false)
     }
     if (newEmployeeStatus === 'fulfilled') {
