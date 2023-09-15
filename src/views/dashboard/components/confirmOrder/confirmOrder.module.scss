@@ -39,14 +39,13 @@
 
     h4 {
       display: flex;
-      justify-content: flex-end;
+      justify-content: center;
     }
 
     .buttons {
       display: flex;
       justify-content: flex-end;
       gap: 1rem;
-      margin-top: 1rem;
 
       button {
         padding: .5rem 1rem;

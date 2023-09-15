@@ -3,8 +3,10 @@ import styles from './cashOrder.module.scss'
 import { FaArrowLeft } from 'react-icons/fa'
 import { FaCircleExclamation } from 'react-icons/fa6'
 import { useState, useEffect, useRef } from 'react'
+import Spinner from '../../../../common/components/spinner'
+import Button from '../../../../common/components/button'
 
-const CashOrder = ({ handleBack, totalOrder }) => {
+const CashOrder = ({ handleBack, totalOrder, confirmOrder, loading, msgError }) => {
   const [monto, setMonto] = useState(0)
   const [msg, setMsg] = useState('')
   const [vuelto, setVuelto] = useState(0)
@@ -56,7 +58,16 @@ const CashOrder = ({ handleBack, totalOrder }) => {
         )}
         <div className={styles.confirmContainer}>
           {vuelto > 0 && <p>Vuelto: ${vuelto.toFixed(2)} </p>}
-          <button>Confrimar</button>
+          <Button onClick={() => confirmOrder('efectivo')} block uppercase color="secondary">
+            {loading && <Spinner size="sm" />} Confirmar
+          </Button>
+          {msgError && (
+            <div className={styles.errorMsg}>
+              <span>
+                <FaCircleExclamation className={styles.icon} /> {msgError}
+              </span>
+            </div>
+          )}
         </div>
       </div>
     </div>
@@ -67,5 +78,8 @@ export default CashOrder
 
 CashOrder.propTypes = {
   handleBack: propTypes.func.isRequired,
-  totalOrder: propTypes.number.isRequired
+  totalOrder: propTypes.number.isRequired,
+  confirmOrder: propTypes.func.isRequired,
+  loading: propTypes.bool.isRequired,
+  msgError: propTypes.string
 }

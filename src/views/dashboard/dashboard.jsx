@@ -53,6 +53,7 @@ const Dashboard = () => {
 
     if (cartProducts.length === 0) {
       const newProduct = {
+        id: product._id,
         sku: product.sku,
         name: product.name,
         quantity: parseInt(quantityRef.current.value),
@@ -76,6 +77,7 @@ const Dashboard = () => {
     }
 
     const newProduct = {
+      id: product._id,
       sku: product.sku,
       name: product.name,
       quantity: parseInt(quantityRef.current.value),
@@ -102,7 +104,7 @@ const Dashboard = () => {
     inputSearchRef.current.focus()
   }
 
-  const handleConfirm = () => {
+  const handleModalConfirm = () => {
     if (cartProducts.length === 0) return setMsg('No hay productos en el carrito')
     setModalConfirm(!modalConfirm)
   }
@@ -119,7 +121,7 @@ const Dashboard = () => {
         cartProducts={cartProducts}
         products={products}
         handleReset={handleReset}
-        handleConfirm={handleConfirm}
+        handleConfirm={handleModalConfirm}
       />
       {modalConfirm && (
         <OrderConfirm
@@ -127,7 +129,8 @@ const Dashboard = () => {
           modalConfirm={modalConfirm}
           setModalConfirm={setModalConfirm}
           modalref={modalRef}
-          handleConfirm={handleConfirm}
+          handleModal={handleModalConfirm}
+          handleReset={handleReset}
         />
       )}
     </div>
